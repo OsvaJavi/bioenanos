@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arcadia Planitia Surface Navigator</title>
+  <meta name="description" content="Traverse planner for a crewed base in Arcadia Planitia, Mars: optimal rover and on-foot routes to five science sites, with energy, oxygen and environment telemetry.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/hud.css">
+</head>
+<body data-mode="rover">
+  <header class="topbar">
+    <div class="brand">
+      <h1>Arcadia Planitia Surface Navigator</h1>
+      <p class="brand-sub" id="base-line">Base of Operations: AP-1</p>
+    </div>
+    <div class="mode" role="group" aria-label="Mode: ROVER / ON FOOT">
+      <span class="mode-label" aria-hidden="true">Mode</span>
+      <button type="button" class="mode-btn" data-mode="rover" aria-pressed="true">ROVER</button>
+      <button type="button" class="mode-btn" data-mode="walker" aria-pressed="false">ON FOOT</button>
+    </div>
+    <nav class="top-actions" aria-label="Information">
+      <button type="button" class="link-btn" id="open-about">About / Assumptions</button>
+      <button type="button" class="link-btn" id="open-credits">Data credits</button>
+    </nav>
+  </header>
+
+  <div id="mock-banner" class="mock-banner" role="status" hidden>
+    <strong>MOCK DATA</strong>
+    <span>Real routes or layers are missing, so placeholder data is shown. Run the data pipeline (README, M1–M2) to replace it.</span>
+  </div>
+
+  <main class="workspace">
+    <section class="map-wrap" aria-label="Map of Arcadia Planitia">
+      <div id="map" tabindex="0"></div>
+      <div class="map-readout" id="cursor-readout" aria-hidden="true">Move over the map for coordinates</div>
+      <div class="legend" id="legend" aria-live="polite"></div>
+      <p class="detail-note" id="detail-note" hidden>Visual only — not used for routing</p>
+      <div class="fatal" id="fatal" role="alert" hidden></div>
+    </section>
+
+    <aside class="sidebar">
+      <section class="manifest" aria-labelledby="poi-heading">
+        <div class="section-head">
+          <h2 id="poi-heading">Points of Interest</h2>
+          <span class="section-meta" id="list-meta">Route distance</span>
+        </div>
+        <p class="hint" id="list-hint">Select a point of interest</p>
+        <ol class="poi-list" id="poi-list"></ol>
+        <div class="list-foot">
+          <label class="toggle"><input type="checkbox" id="show-return"> Show return</label>
+          <button type="button" class="link-btn" id="clear-selection" hidden>Clear selection</button>
+        </div>
+      </section>
+
+      <section class="layers" aria-labelledby="layer-heading">
+        <div class="section-head"><h2 id="layer-heading">Layer</h2></div>
+        <div class="layer-list" id="layer-list" role="radiogroup" aria-labelledby="layer-heading"></div>
+        <div class="detail-sub" id="detail-sub" role="radiogroup" aria-label="Detail view" hidden></div>
+      </section>
+    </aside>
+  </main>
+
+  <section id="telemetry" aria-label="Telemetry">
+    <div id="env-strip"></div>
+    <div id="telemetry-rover"></div>
+    <div id="telemetry-walker" hidden></div>
+  </section>
+
+  <dialog id="about" aria-labelledby="about-title">
+    <form method="dialog" class="dialog-head">
+      <h2 id="about-title">About / Assumptions</h2>
+      <button class="link-btn" value="close">Close</button>
+    </form>
+    <div class="dialog-body" id="about-body"></div>
+  </dialog>
+
+  <dialog id="credits" aria-labelledby="credits-title">
+    <form method="dialog" class="dialog-head">
+      <h2 id="credits-title">Data credits</h2>
+      <button class="link-btn" value="close">Close</button>
+    </form>
+    <div class="dialog-body" id="credits-body"></div>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
