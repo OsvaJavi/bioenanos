@@ -335,20 +335,26 @@ def _stac_collections(client, want: list[str], must: tuple[str, ...]):
     return chosen, ids
 
 
+EXCLUDE_ASSET_WORDS = ("fom", "hillshade", "shade", "err", "thumb", "browse", "intersection", "qa", "ortho", "mola")
+
+
 def _pick_assets(item):
-    dtm = ortho = None
-    for key, a in item.assets.items():
-        k = key.lower()
-        href = a.href.lower()
-        if not href.endswith((".tif", ".tiff")):
-            continue
-        if "ortho" in k:
-            if ortho is None or "8bit" in k or "uint8" in k:
-                ortho = (key, a.href)
-        elif any(t in k for t in ("fom", "hillshade", "shade", "err", "thumb", "browse", "intersection")):
-            continue
-        elif dtm is None and ("dtm" in k or "dem" in k or k in ("image", "data")):
-            dtm = (key, a.href)
+    """Return ((key, href) of the elevation asset, (key, href) of the ortho asset). Both key and href are
+    checked: in the USGS CTX collection the asset called 'image' is the HILLSHADE, the elevation is 'dtm'."""
+    tifs = {k: a.href for k, a in item.assets.items() if a.href.lower().endswith((".tif", ".tiff"))}
+
+    def bad(k, h):
+        name = (k + " " + h.rsplit("/", 1)[-1]).lower()
+        return any(w in name for w in EXCLUDE_ASSET_WORDS)
+
+    dtm = None
+    for pref in ("dtm", "dem"):
+        if pref in tifs and not bad("", tifs[pref]):
+            dtm = (pref, tifs[pref])
+            break
+    if dtm is None:
+        dtm = next(((k, h) for k, h in tifs.items() if ("dtm" in k.lower() or "dem" in k.lower()) and not bad(k, h)), None)
+    ortho = next(((k, h) for k, h in tifs.items() if "ortho" in k.lower() or "ortho" in h.lower()), None)
     return dtm, ortho
 
 
@@ -400,6 +406,8 @@ def fetch_detail(rep: Report):
                 bb = circle_bbox_ll(lat, lon, DETAIL_RADIUS_KM)
                 try:
                     meta, sec = read_window(dtm[1], bb, RAW / "detail_dtm.tif", target_res_m=DETAIL_CELL_M)
+                    if meta["dtype"] in ("uint8", "int8"):  # an 8-bit image is not an elevation model
+                        raise ValueError(f"asset {dtm[0]} is {meta['dtype']}, not an elevation model")
                 except Exception as exc:  # noqa: BLE001
                     tried[-1].setdefault("errors", []).append(f"{it.id}: {type(exc).__name__}: {exc}")
                     continue
@@ -546,8 +554,7 @@ def main(argv=None):
     rep = Report()
     rep.set("S-ENV", status="ok", url="docs/arcadia_planitia_contexto_LLM.md §5",
             note="Fixed environment values from the user's context (primary source)")
-    rep.entries.setdefault("S-META", {"id": "S-META", "status": "not_needed",
-                                      "note": "Optional; products located via STAC instead"})
+    rep.set("S-META", status="not_needed", note="Optional; products located via STAC instead")
     ok = True
     steps = [("dem", lambda: fetch_dem(rep, args.dem_file)),
              ("detail", lambda: fetch_detail(rep)),

@@ -244,3 +244,14 @@ def test_source_report_has_all_sources(plain):
     _, _, proc, _, _ = plain
     rep = json.loads((proc / "source_report.json").read_text())
     assert [e["id"] for e in rep["sources"]][:11] == fd.SOURCE_IDS
+
+
+def test_pick_assets_ctx_layout():
+    """USGS CTX items: 'image' is the hillshade; the elevation asset is 'dtm' (bug found on real data)."""
+    from types import SimpleNamespace as N
+    b = "https://x/J20/J20"
+    item = N(assets={"image": N(href=b + "_hillshade.tif"), "thumbnail": N(href=b + "_thumb.png"),
+                     "orthoimage": N(href=b + "_orthoimage.tif"), "qa_metrics": N(href=b + "_qa.tif"),
+                     "dtm": N(href=b + "_dem.tif"), "intersection_error": N(href=b + "_IntersectionErr.tif")})
+    dtm, ortho = fd._pick_assets(item)
+    assert dtm[0] == "dtm" and ortho[0] == "orthoimage"
