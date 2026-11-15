@@ -1,0 +1,52 @@
+== Integridad y P-13 (recalculado) ==
+  AP-9/rover/out                   pts= 220 L3=  59.759 km (json 59.759) |θ|max= 3.79° Horn max= 4.52° violaciones P-13=0
+  AP-9/rover/back                  pts= 220 L3=  59.759 km (json 59.759) |θ|max= 3.79° Horn max= 4.52° violaciones P-13=0
+  AP-9/walker/out                  pts= 220 L3=  59.759 km (json 59.759) |θ|max= 3.60° Horn max= 4.52° violaciones P-13=0
+  AP-9/walker/back                 pts= 219 L3=  59.735 km (json 59.735) |θ|max= 4.30° Horn max= 6.13° violaciones P-13=0
+  APMR/rover/out                   pts= 552 L3= 119.803 km (json 119.803) |θ|max= 5.06° Horn max= 4.93° violaciones P-13=0
+  APMR/rover/back                  pts= 552 L3= 119.803 km (json 119.803) |θ|max= 5.06° Horn max= 4.93° violaciones P-13=0
+  APMR/walker/out                  pts= 546 L3= 120.210 km (json 120.210) |θ|max= 5.82° Horn max= 5.33° violaciones P-13=0
+  APMR/walker/back                 pts= 544 L3= 120.138 km (json 120.138) |θ|max= 4.30° Horn max= 6.13° violaciones P-13=0
+  HCP_ESP_037655_2210/rover/out    pts= 157 L3=  48.240 km (json 48.240) |θ|max= 0.29° Horn max= 0.59° violaciones P-13=0
+  HCP_ESP_037655_2210/rover/back   pts= 157 L3=  48.240 km (json 48.240) |θ|max= 0.29° Horn max= 0.59° violaciones P-13=0
+  HCP_ESP_037655_2210/walker/out   pts= 157 L3=  48.241 km (json 48.241) |θ|max= 0.29° Horn max= 0.59° violaciones P-13=0
+  HCP_ESP_037655_2210/walker/back  pts= 157 L3=  48.240 km (json 48.240) |θ|max= 0.29° Horn max= 0.59° violaciones P-13=0
+  AP-8/rover/out                   pts= 183 L3=  67.675 km (json 67.675) |θ|max= 3.51° Horn max= 5.71° violaciones P-13=0
+  AP-8/rover/back                  pts= 183 L3=  67.675 km (json 67.675) |θ|max= 3.51° Horn max= 5.71° violaciones P-13=0
+  AP-8/walker/out                  pts= 183 L3=  67.675 km (json 67.675) |θ|max= 3.51° Horn max= 5.71° violaciones P-13=0
+  AP-8/walker/back                 pts= 183 L3=  67.676 km (json 67.676) |θ|max= 3.51° Horn max= 5.71° violaciones P-13=0
+  US1_FRONT/rover/out              pts= 137 L3=  50.252 km (json 50.252) |θ|max= 0.76° Horn max= 0.93° violaciones P-13=0
+  US1_FRONT/rover/back             pts= 137 L3=  50.252 km (json 50.252) |θ|max= 0.76° Horn max= 0.93° violaciones P-13=0
+  US1_FRONT/walker/out             pts= 137 L3=  50.252 km (json 50.252) |θ|max= 0.76° Horn max= 0.93° violaciones P-13=0
+  US1_FRONT/walker/back            pts= 137 L3=  50.252 km (json 50.252) |θ|max= 0.76° Horn max= 0.93° violaciones P-13=0
+problemas: ninguno
+
+== Optimalidad: grafo y Dijkstra propios (pesos de mymodels) ==
+  AP-9                 rover  out  costo exportado(mis pesos)=30716.319546 óptimo propio=30716.319546 graph_cost repo=30716.319546 -> OK
+  AP-9                 rover  back costo exportado(mis pesos)=30659.421902 óptimo propio=30659.421902 graph_cost repo=30659.421902 -> OK (sin transponer daría 30716.3195)
+  APMR                 rover  out  costo exportado(mis pesos)=61646.450247 óptimo propio=61646.450247 graph_cost repo=61646.450247 -> OK
+  APMR                 rover  back costo exportado(mis pesos)=61616.821078 óptimo propio=61616.821078 graph_cost repo=61616.821078 -> OK (sin transponer daría 61646.4502)
+  HCP_ESP_037655_2210  rover  out  costo exportado(mis pesos)=23789.588987 óptimo propio=23789.588987 graph_cost repo=23789.588987 -> OK
+  HCP_ESP_037655_2210  rover  back costo exportado(mis pesos)=23815.280015 óptimo propio=23815.280015 graph_cost repo=23815.280015 -> OK (sin transponer daría 23789.5890)
+  AP-8                 rover  out  costo exportado(mis pesos)=33855.353128 óptimo propio=33855.353128 graph_cost repo=33855.353128 -> OK
+  AP-8                 rover  back costo exportado(mis pesos)=33905.020806 óptimo propio=33905.020806 graph_cost repo=33905.020806 -> OK (sin transponer daría 33855.3531)
+  US1_FRONT            rover  out  costo exportado(mis pesos)=25095.140154 óptimo propio=25095.140154 graph_cost repo=25095.140154 -> OK
+  US1_FRONT            rover  back costo exportado(mis pesos)=25137.330020 óptimo propio=25137.330020 graph_cost repo=25137.330020 -> OK (sin transponer daría 25095.1402)
+  AP-9                 walker out  costo exportado(mis pesos)=8282.867766 óptimo propio=8282.867766 graph_cost repo=8282.867766 -> OK
+  AP-9                 walker back costo exportado(mis pesos)=8260.682897 óptimo propio=8260.682897 graph_cost repo=8260.682897 -> OK (sin transponer daría 8282.8678)
+  APMR                 walker out  costo exportado(mis pesos)=16605.471549 óptimo propio=16605.471549 graph_cost repo=16605.471549 -> OK
+  APMR                 walker back costo exportado(mis pesos)=16580.327259 óptimo propio=16580.327259 graph_cost repo=16580.327259 -> OK (sin transponer daría 16605.4715)
+  HCP_ESP_037655_2210  walker out  costo exportado(mis pesos)=6394.712925 óptimo propio=6394.712925 graph_cost repo=6394.712925 -> OK
+  HCP_ESP_037655_2210  walker back costo exportado(mis pesos)=6403.015546 óptimo propio=6403.015546 graph_cost repo=6403.015546 -> OK (sin transponer daría 6394.7129)
+  AP-8                 walker out  costo exportado(mis pesos)=9115.039817 óptimo propio=9115.039817 graph_cost repo=9115.039817 -> OK
+  AP-8                 walker back costo exportado(mis pesos)=9114.589742 óptimo propio=9114.589742 graph_cost repo=9114.589742 -> OK (sin transponer daría 9115.0398)
+  US1_FRONT            walker out  costo exportado(mis pesos)=6743.492147 óptimo propio=6743.492147 graph_cost repo=6743.492147 -> OK
+  US1_FRONT            walker back costo exportado(mis pesos)=6758.053610 óptimo propio=6758.053610 graph_cost repo=6758.053610 -> OK (sin transponer daría 6743.4921)
+
+== Resumen (summary) vs recálculo propio ==
+  AP-9                 rover   61.38 kWh ROUND TRIP OK  (json 61.376 ROUND TRIP OK) | a pie 5 EVAs 3896 L (json 5 3896.2)
+  APMR                 rover  123.26 kWh ONE-WAY ONLY   (json 123.263 ONE-WAY ONLY) | a pie 9 EVAs 7758 L (json 9 7758.1)
+  HCP_ESP_037655_2210  rover   47.60 kWh ROUND TRIP OK  (json 47.605 ROUND TRIP OK) | a pie 4 EVAs 3012 L (json 4 3012.1)
+  AP-8                 rover   67.76 kWh ROUND TRIP OK  (json 67.76 ROUND TRIP OK) | a pie 5 EVAs 4258 L (json 5 4258.1)
+  US1_FRONT            rover   50.23 kWh ROUND TRIP OK  (json 50.232 ROUND TRIP OK) | a pie 4 EVAs 3169 L (json 4 3168.9)
+{'schema_version': '1.1', 'mock': False, 'grid': {'cell_m': 200, 'neighbors': 16, 'x_min_km': -113.4, 'y_max_km': 77.0, 'ncols': 1134, 'nrows': 770}, 'params_used': {'rover': {'payload_kg': 350, 'v_ms': 5.0, 'slope_max_deg': 10.0, 'regen_enabled': False}, 'walker': {'mass_kg': 80, 'height_cm': 180, 'age': 30, 'sex': 'M', 'suit_kg': 170, 'gear_kg': 10, 'v_ms': 1.0, 'slope_max_deg': 20.0}, 'enable_ti_exclusion': False}, 'points_note': 'grade_deg and rough describe the segment ARRIVING at each point (0 / cell value at the first). ref = models walked over these rounded points (same formulas as web/js/models).'}

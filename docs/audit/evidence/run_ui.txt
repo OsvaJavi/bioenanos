@@ -1,0 +1,599 @@
+
+Running 78 tests using 3 workers
+
+LAYOUT 390x844 {"scrollW":1024,"innerW":390,"map":"fuera/oculto (-634,31 w=665)","list":"ok","verdict":"fuera/oculto (-432,-296 w=136)","modeBtns":"fuera/oculto (-137,76 w=213)","telemetry":"fuera/oculto (-634,398 w=1032)","overflowing":["leaflet-image-layer leaflet-zoom-animated layer-overlay",{},"DIV","env-strip","DIV"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x   2 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben (3.5s)
+PAYLOAD [{"input":"0","dom":"0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"537","dom":"537","msg":"","recalculado":true,"E_total":65.52614249631343,"invalid":"false"},{"input":"537.0001","dom":"537.0001","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-1","dom":"-1","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-0","dom":"-0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"   ","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"abc","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"1e3","dom":"1e3","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"0x10","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"NaN","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"Infinity","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350,5","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"999999…","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350","dom":"350","msg":"","recalculado":true,"E_total":61.375755251398715,"invalid":"false"}]
+  ok  1 [chromium] › audit_forms.spec.mjs:11:1 › carga del rover: cada entrada se rechaza con mensaje o se acepta, nunca se calcula con un valor inválido (5.1s)
+LAYOUT 768x1024 {"scrollW":1024,"innerW":768,"map":"fuera/oculto (-240,425 w=665)","list":"ok","verdict":"fuera/oculto (-38,98 w=136)","modeBtns":"ok","telemetry":"fuera/oculto (-240,792 w=1032)","overflowing":["topbar","workspace","leaflet-image-layer leaflet-zoom-animated layer-overlay",{},"sidebar"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x   5 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben (3.3s)
+LAYOUT 1280x800 {"scrollW":1280,"innerW":1280,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok  6 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1280×800: sin desborde horizontal, info clave visible, diálogos caben (2.5s)
+LAYOUT 1440x900 {"scrollW":1440,"innerW":1440,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[{}],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok  7 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1440×900: sin desborde horizontal, info clave visible, diálogos caben (2.5s)
+LAYOUT 1920x1080 {"scrollW":1920,"innerW":1920,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[{}],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok  8 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1920×1080: sin desborde horizontal, info clave visible, diálogos caben (3.0s)
+LAYOUT 720x450 {"scrollW":1024,"innerW":720,"map":"fuera/oculto (-288,377 w=665)","list":"ok","verdict":"fuera/oculto (-86,50 w=136)","modeBtns":"ok","telemetry":"fuera/oculto (-288,744 w=1032)","overflowing":["topbar","workspace",{},"sidebar","manifest"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x   9 [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben (2.4s)
+AXE inicial []
+AXE rover AP-9 []
+AXE walker AP-9 [{"id":"scrollable-region-focusable","impact":"serious","n":1,"ex":[".wk-summary"]}]
+AXE About abierto []
+  ok 10 [chromium] › audit_layout_a11y.spec.mjs:38:1 › axe-core (wcag2a/aa) en estado inicial, con POI seleccionado y con diálogo abierto (7.0s)
+TAB ["BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","A.leaflet-control-zoom-in","A.leaflet-control-zoom-out","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]","INPUT.[hillshade]","BODY.[rover]","BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","A.leaflet-control-zoom-in","A.leaflet-control-zoom-out","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]","INPUT.[hillshade]","BODY.[rover]"]
+FOCO sin indicador visible: ["BODY.","BODY."]
+MARKER {"tabindex":"0","role":"button","label":"AP-9 · ISRU Site","selAfterEnter":"AP-9"}
+foco tras cerrar Credits: open-credits
+  ok 11 [chromium] › audit_layout_a11y.spec.mjs:52:1 › teclado: Tab llega a modo, POI, capas, play; Enter selecciona; marcadores del mapa operables; foco visible (3.3s)
+REDUCED {"animated":[],"n":0,"zoomAnimClass":false}
+  ok 12 [chromium] › audit_layout_a11y.spec.mjs:79:1 › prefers-reduced-motion: sin transiciones/animaciones de Leaflet ni CSS (1.3s)
+TEXT {"missingExact":["Battery reserve","Held by heater","Max O₂ per EVA"],"missingEvenIgnoringCase":["Max O₂ per EVA"],"stub":null}
+  ok 13 [chromium] › audit_layout_a11y.spec.mjs:92:1 › textos: cadenas exactas del Apéndice C presentes; sin TODO/STUB/Pending/mock en la UI (2.1s)
+MEM [{"heapMB":3.47,"nodes":847,"listeners":105,"canvases":0},{"heapMB":4.81,"nodes":1334,"listeners":119,"canvases":3},{"heapMB":4.9,"nodes":1334,"listeners":119,"canvases":3},{"heapMB":4.93,"nodes":1334,"listeners":119,"canvases":3},{"heapMB":4.99,"nodes":1342,"listeners":119,"canvases":3}]
+  ok  3 [chromium] › audit_memory.spec.mjs:5:1 › 200 ciclos POI × modo: heap / nodos / listeners / canvas estables (1.4m)
+{"bad":[],"errors":[]}
+  ok 15 [chromium] › audit_tour_race.spec.mjs:11:1 › recorrido: 5 POI × 2 modos × show return × 8 capas (+3 subcapas de detalle) (34.8s)
+modo {"dots":0,"lines":["route-line walker out"],"rvPlay":"Resume","wkPlay":"Simulate traverse","selected":"AP-9","rvPoi":"AP-9","wkPoi":"AP-9","mode":"walker"}
+  x  16 [chromium] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción (3.5s)
+poi rover {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"rover"}
+poi walker {"dots":0,"lines":["route-line walker out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"walker"}
+  ok 17 [chromium] › audit_tour_race.spec.mjs:77:1 › carrera: cambiar de POI durante la reproducción (rover y a pie) (5.5s)
+clear button {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+clear escape {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+  ok 18 [chromium] › audit_tour_race.spec.mjs:92:1 › carrera: limpiar la selección durante la reproducción (botón y Escape) (4.3s)
+rover ×60: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 14 [chromium] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×60: energía final = resumen de ida (±0.1 %) (1.5m)
+50 clics en 8780 ms {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+dblclick {"dots":1,"lines":["route-line rover out"],"rvPlay":"Pause","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+rover ×600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+energía tras dblclick 0.08100809280222877 0.1620959916081874
+  ok 20 [chromium] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×600: energía final = resumen de ida (±0.1 %) (10.5s)
+  x  19 [chromium] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play (10.8s)
+rover ×3600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 21 [chromium] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×3600: energía final = resumen de ida (±0.1 %) (2.1s)
+reload {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"rover"}
+back url http://127.0.0.1:4173/bioenanos/
+  ok 23 [chromium] › audit_tour_race.spec.mjs:121:1 › carrera: recargar a mitad de la reproducción y botón atrás (2.7s)
+PAYLOAD [{"input":"0","dom":"0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"537","dom":"537","msg":"","recalculado":true,"E_total":65.52614249631343,"invalid":"false"},{"input":"537.0001","dom":"537.0001","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-1","dom":"-1","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-0","dom":"-0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"   ","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"abc","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"1e3","dom":"1e3","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"0x10","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"NaN","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"Infinity","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350,5","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"999999…","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350","dom":"350","msg":"","recalculado":true,"E_total":61.375755251398715,"invalid":"false"}]
+  ok 24 [firefox] › audit_forms.spec.mjs:11:1 › carga del rover: cada entrada se rechaza con mensaje o se acepta, nunca se calcula con un valor inválido (9.5s)
+  x   4 [chromium] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas (3.0m)
+walker ×600: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 22 [chromium] › audit_playback.spec.mjs:30:3 › a pie HCP a ×600: O₂ y kcal finales = resumen (±0.1 %) (43.0s)
+LAYOUT 390x844 {"scrollW":1024,"innerW":390,"map":"fuera/oculto (-634,31 w=665)","list":"ok","verdict":"fuera/oculto (-432,-297 w=135)","modeBtns":"fuera/oculto (-137,76 w=213)","telemetry":"fuera/oculto (-634,398 w=1032)","overflowing":[{},"DIV","env-strip","DIV"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  26 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben (7.8s)
+walker ×3600: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 27 [chromium] › audit_playback.spec.mjs:30:3 › a pie HCP a ×3600: O₂ y kcal finales = resumen (±0.1 %) (11.1s)
+walker ×36000: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 29 [chromium] › audit_playback.spec.mjs:30:3 › a pie HCP a ×36000: O₂ y kcal finales = resumen (±0.1 %) (2.1s)
+restante (km): antes 104.72832400000009 justo después del cambio 104.15232400000009 1 s después 85.72032400000003
+  x  30 [chromium] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar (5.0s)
+LAYOUT 768x1024 {"scrollW":1024,"innerW":768,"map":"fuera/oculto (-256,409 w=665)","list":"ok","verdict":"fuera/oculto (-54,81 w=135)","modeBtns":"ok","telemetry":"fuera/oculto (-256,776 w=1032)","overflowing":["leaflet-image-layer leaflet-zoom-animated layer-overlay","leaflet-marker-icon poi-marker leaflet-zoom-animated leaflet-interactive","SPAN","leaflet-tooltip poi-label leaflet-zoom-animated leaflet-tooltip-right","DIV"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  28 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben (7.6s)
+  -  31 [firefox] › audit_memory.spec.mjs:5:1 › 200 ciclos POI × modo: heap / nodos / listeners / canvas estables
+LAYOUT 1280x800 {"scrollW":1280,"innerW":1280,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":["leaflet-image-layer leaflet-zoom-animated layer-overlay","leaflet-marker-icon poi-marker leaflet-zoom-animated leaflet-interactive","SPAN","leaflet-tooltip poi-label leaflet-zoom-animated leaflet-tooltip-right",{}],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 32 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1280×800: sin desborde horizontal, info clave visible, diálogos caben (8.8s)
+LAYOUT 1440x900 {"scrollW":1440,"innerW":1440,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 34 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1440×900: sin desborde horizontal, info clave visible, diálogos caben (2.9s)
+LAYOUT 1920x1080 {"scrollW":1920,"innerW":1920,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 35 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1920×1080: sin desborde horizontal, info clave visible, diálogos caben (2.5s)
+LAYOUT 720x450 {"scrollW":1024,"innerW":720,"map":"fuera/oculto (-304,361 w=665)","list":"ok","verdict":"fuera/oculto (-102,33 w=135)","modeBtns":"ok","telemetry":"fuera/oculto (-304,728 w=1032)","overflowing":["DIV","env-strip","DIV"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  36 [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben (2.7s)
+AXE inicial []
+AXE rover AP-9 []
+AXE walker AP-9 [{"id":"scrollable-region-focusable","impact":"serious","n":1,"ex":[".wk-summary"]}]
+AXE About abierto []
+  ok 37 [firefox] › audit_layout_a11y.spec.mjs:38:1 › axe-core (wcag2a/aa) en estado inicial, con POI seleccionado y con diálogo abierto (8.6s)
+TAB ["BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","A.leaflet-control-zoom-in","A.leaflet-control-zoom-out","ASIDE.sidebar","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]","INPUT.[hillshade]","BODY.[rover]","BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","A.leaflet-control-zoom-in","A.leaflet-control-zoom-out","ASIDE.sidebar","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]"]
+FOCO sin indicador visible: ["BODY."]
+MARKER {"tabindex":"0","role":"button","label":"AP-9 · ISRU Site","selAfterEnter":"AP-9"}
+foco tras cerrar Credits: open-credits
+  ok 38 [firefox] › audit_layout_a11y.spec.mjs:52:1 › teclado: Tab llega a modo, POI, capas, play; Enter selecciona; marcadores del mapa operables; foco visible (2.9s)
+REDUCED {"animated":[],"n":0,"zoomAnimClass":false}
+  ok 39 [firefox] › audit_layout_a11y.spec.mjs:79:1 › prefers-reduced-motion: sin transiciones/animaciones de Leaflet ni CSS (1.7s)
+TEXT {"missingExact":["Battery reserve","Held by heater","Max O₂ per EVA"],"missingEvenIgnoringCase":["Max O₂ per EVA"],"stub":null}
+  ok 40 [firefox] › audit_layout_a11y.spec.mjs:92:1 › textos: cadenas exactas del Apéndice C presentes; sin TODO/STUB/Pending/mock en la UI (2.4s)
+{"bad":[],"errors":[]}
+  ok 41 [firefox] › audit_tour_race.spec.mjs:11:1 › recorrido: 5 POI × 2 modos × show return × 8 capas (+3 subcapas de detalle) (38.0s)
+modo {"dots":0,"lines":["route-line walker out"],"rvPlay":"Resume","wkPlay":"Simulate traverse","selected":"AP-9","rvPoi":"AP-9","wkPoi":"AP-9","mode":"walker"}
+  x  42 [firefox] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción (3.5s)
+rover ×60: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 33 [firefox] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×60: energía final = resumen de ida (±0.1 %) (1.4m)
+poi rover {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"rover"}
+poi walker {"dots":0,"lines":["route-line walker out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"walker"}
+  ok 43 [firefox] › audit_tour_race.spec.mjs:77:1 › carrera: cambiar de POI durante la reproducción (rover y a pie) (9.9s)
+clear button {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+clear escape {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+  ok 45 [firefox] › audit_tour_race.spec.mjs:92:1 › carrera: limpiar la selección durante la reproducción (botón y Escape) (5.6s)
+rover ×600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 44 [firefox] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×600: energía final = resumen de ida (±0.1 %) (12.3s)
+rover ×3600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 47 [firefox] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×3600: energía final = resumen de ida (±0.1 %) (4.0s)
+50 clics en 9818 ms {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+dblclick {"dots":1,"lines":["route-line rover out"],"rvPlay":"Pause","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+energía tras dblclick 0.08486475611355432 0.16349101121684256
+  x  46 [firefox] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play (12.5s)
+reload {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"rover"}
+back url http://127.0.0.1:4173/bioenanos/
+  ok 49 [firefox] › audit_tour_race.spec.mjs:121:1 › carrera: recargar a mitad de la reproducción y botón atrás (7.7s)
+PAYLOAD [{"input":"0","dom":"0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"537","dom":"537","msg":"","recalculado":true,"E_total":65.52614249631343,"invalid":"false"},{"input":"537.0001","dom":"537.0001","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-1","dom":"-1","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"-0","dom":"-0","msg":"","recalculado":true,"E_total":53.60765078230703,"invalid":"false"},{"input":"","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"   ","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"abc","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"1e3","dom":"1e3","msg":"Payload must be between 0 and 537 kg (GVWR 2629 kg − curb 2092 kg).","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"0x10","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"NaN","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"Infinity","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350,5","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"999999…","dom":"","msg":"Enter a payload in kilograms.","recalculado":false,"E_total":55.82710920204751,"invalid":"true"},{"input":"350","dom":"350","msg":"","recalculado":true,"E_total":61.375755251398715,"invalid":"false"}]
+  ok 50 [webkit] › audit_forms.spec.mjs:11:1 › carga del rover: cada entrada se rechaza con mensaje o se acepta, nunca se calcula con un valor inválido (2.8s)
+  x  25 [firefox] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas (3.0m)
+LAYOUT 390x844 {"scrollW":1024,"innerW":390,"map":"fuera/oculto (-634,31 w=665)","list":"ok","verdict":"fuera/oculto (-432,-296 w=136)","modeBtns":"fuera/oculto (-137,76 w=213)","telemetry":"fuera/oculto (-634,398 w=1032)","overflowing":["DIV","env-strip","DIV"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  52 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben (1.8s)
+LAYOUT 768x1024 {"scrollW":1024,"innerW":768,"map":"fuera/oculto (-240,425 w=665)","list":"ok","verdict":"fuera/oculto (-38,98 w=136)","modeBtns":"ok","telemetry":"fuera/oculto (-240,792 w=1032)","overflowing":["topbar","workspace","sidebar","manifest","layers"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  53 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben (1.9s)
+LAYOUT 1280x800 {"scrollW":1280,"innerW":1280,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 54 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1280×800: sin desborde horizontal, info clave visible, diálogos caben (2.0s)
+LAYOUT 1440x900 {"scrollW":1440,"innerW":1440,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 55 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1440×900: sin desborde horizontal, info clave visible, diálogos caben (1.8s)
+LAYOUT 1920x1080 {"scrollW":1920,"innerW":1920,"map":"ok","list":"ok","verdict":"ok","modeBtns":"ok","telemetry":"ok","overflowing":[],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  ok 56 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 1920×1080: sin desborde horizontal, info clave visible, diálogos caben (1.9s)
+LAYOUT 720x450 {"scrollW":1024,"innerW":720,"map":"fuera/oculto (-288,377 w=665)","list":"ok","verdict":"fuera/oculto (-86,50 w=136)","modeBtns":"ok","telemetry":"fuera/oculto (-288,744 w=1032)","overflowing":["topbar","workspace","sidebar","manifest","layers"],"dlg":{"about":{"fits":true,"scrollable":true,"closedByEscape":true},"credits":{"fits":true,"scrollable":true,"closedByEscape":true}}}
+  x  57 [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben (1.9s)
+AXE inicial []
+AXE rover AP-9 []
+AXE walker AP-9 [{"id":"scrollable-region-focusable","impact":"serious","n":1,"ex":[".wk-summary"]}]
+AXE About abierto []
+  ok 58 [webkit] › audit_layout_a11y.spec.mjs:38:1 › axe-core (wcag2a/aa) en estado inicial, con POI seleccionado y con diálogo abierto (4.8s)
+TAB ["BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]","INPUT.[hillshade]","BODY.[rover]","BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn","DIV.leaflet-container","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","DIV.leaflet-marker-icon","BUTTON.poi-row[HCP_ESP_037655_2210]","BUTTON.poi-row[US1_FRONT]","BUTTON.poi-row[AP-9]","BUTTON.poi-row[AP-8]","BUTTON.poi-row[APMR]","INPUT.[on]","INPUT.[hillshade]","BODY.[rover]","BUTTON.mode-btn[rover]","BUTTON.mode-btn[walker]","BUTTON.link-btn","BUTTON.link-btn"]
+FOCO sin indicador visible: ["BODY.","BODY."]
+MARKER {"tabindex":"0","role":"button","label":"AP-9 · ISRU Site","selAfterEnter":"AP-9"}
+foco tras cerrar Credits: 
+  ok 59 [webkit] › audit_layout_a11y.spec.mjs:52:1 › teclado: Tab llega a modo, POI, capas, play; Enter selecciona; marcadores del mapa operables; foco visible (2.8s)
+walker ×600: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 48 [firefox] › audit_playback.spec.mjs:30:3 › a pie HCP a ×600: O₂ y kcal finales = resumen (±0.1 %) (53.4s)
+REDUCED {"animated":[],"n":0,"zoomAnimClass":false}
+  ok 60 [webkit] › audit_layout_a11y.spec.mjs:79:1 › prefers-reduced-motion: sin transiciones/animaciones de Leaflet ni CSS (1.3s)
+TEXT {"missingExact":["Battery reserve","Held by heater","Max O₂ per EVA"],"missingEvenIgnoringCase":["Max O₂ per EVA"],"stub":null}
+  ok 62 [webkit] › audit_layout_a11y.spec.mjs:92:1 › textos: cadenas exactas del Apéndice C presentes; sin TODO/STUB/Pending/mock en la UI (3.8s)
+  -  63 [webkit] › audit_memory.spec.mjs:5:1 › 200 ciclos POI × modo: heap / nodos / listeners / canvas estables
+walker ×3600: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 61 [firefox] › audit_playback.spec.mjs:30:3 › a pie HCP a ×3600: O₂ y kcal finales = resumen (±0.1 %) (15.1s)
+walker ×36000: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 65 [firefox] › audit_playback.spec.mjs:30:3 › a pie HCP a ×36000: O₂ y kcal finales = resumen (±0.1 %) (2.9s)
+restante (km): antes 104.6653240000001 justo después del cambio 103.75332400000009 1 s después 85.32132400000003
+  x  66 [firefox] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar (7.3s)
+{"bad":[],"errors":[]}
+  ok 67 [webkit] › audit_tour_race.spec.mjs:11:1 › recorrido: 5 POI × 2 modos × show return × 8 capas (+3 subcapas de detalle) (53.8s)
+modo {"dots":0,"lines":["route-line walker out"],"rvPlay":"Resume","wkPlay":"Simulate traverse","selected":"AP-9","rvPoi":"AP-9","wkPoi":"AP-9","mode":"walker"}
+  x  68 [webkit] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción (3.1s)
+poi rover {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"rover"}
+poi walker {"dots":0,"lines":["route-line walker out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"AP-8","rvPoi":"AP-8","wkPoi":"AP-8","mode":"walker"}
+  ok 69 [webkit] › audit_tour_race.spec.mjs:77:1 › carrera: cambiar de POI durante la reproducción (rover y a pie) (5.4s)
+clear button {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+clear escape {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"walker"}
+  ok 70 [webkit] › audit_tour_race.spec.mjs:92:1 › carrera: limpiar la selección durante la reproducción (botón y Escape) (5.1s)
+50 clics en 11794 ms {"dots":0,"lines":["route-line rover out"],"rvPlay":"Simulate traverse","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+dblclick {"dots":1,"lines":["route-line rover out"],"rvPlay":"Pause","wkPlay":"Simulate traverse","selected":"US1_FRONT","rvPoi":"US1_FRONT","wkPoi":"US1_FRONT","mode":"rover"}
+energía tras dblclick 0.07673972916738966 0.15245122107828776
+  x  71 [webkit] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play (13.9s)
+reload {"dots":0,"lines":[],"rvPlay":null,"wkPlay":null,"selected":null,"rvPoi":null,"wkPoi":null,"mode":"rover"}
+back url http://127.0.0.1:4173/bioenanos/
+  ok 72 [webkit] › audit_tour_race.spec.mjs:121:1 › carrera: recargar a mitad de la reproducción y botón atrás (3.1s)
+  x  51 [webkit] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas (3.0m)
+  x  64 [webkit] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×60: energía final = resumen de ida (±0.1 %) (5.0m)
+rover ×600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 73 [webkit] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×600: energía final = resumen de ida (±0.1 %) (40.5s)
+rover ×3600: final 30.716319828803865 kWh vs resumen 30.716319828803833
+  ok 74 [webkit] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×3600: energía final = resumen de ida (±0.1 %) (8.0s)
+  x  75 [webkit] › audit_playback.spec.mjs:30:3 › a pie HCP a ×600: O₂ y kcal finales = resumen (±0.1 %) (5.0m)
+walker ×3600: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 76 [webkit] › audit_playback.spec.mjs:30:3 › a pie HCP a ×3600: O₂ y kcal finales = resumen (±0.1 %) (53.5s)
+walker ×36000: kcal 12797.70249149241 vs 12797.702491492408; O2 usado 2548.088870165815 L
+  ok 77 [webkit] › audit_playback.spec.mjs:30:3 › a pie HCP a ×36000: O₂ y kcal finales = resumen (±0.1 %) (6.4s)
+restante (km): antes 104.70732400000009 justo después del cambio 103.19532400000008 1 s después 85.33932400000003
+  x  78 [webkit] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar (13.3s)
+
+
+  1) [chromium] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.innerText: Target page, context or browser has been closed
+
+      46 |       const err = (await page.locator('#wk-err').innerText().catch(() => '')).trim();
+      47 |       const o2 = await page.locator('[data-s="O2_required_L"]').getAttribute('data-v').catch(() => null);
+    > 48 |       const shown = await page.locator('.wk-summary').innerText();
+         |                                                       ^
+      49 |       rows.push({ k, v: String(v), dom, err, o2, nanShown: /NaN|Infinity/.test(shown) });
+      50 |     }
+      51 |   }
+
+    Error Context: test-results\audit_forms-astronauta-mín-de966-binaciones-extremas-finitas-chromium\error-context.md
+
+  2) [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 391
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-489e0-lave-visible-diálogos-caben-chromium\error-context.md
+
+  3) [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 769
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-c4228-lave-visible-diálogos-caben-chromium\error-context.md
+
+  4) [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 721
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-66f6e-lave-visible-diálogos-caben-chromium\error-context.md
+
+  5) [chromium] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.5
+    Received:   0.5759999999999934
+
+      62 |   const c = await gv(page, '[data-g="remaining"]');
+      63 |   console.log('restante (km): antes', a, 'justo después del cambio', b, '1 s después', c);
+    > 64 |   expect(a - b).toBeLessThan(0.5); // un fotograma a ×3600 avanza ~0.08 km
+         |                 ^
+      65 |   await page.click('.rv-play'); // pausa
+      66 |   const p1 = await gv(page, '[data-g="remaining"]'); await page.clock.runFor(5000); const p2 = await gv(page, '[data-g="remaining"]');
+      67 |   expect(p2).toBe(p1);
+
+    Error Context: test-results\audit_playback-rover-cambi-f8b32-os-pausa-reanudar-reiniciar-chromium\error-context.md
+
+  6) [chromium] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ─
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Simulate traverse"
+    Received: "Resume"
+
+      69 |   await page.waitForTimeout(600);
+      70 |   const s = await state(page); console.log('modo', JSON.stringify(s));
+    > 71 |   expect(s.rvPlay).toBe('Simulate traverse');
+         |                    ^
+      72 |   expect(s.dots).toBe(0);
+      73 |   expect(s.lines).toEqual(['route-line walker out']);
+      74 |   expect(w.errors).toEqual([]);
+
+    Error Context: test-results\audit_tour_race-carrera-ca-439bc-odo-durante-la-reproducción-chromium\error-context.md
+
+  7) [chromium] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "0.1620959916081874"
+    Received: "0.08100809280222877"
+
+      115 |   const t2 = await page.locator('[data-g="energy"]').getAttribute('data-v');
+      116 |   console.log('energía tras dblclick', t1, t2);
+    > 117 |   expect(t1).toBe(t2);
+          |              ^
+      118 |   expect(w.errors).toEqual([]);
+      119 | });
+      120 |
+
+    Error Context: test-results\audit_tour_race-carrera-50-f22f5-en-5-s-y-doble-clic-en-play-chromium\error-context.md
+
+  8) [firefox] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.innerText: Target page, context or browser has been closed
+
+      46 |       const err = (await page.locator('#wk-err').innerText().catch(() => '')).trim();
+      47 |       const o2 = await page.locator('[data-s="O2_required_L"]').getAttribute('data-v').catch(() => null);
+    > 48 |       const shown = await page.locator('.wk-summary').innerText();
+         |                                                       ^
+      49 |       rows.push({ k, v: String(v), dom, err, o2, nanShown: /NaN|Infinity/.test(shown) });
+      50 |     }
+      51 |   }
+
+    Error Context: test-results\audit_forms-astronauta-mín-de966-binaciones-extremas-finitas-firefox\error-context.md
+
+  9) [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 391
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-489e0-lave-visible-diálogos-caben-firefox\error-context.md
+
+  10) [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 769
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-c4228-lave-visible-diálogos-caben-firefox\error-context.md
+
+  11) [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 721
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-66f6e-lave-visible-diálogos-caben-firefox\error-context.md
+
+  12) [firefox] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.5
+    Received:   0.9120000000000061
+
+      62 |   const c = await gv(page, '[data-g="remaining"]');
+      63 |   console.log('restante (km): antes', a, 'justo después del cambio', b, '1 s después', c);
+    > 64 |   expect(a - b).toBeLessThan(0.5); // un fotograma a ×3600 avanza ~0.08 km
+         |                 ^
+      65 |   await page.click('.rv-play'); // pausa
+      66 |   const p1 = await gv(page, '[data-g="remaining"]'); await page.clock.runFor(5000); const p2 = await gv(page, '[data-g="remaining"]');
+      67 |   expect(p2).toBe(p1);
+
+    Error Context: test-results\audit_playback-rover-cambi-f8b32-os-pausa-reanudar-reiniciar-firefox\error-context.md
+
+  13) [firefox] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ─
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Simulate traverse"
+    Received: "Resume"
+
+      69 |   await page.waitForTimeout(600);
+      70 |   const s = await state(page); console.log('modo', JSON.stringify(s));
+    > 71 |   expect(s.rvPlay).toBe('Simulate traverse');
+         |                    ^
+      72 |   expect(s.dots).toBe(0);
+      73 |   expect(s.lines).toEqual(['route-line walker out']);
+      74 |   expect(w.errors).toEqual([]);
+
+    Error Context: test-results\audit_tour_race-carrera-ca-439bc-odo-durante-la-reproducción-firefox\error-context.md
+
+  14) [firefox] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "0.16349101121684256"
+    Received: "0.08486475611355432"
+
+      115 |   const t2 = await page.locator('[data-g="energy"]').getAttribute('data-v');
+      116 |   console.log('energía tras dblclick', t1, t2);
+    > 117 |   expect(t1).toBe(t2);
+          |              ^
+      118 |   expect(w.errors).toEqual([]);
+      119 | });
+      120 |
+
+    Error Context: test-results\audit_tour_race-carrera-50-f22f5-en-5-s-y-doble-clic-en-play-firefox\error-context.md
+
+  15) [webkit] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.innerText: Target page, context or browser has been closed
+
+      46 |       const err = (await page.locator('#wk-err').innerText().catch(() => '')).trim();
+      47 |       const o2 = await page.locator('[data-s="O2_required_L"]').getAttribute('data-v').catch(() => null);
+    > 48 |       const shown = await page.locator('.wk-summary').innerText();
+         |                                                       ^
+      49 |       rows.push({ k, v: String(v), dom, err, o2, nanShown: /NaN|Infinity/.test(shown) });
+      50 |     }
+      51 |   }
+
+    Error Context: test-results\audit_forms-astronauta-mín-de966-binaciones-extremas-finitas-webkit\error-context.md
+
+  16) [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 391
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-489e0-lave-visible-diálogos-caben-webkit\error-context.md
+
+  17) [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 769
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-c4228-lave-visible-diálogos-caben-webkit\error-context.md
+
+  18) [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 721
+    Received:    1024
+
+      29 |     await page.screenshot({ path: `shots/${test.info().project.name}_${wd}x${ht}.png`, fullPage: false });
+      30 |     console.log(`LAYOUT ${wd}x${ht} ` + JSON.stringify({ ...m, dlg }));
+    > 31 |     expect(m.scrollW).toBeLessThanOrEqual(m.innerW + 1);
+         |                       ^
+      32 |     expect(dlg.about.fits && dlg.credits.fits).toBe(true);
+      33 |     expect(w.errors).toEqual([]);
+      34 |     await ctx.close();
+
+    Error Context: test-results\audit_layout_a11y-pantalla-66f6e-lave-visible-diálogos-caben-webkit\error-context.md
+
+  19) [webkit] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×60: energía final = resumen de ida (±0.1 %) 
+
+    Test timeout of 300000ms exceeded.
+
+    Error: locator.getAttribute: Target page, context or browser has been closed
+
+      18 |     const travel_s = (await page.evaluate(() => 0)) || 0; // placeholder
+      19 |     // avanzar en bloques hasta data-done
+    > 20 |     for (let k = 0; k < 400 && (await page.locator('.rv').getAttribute('data-done')) !== 'true'; k++) await page.clock.runFor(speed === 60 ? 60_000 : 10_000);
+         |                                                           ^
+      21 |     const e = await gv(page, '[data-g="energy"]');
+      22 |     console.log(`rover ×${speed}: final ${e} kWh vs resumen ${out}`);
+      23 |     expect(await page.locator('.rv').getAttribute('data-done')).toBe('true');
+
+    Error Context: test-results\audit_playback-rover-AP-9--c772c--final-resumen-de-ida-±0-1--webkit\error-context.md
+
+  20) [webkit] › audit_playback.spec.mjs:30:3 › a pie HCP a ×600: O₂ y kcal finales = resumen (±0.1 %) 
+
+    Test timeout of 300000ms exceeded.
+
+    Error: locator.getAttribute: Target page, context or browser has been closed
+
+      37 |     await page.click(`.wk-speed[data-speed="${speed}"]`);
+      38 |     await page.click('.wk-play');
+    > 39 |     for (let k = 0; k < 600 && (await page.locator('.wk').getAttribute('data-done')) !== 'true'; k++) await page.clock.runFor(speed === 600 ? 60_000 : 10_000);
+         |                                                           ^
+      40 |     const o2 = await gv(page, '[data-g="o2"]'); const kcal = await gv(page, '[data-g="kcal"]');
+      41 |     const o2met = await page.evaluate(() => 0);
+      42 |     const sumK = await gv(page, '[data-s="kcal"]');
+
+    Error Context: test-results\audit_playback-a-pie-HCP-a-6f31d--kcal-finales-resumen-±0-1--webkit\error-context.md
+
+  21) [webkit] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 0.5
+    Received:   1.5120000000000005
+
+      62 |   const c = await gv(page, '[data-g="remaining"]');
+      63 |   console.log('restante (km): antes', a, 'justo después del cambio', b, '1 s después', c);
+    > 64 |   expect(a - b).toBeLessThan(0.5); // un fotograma a ×3600 avanza ~0.08 km
+         |                 ^
+      65 |   await page.click('.rv-play'); // pausa
+      66 |   const p1 = await gv(page, '[data-g="remaining"]'); await page.clock.runFor(5000); const p2 = await gv(page, '[data-g="remaining"]');
+      67 |   expect(p2).toBe(p1);
+
+    Error Context: test-results\audit_playback-rover-cambi-f8b32-os-pausa-reanudar-reiniciar-webkit\error-context.md
+
+  22) [webkit] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ──
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "Simulate traverse"
+    Received: "Resume"
+
+      69 |   await page.waitForTimeout(600);
+      70 |   const s = await state(page); console.log('modo', JSON.stringify(s));
+    > 71 |   expect(s.rvPlay).toBe('Simulate traverse');
+         |                    ^
+      72 |   expect(s.dots).toBe(0);
+      73 |   expect(s.lines).toEqual(['route-line walker out']);
+      74 |   expect(w.errors).toEqual([]);
+
+    Error Context: test-results\audit_tour_race-carrera-ca-439bc-odo-durante-la-reproducción-webkit\error-context.md
+
+  23) [webkit] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "0.15245122107828776"
+    Received: "0.07673972916738966"
+
+      115 |   const t2 = await page.locator('[data-g="energy"]').getAttribute('data-v');
+      116 |   console.log('energía tras dblclick', t1, t2);
+    > 117 |   expect(t1).toBe(t2);
+          |              ^
+      118 |   expect(w.errors).toEqual([]);
+      119 | });
+      120 |
+
+    Error Context: test-results\audit_tour_race-carrera-50-f22f5-en-5-s-y-doble-clic-en-play-webkit\error-context.md
+
+  23 failed
+    [chromium] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+    [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+    [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+    [chromium] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+    [chromium] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+    [chromium] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ──
+    [chromium] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+    [firefox] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+    [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+    [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+    [firefox] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+    [firefox] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+    [firefox] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ───
+    [firefox] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+    [webkit] › audit_forms.spec.mjs:34:1 › astronauta: mínimo, máximo, ±ε, vacío, texto y coma por campo; combinaciones extremas finitas 
+    [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 390×844: sin desborde horizontal, info clave visible, diálogos caben 
+    [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 768×1024: sin desborde horizontal, info clave visible, diálogos caben 
+    [webkit] › audit_layout_a11y.spec.mjs:11:3 › pantalla 720×450 (≈1440 al 200 %): sin desborde horizontal, info clave visible, diálogos caben 
+    [webkit] › audit_playback.spec.mjs:9:3 › rover AP-9 a ×60: energía final = resumen de ida (±0.1 %) 
+    [webkit] › audit_playback.spec.mjs:30:3 › a pie HCP a ×600: O₂ y kcal finales = resumen (±0.1 %) 
+    [webkit] › audit_playback.spec.mjs:50:1 › rover: cambiar de velocidad a mitad no produce saltos; pausa/reanudar; reiniciar 
+    [webkit] › audit_tour_race.spec.mjs:65:1 › carrera: cambiar de modo durante la reproducción ────
+    [webkit] › audit_tour_race.spec.mjs:104:1 › carrera: 50 cambios de POI en < 5 s y doble clic en play 
+  2 skipped
+  53 passed (18.5m)

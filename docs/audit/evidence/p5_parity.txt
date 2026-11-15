@@ -1,0 +1,68 @@
+rover E_drive_J propia-vs-Py     max abs 0.000e+00  max rel 0.000e+00
+rover E_drive_J Py-vs-JS         max abs 9.313e-10  max rel 5.979e-14
+rover E_aux_J propia-vs-Py       max abs 0.000e+00  max rel 0.000e+00
+rover E_aux_J Py-vs-JS           max abs 0.000e+00  max rel 0.000e+00
+rover E_total_J propia-vs-Py     max abs 0.000e+00  max rel 0.000e+00
+rover E_total_J Py-vs-JS         max abs 9.313e-10  max rel 2.269e-15
+rover t_s propia-vs-Py           max abs 0.000e+00  max rel 0.000e+00
+rover t_s Py-vs-JS               max abs 0.000e+00  max rel 0.000e+00
+walker E_J propia-vs-Py          max abs 2.624e-01  max rel 1.297e-06
+walker E_J Py-vs-JS              max abs 1.397e-09  max rel 1.096e-15
+walker O2_L propia-vs-Py         max abs 8.950e-04  max rel 3.075e-06
+walker O2_L Py-vs-JS             max abs 5.684e-14  max rel 0.000e+00
+walker HR propia-vs-Py           max abs 4.937e-04  max rel 2.630e-06
+walker HR Py-vs-JS               max abs 8.527e-14  max rel 0.000e+00
+walker sweat Py-vs-JS            max abs 1.776e-15  max rel 0.000e+00
+walker Tc(1h) propia-vs-JS       max abs 2.129e-06  max rel 5.728e-08
+o2 required propia-vs-Py         max abs 0.000e+00  max rel 0.000e+00
+o2 required Py-vs-JS             max abs 0.000e+00  max rel 0.000e+00
+o2 max/EVA propia-vs-Py          max abs 3.903e-10  max rel 4.272e-13
+o2 max/EVA Py-vs-JS              max abs 0.000e+00  max rel 0.000e+00
+energías negativas: 0 ; n_evas distintos: 0
+
+VEREDICTO (E_out, E_back) -> propio | Py | JS
+                    38.4                   38.4 -> ROUND TRIP OK  | ROUND TRIP OK  | ROUND TRIP OK
+                    76.8                      0 -> ROUND TRIP OK  | ROUND TRIP OK  | ROUND TRIP OK
+            76.800000001                      0 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+                   76.79         0.010000000001 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+                      96                      0 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+            96.000000001                      0 -> NOT REACHABLE  | NOT REACHABLE  | NOT REACHABLE
+                      80                      0 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+                      80                     20 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+                      60                   16.8 -> ROUND TRIP OK  | ROUND TRIP OK  | ROUND TRIP OK
+                      60           16.800000001 -> ONE-WAY ONLY   | ONE-WAY ONLY   | ONE-WAY ONLY
+                       0                      0 -> ROUND TRIP OK  | ROUND TRIP OK  | ROUND TRIP OK
+                     100                      0 -> NOT REACHABLE  | NOT REACHABLE  | NOT REACHABLE
+  nota: (1-0.20)*96 = 76.80000000000001
+
+n_evas en el borde:
+  t=28800.000000s -> Py 1  propio(ceil exacto) 1
+  t=28801.000000s -> Py 2  propio(ceil exacto) 2
+  t=28799.000000s -> Py 1  propio(ceil exacto) 1
+  t=57600.000000s -> Py 2  propio(ceil exacto) 2
+  t=28800.000001s -> Py 1  propio(ceil exacto) 2
+  t=28800.000100s -> Py 2  propio(ceil exacto) 2
+
+validatePayload (JS): {'0': [True, 0], '537': [True, 537], '537.0001': [False, 537.0001], '-1': [False, -1], '-0': [True, 0], '': [False, None], '  ': [False, None], 'abc': [False, None], '1e3': [False, 1000], '0x10': [True, 16], 'NaN': [False, None], 'Infinity': [False, None], '350,5': [False, None], '999999...': [False, None], ' 350 ': [True, 350], '1e2': [True, 100], '0b11': [True, 3], '0o7': [True, 7]}
+
+RUTAS: error relativo vs ref (propia / Py / JS) y por segmento propia-vs-JS
+  AP-9                 rover  out  seg 2.9e-16 | {'E_total_kWh': '1.0e-15/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  AP-9                 rover  back seg 0.0e+00 | {'E_total_kWh': '2.3e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  AP-9                 walker out  seg 3.2e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.9e-06/0.0e+00/0.0e+00'}
+  AP-9                 walker back seg 2.9e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.9e-06/0.0e+00/0.0e+00'}
+  APMR                 rover  out  seg 3.4e-16 | {'E_total_kWh': '9.2e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  APMR                 rover  back seg 2.9e-16 | {'E_total_kWh': '1.3e-15/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  APMR                 walker out  seg 3.8e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.9e-06/0.0e+00/0.0e+00'}
+  APMR                 walker back seg 2.9e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.9e-06/0.0e+00/0.0e+00'}
+  HCP_ESP_037655_2210  rover  out  seg 0.0e+00 | {'E_total_kWh': '1.5e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  HCP_ESP_037655_2210  rover  back seg 0.0e+00 | {'E_total_kWh': '9.0e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  HCP_ESP_037655_2210  walker out  seg 2.4e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
+  HCP_ESP_037655_2210  walker back seg 2.5e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
+  AP-8                 rover  out  seg 1.5e-16 | {'E_total_kWh': '0.0e+00/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  AP-8                 rover  back seg 1.4e-16 | {'E_total_kWh': '4.2e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  AP-8                 walker out  seg 2.6e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
+  AP-8                 walker back seg 2.9e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
+  US1_FRONT            rover  out  seg 0.0e+00 | {'E_total_kWh': '1.4e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  US1_FRONT            rover  back seg 0.0e+00 | {'E_total_kWh': '1.4e-16/0.0e+00/0.0e+00', 'E_drive_kWh': '0.0e+00/0.0e+00/0.0e+00'}
+  US1_FRONT            walker out  seg 2.5e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
+  US1_FRONT            walker back seg 2.6e-07 | {'E_kcal': '1.3e-06/0.0e+00/0.0e+00', 'O2_metabolic_L': '2.8e-06/0.0e+00/0.0e+00'}
