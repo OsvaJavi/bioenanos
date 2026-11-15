@@ -28,6 +28,16 @@ npm run vendor                                                        # node_mod
 - `layers.json` `file` paths are relative to `web/data/` (mock: `mock/layers/<id>.png`).
 - `requirements.lock.txt` was frozen on Python 3.13; CI runs Python 3.13 / Node 22.
 ## M1 — Data ingestion
+Two steps, so that only the first one needs internet:
+
+```
+python -m pipeline.fetch_data        # networked machine: windowed reads (HTTP ranges) -> data/raw/ + data/processed/source_report.json
+python -m pipeline.derive_layers     # offline: own reprojection to the LEQ grid -> data/processed/*.tif, web/data/layers/*, web/data/pois.json
+```
+- `fetch_data` options: `--only dem,detail,thermal,optical`, `--dem-file <local.tif>` (a DEM downloaded by hand), `--thermal-url`, `--optical-url`, `--tes-url`. Every failure is recorded in `source_report.json`, never fatal (except no DEM at all).
+- `data/raw/` is not versioned; `data/processed/*` and `web/data/layers/*` are (small).
+- Layer `file` paths in `web/data/layers/layers.json` are relative to `web/data/`. Extra optional fields: `palette` (legend stops), `stats` (DEM/slope/roughness summary and POI elevation check).
+- Tests: `tests/py/test_m1_derive.py` (synthetic sources, always run) and `tests/py/test_m1_real.py` (real outputs; skipped until they exist).
 ## M2 — Routing
 ## M3 — Map UI
 ## M4 — Rover telemetry

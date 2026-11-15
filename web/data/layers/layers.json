@@ -1,0 +1,333 @@
+{
+ "schema_version": "1.1",
+ "mock": false,
+ "crs": {
+  "name": "LEQ",
+  "phi0_deg": 40.0,
+  "lam0_deg": 203.0,
+  "R_km": 3388.0,
+  "units": "km"
+ },
+ "grid": {
+  "cell_m": 200,
+  "x_min_km": -113.4,
+  "x_max_km": 113.4,
+  "y_min_km": -77.0,
+  "y_max_km": 77.0,
+  "ncols": 1134,
+  "nrows": 770
+ },
+ "file_base": "web/data/",
+ "stats": {
+  "dem_valid_fraction": 1.0,
+  "dem_min_m": -4233.4,
+  "dem_max_m": -3691.8,
+  "dem_mean_m": -3913.9,
+  "slope_mean_deg": 0.838,
+  "slope_p99_deg": 5.19,
+  "slope_max_deg": 23.21,
+  "rough_ref_m": 2.0905,
+  "rough_ref_percentile": 95,
+  "poi_elevations": [
+   {
+    "id": "AP-1",
+    "elev_m": -3928.0,
+    "dz_vs_context_m": -28.0,
+    "flag": false
+   },
+   {
+    "id": "AP-9",
+    "elev_m": -3917.9,
+    "dz_vs_context_m": -17.9,
+    "flag": false
+   },
+   {
+    "id": "APMR",
+    "elev_m": -3924.6,
+    "dz_vs_context_m": -24.6,
+    "flag": false
+   },
+   {
+    "id": "HCP_ESP_037655_2210",
+    "elev_m": -3932.4,
+    "dz_vs_context_m": -32.4,
+    "flag": false
+   },
+   {
+    "id": "AP-8",
+    "elev_m": -3937.5,
+    "dz_vs_context_m": -37.5,
+    "flag": false
+   },
+   {
+    "id": "US1_FRONT",
+    "elev_m": -3935.2,
+    "dz_vs_context_m": -35.2,
+    "flag": false
+   }
+  ]
+ },
+ "layers": [
+  {
+   "id": "hillshade",
+   "label": "Hillshade",
+   "file": "layers/hillshade.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "",
+   "min": 0.657,
+   "max": 0.753,
+   "legend": "Shaded relief (light az 315°, alt 45°, z ×1); contrast stretched P0.5–P99.5 for display",
+   "source": "S-DEM1",
+   "available": true,
+   "proxy": false,
+   "palette": [
+    [
+     0.0,
+     "#000000"
+    ],
+    [
+     1.0,
+     "#ffffff"
+    ]
+   ],
+   "note": "Derived from the regional DEM"
+  },
+  {
+   "id": "elevation",
+   "label": "Elevation",
+   "file": "layers/elevation.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "m",
+   "min": -3984.0,
+   "max": -3827.0,
+   "legend": "Elevation above MOLA areoid (m)",
+   "source": "S-DEM1",
+   "available": true,
+   "proxy": false,
+   "palette": [
+    [
+     0.0,
+     "#440154"
+    ],
+    [
+     0.25,
+     "#3b528b"
+    ],
+    [
+     0.5,
+     "#21918c"
+    ],
+    [
+     0.75,
+     "#5ec962"
+    ],
+    [
+     1.0,
+     "#fde725"
+    ]
+   ],
+   "note": "Derived from the regional DEM"
+  },
+  {
+   "id": "slope",
+   "label": "Slope",
+   "file": "layers/slope.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "deg",
+   "min": 0.0,
+   "max": 25.0,
+   "legend": "Slope (deg), Horn on the 200 m DEM; ramp capped at 25° (rover cut 10°, on foot 20°)",
+   "source": "S-DEM1",
+   "available": true,
+   "proxy": false,
+   "palette": [
+    [
+     0.0,
+     "#000004"
+    ],
+    [
+     0.2,
+     "#3b0f70"
+    ],
+    [
+     0.4,
+     "#8c2981"
+    ],
+    [
+     0.6,
+     "#de4968"
+    ],
+    [
+     0.8,
+     "#fe9f6d"
+    ],
+    [
+     1.0,
+     "#fcfdbf"
+    ]
+   ],
+   "note": "Derived from the regional DEM"
+  },
+  {
+   "id": "roughness",
+   "label": "Roughness (proxy)",
+   "file": "layers/roughness.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "",
+   "min": 0.0,
+   "max": 1.0,
+   "legend": "Normalized DEM roughness r ∈ [0,1] (3×3 plane residual / P95) — relative rock-hazard proxy",
+   "source": "S-DEM1",
+   "available": true,
+   "proxy": true,
+   "palette": [
+    [
+     0.0,
+     "#00204d"
+    ],
+    [
+     0.25,
+     "#414d6b"
+    ],
+    [
+     0.5,
+     "#7c7b78"
+    ],
+    [
+     0.75,
+     "#bcaf6f"
+    ],
+    [
+     1.0,
+     "#ffea46"
+    ]
+   ],
+   "note": "Derived from the regional DEM"
+  },
+  {
+   "id": "thermal",
+   "label": "Thermal (THEMIS)",
+   "file": "layers/thermal.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "",
+   "min": null,
+   "max": null,
+   "legend": "THEMIS IR day mosaic 100 m v12 — image only, relative values (not used for routing)",
+   "source": "S-TI2",
+   "available": true,
+   "proxy": false,
+   "note": "Visual layer from S-TI2"
+  },
+  {
+   "id": "optical",
+   "label": "Optical",
+   "file": "layers/optical.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "",
+   "min": null,
+   "max": null,
+   "legend": "Viking MDIM 2.1 colour mosaic 232 m — image only, relative values (not used for routing)",
+   "source": "S-OPT2",
+   "available": true,
+   "proxy": false,
+   "note": "Visual layer from S-OPT2"
+  },
+  {
+   "id": "shielding",
+   "label": "Radiation shielding (proxy)",
+   "file": "layers/shielding.png",
+   "bounds_km": {
+    "x_min": -113.4,
+    "x_max": 113.4,
+    "y_min": -77.0,
+    "y_max": 77.0
+   },
+   "unit": "g/cm2",
+   "min": 23.18,
+   "max": 24.39,
+   "legend": "Atmospheric shielding column (g/cm²) — relative proxy, not a dose map",
+   "source": "S-DEM1",
+   "available": true,
+   "proxy": true,
+   "palette": [
+    [
+     0.0,
+     "#08306b"
+    ],
+    [
+     0.33,
+     "#2171b5"
+    ],
+    [
+     0.66,
+     "#6baed6"
+    ],
+    [
+     1.0,
+     "#deebf7"
+    ]
+   ],
+   "note": "Derived from the regional DEM"
+  },
+  {
+   "id": "detail",
+   "label": "CTX detail",
+   "file": "layers/detail_hillshade.png",
+   "bounds_km": {
+    "x_min": -55.76,
+    "x_max": -25.78,
+    "y_min": -26.84,
+    "y_max": 3.18
+   },
+   "unit": "deg",
+   "min": 0.0,
+   "max": 25.0,
+   "legend": "CTX DTM detail at 20 m (hillshade; slope 0–25°). Visual only — not used for routing (P-12).",
+   "source": "S-DEM4",
+   "available": true,
+   "proxy": false,
+   "subfiles": {
+    "hillshade": "layers/detail_hillshade.png",
+    "slope": "layers/detail_slope.png",
+    "ortho": "layers/detail_ortho.png"
+   },
+   "location_label": "CTX DTM J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W — near AP-1",
+   "note": "P-14 rule 2; product J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W (mro_ctx_controlled_usgs_dtms); 0.0 km from AP-1. Elevation datum may differ from MOLA (visual only).",
+   "z_range_m": [
+    -4060.0,
+    -3905.8
+   ],
+   "slope_max_deg": 49.4
+  }
+ ]
+}
