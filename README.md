@@ -57,6 +57,10 @@ PW_CHROME=/usr/bin/google-chrome npm run e2e   # local run with a system Chrome
 - Events on `document`: `mode:changed {mode}`, `poi:selected {id, mode}`, `poi:cleared {}`; listens to `traverse:progress {mode, id, s_km}` (moving marker on the `out` route).
 - Telemetry modules are mounted by `main.js` with `ctx = {data, bus: document, getState}`.
 ## M4 — Rover telemetry
+- `web/js/models/rover.js`: spec §6.3 in JS (twin of `pipeline/models_rover.py`): `segmentEnergy`, `routeEnergy(points, {payload_kg})`, `routeSummary`, `verdict`, `timeline`/`stateAt` (playback), `validatePayload` (0–537 kg).
+- `web/js/telemetry_rover.js` (`mountRoverPanel`): payload, out/back/round-trip summary, verdict with the 20 % reserve, elevation and power profiles, playback ×60/×600/×3600 emitting `traverse:progress`.
+- `web/js/env_strip.js` (`mountEnvStrip`) and `web/js/chart.js` (`lineChart(canvas, series, opts)` → `{update, setCursor, destroy}`; `opts.markers` for vertical separators) are shared with M5.
+- Tests: `tests/js/test_m4_rover.test.js` (golden, parity with `routes.json`, payload, 200 km synthetic route) and `tests/e2e/m4_rover.spec.js`.
 ## M5 — On-foot telemetry
 ## M6 — Integration & deployment
 ## Sensitivity analysis (M6)

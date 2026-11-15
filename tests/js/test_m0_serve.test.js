@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 // T-M0-07: serve.mjs responds 200 on /bioenanos/vendor/leaflet/leaflet.js; stubs keep their signatures.
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { startServer } from '../../tools/serve.mjs';
@@ -32,9 +33,16 @@ it('stubs export their final signatures', async () => {
   expect(walker.mountWalkerPanel.length).toBe(2);
   expect(env.mountEnvStrip.length).toBe(2);
   expect(typeof chart.lineChart).toBe('function');
+  // The placeholder text is checked only while a module is still the M0 stub: M4/M5 replace the bodies (keeping the
+  // signatures checked above) and test their behaviour in their own suites. (Amended by M4, see HANDOFF_M4 §7.)
+  const isStub = (f) => readFileSync(new URL(`../../web/js/${f}`, import.meta.url), 'utf8').includes('STUB created by M0');
   const el = { innerHTML: '' };
-  rover.mountRoverPanel(el, {});
-  expect(el.innerHTML).toContain('Pending module M4');
-  walker.mountWalkerPanel(el, {});
-  expect(el.innerHTML).toContain('Pending module M5');
+  if (isStub('telemetry_rover.js')) {
+    rover.mountRoverPanel(el, {});
+    expect(el.innerHTML).toContain('Pending module M4');
+  }
+  if (isStub('telemetry_walker.js')) {
+    walker.mountWalkerPanel(el, {});
+    expect(el.innerHTML).toContain('Pending module M5');
+  }
 });
