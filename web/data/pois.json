@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.1",
+  "base": {"id": "AP-1", "name": "AP-1 · Base of Operations", "short": "AP-1", "lat": 39.80, "lon": 202.10, "elev_m": null,
+    "description": "Primary base on the Sinuous Unit. Considered the safest site in the study: slopes below 5° at 10 m scale and almost no rocks larger than 1 m. About 10 cm of sand over up to 80 m of ice."},
+  "pois": [
+    {"id": "AP-9", "name": "AP-9 · ISRU Site", "short": "AP-9", "lat": 40.02, "lon": 203.35, "elev_m": null, "route_group": 1,
+     "md_straight_km": 58.17, "md_az_deg": 76.68,
+     "description": "Primary heavy-ISRU site on the Sinuous Unit. Thickest subsurface ice of the unit (radar: up to ~80 m of excess ice) and the unit's highest combined ice-consistency index. Rougher and rockier than AP-1."},
+    {"id": "APMR", "name": "APMR · Paleo-megaripples", "short": "APMR", "lat": 39.90, "lon": 204.70, "elev_m": null, "route_group": 1,
+     "md_straight_km": 118.18, "md_az_deg": 86.30,
+     "description": "Paleo-megaripples and lithified dunes east of AP-9, at the far end of Route 1 across the Sinuous Unit."},
+    {"id": "HCP_ESP_037655_2210", "name": "HCP · Polygon Field", "short": "HCP", "lat": 40.560, "lon": 202.404, "elev_m": null, "route_group": 2,
+     "md_straight_km": 46.99, "md_az_deg": 16.90,
+     "description": "Field of high-centered thermal-contraction polygons (HiRISE ESP_037655_2210). A modal polygon diameter of ~11 m suggests ground ice only ~6–20 cm deep; this depth is a model-based estimate calibrated at the Phoenix site, not a direct measurement."},
+    {"id": "AP-8", "name": "AP-8 · Periglacial Plain", "short": "AP-8", "lat": 40.75, "lon": 201.30, "elev_m": null, "route_group": 2,
+     "md_straight_km": 66.77, "md_az_deg": 327.54,
+     "description": "Periglacial plain next to the Sinuous Unit. Highest neutron and combined ice indices among adjacent sites, and a basal radar reflector deeper than ~20 m. Shallow ice mining and astrobiology target."},
+    {"id": "US1_FRONT", "name": "US1 · Ogive Front", "short": "US1", "lat": 39.10, "lon": 201.50, "elev_m": null, "route_group": 3,
+     "md_straight_km": 49.64, "md_az_deg": 213.69,
+     "description": "Terminal lobe of Sinuous Unit 1, with ogives and crescent-shaped ridges. Low-insolation NNW–NE scarps preserved for over 20 Myr are candidates for trenching or horizontal drilling. Glaciology target."}
+  ]
+}

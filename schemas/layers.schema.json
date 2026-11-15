@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "mock", "crs", "grid", "layers"],
+  "properties": {
+    "schema_version": {"const": "1.1"},
+    "mock": {"type": "boolean"},
+    "crs": {"type": "object", "required": ["name", "phi0_deg", "lam0_deg", "R_km", "units"],
+      "properties": {"name": {"const": "LEQ"}, "phi0_deg": {"const": 40.0}, "lam0_deg": {"const": 203.0}, "R_km": {"const": 3388.0}, "units": {"const": "km"}}},
+    "grid": {"type": "object", "required": ["cell_m", "x_min_km", "x_max_km", "y_min_km", "y_max_km", "ncols", "nrows"]},
+    "layers": {"type": "array", "minItems": 8,
+      "items": {"type": "object",
+        "required": ["id", "label", "file", "bounds_km", "unit", "min", "max", "legend", "source", "available", "proxy"],
+        "properties": {
+          "id": {"enum": ["hillshade", "elevation", "slope", "roughness", "thermal", "optical", "shielding", "detail"]},
+          "label": {"type": "string"},
+          "file": {"type": ["string", "null"]},
+          "bounds_km": {"type": ["object", "null"], "required": ["x_min", "x_max", "y_min", "y_max"]},
+          "unit": {"type": "string"}, "min": {"type": ["number", "null"]}, "max": {"type": ["number", "null"]},
+          "legend": {"type": "string"}, "source": {"type": "string"},
+          "available": {"type": "boolean"}, "proxy": {"type": "boolean"},
+          "subfiles": {"type": "object"}, "location_label": {"type": "string"}, "note": {"type": "string"}
+        }}}
+  }
+}

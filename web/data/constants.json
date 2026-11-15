@@ -1,0 +1,112 @@
+{
+  "_meta": {"version": "1.1", "note": "Single source of constants for Python and JS. Use .value. Do not edit outside a spec revision."},
+  "geo": {
+    "R_km": {"value": 3388.0, "unit": "km", "source": "FUENTE", "ref": "contexto §2.2 R_local(40N)"},
+    "R_eq_km": {"value": 3396.19, "unit": "km", "source": "FUENTE", "ref": "contexto §2.1"},
+    "R_pol_km": {"value": 3376.20, "unit": "km", "source": "FUENTE", "ref": "contexto §2.1"},
+    "R_source_sphere_m": {"value": 3396190.0, "unit": "m", "source": "FUENTE", "ref": "USGS DEM/DTM CRS; verify in metadata (M1)"}
+  },
+  "grid": {
+    "phi0_deg": {"value": 40.0, "unit": "deg", "source": "DECISION", "ref": "spec §3.3"},
+    "lam0_deg": {"value": 203.0, "unit": "deg E", "source": "DECISION", "ref": "spec §3.3"},
+    "cell_m": {"value": 200, "unit": "m", "source": "DECISION", "ref": "spec C-02"},
+    "x_min_km": {"value": -113.4, "unit": "km", "source": "DECISION", "ref": "spec §3.3"},
+    "x_max_km": {"value": 113.4, "unit": "km", "source": "DECISION", "ref": "spec §3.3"},
+    "y_min_km": {"value": -77.0, "unit": "km", "source": "DECISION", "ref": "spec §3.3"},
+    "y_max_km": {"value": 77.0, "unit": "km", "source": "DECISION", "ref": "spec §3.3"},
+    "ncols": {"value": 1134, "unit": "", "source": "DERIVED", "ref": "226.8 km / 0.2 km"},
+    "nrows": {"value": 770, "unit": "", "source": "DERIVED", "ref": "154.0 km / 0.2 km"},
+    "bbox_lon_min": {"value": 200.5, "unit": "deg E", "source": "DECISION", "ref": "spec C-02"},
+    "bbox_lon_max": {"value": 205.5, "unit": "deg E", "source": "DECISION", "ref": "spec C-02"},
+    "bbox_lat_min": {"value": 38.7, "unit": "deg N", "source": "DECISION", "ref": "spec C-02"},
+    "bbox_lat_max": {"value": 41.3, "unit": "deg N", "source": "DECISION", "ref": "spec C-02"}
+  },
+  "atmos": {
+    "RGAS": {"value": 188.92, "unit": "J/kg/K", "source": "FUENTE", "ref": "contexto §5.1"},
+    "G": {"value": 3.72076, "unit": "m/s2", "source": "FUENTE", "ref": "contexto §5.1"},
+    "T_K": {"value": 210.0, "unit": "K", "source": "FUENTE", "ref": "contexto §5.1 (210–220 K)"},
+    "P0_Pa": {"value": 610.0, "unit": "Pa", "source": "FUENTE", "ref": "contexto §5.1"}
+  },
+  "env": {
+    "Ls_deg": {"value": 270, "unit": "deg", "source": "DECISION", "ref": "P-08"},
+    "irr_tau04_Wm2": {"value": 185.3, "unit": "W/m2", "source": "FUENTE", "ref": "contexto §5.2 (model not specified by source)"},
+    "irr_tau20_Wm2": {"value": 27.5, "unit": "W/m2", "source": "FUENTE", "ref": "contexto §5.2 (model not specified by source)"},
+    "dose_rate_mGy_day": {"value": 0.213, "unit": "mGy/day", "source": "FUENTE", "ref": "MSL/RAD, contexto §5.4"}
+  },
+  "rover": {
+    "m_curb_kg": {"value": 2092, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
+    "gvwr_kg": {"value": 2629, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
+    "payload_max_kg": {"value": 537, "unit": "kg", "source": "DERIVED", "ref": "gvwr - m_curb"},
+    "Cd": {"value": 0.208, "unit": "", "source": "FUENTE", "ref": "S1"},
+    "A_m2": {"value": 2.34, "unit": "m2", "source": "FUENTE", "ref": "S1"},
+    "battery_usable_kWh": {"value": 96.0, "unit": "kWh", "source": "FUENTE", "ref": "S1"},
+    "clearance_mm": {"value": [117, 158], "unit": "mm", "source": "FUENTE", "ref": "S1"},
+    "approach_departure_deg": {"value": [15, 16], "unit": "deg", "source": "FUENTE", "ref": "S1"},
+    "payload_default_kg": {"value": 350, "unit": "kg", "source": "ASSUMPTION", "ref": "P-11"},
+    "v_ms": {"value": 5.0, "unit": "m/s", "source": "DECISION", "ref": "D-D4 (18 km/h)"},
+    "eta_dt": {"value": 0.90, "unit": "", "source": "ASSUMPTION", "ref": "battery-to-wheel efficiency"},
+    "crr": {"value": 0.15, "unit": "", "source": "ASSUMPTION", "ref": "loose regolith; sensitivity 0.08–0.30"},
+    "k_rough": {"value": 0.5, "unit": "", "source": "ASSUMPTION", "ref": "crr multiplier per normalized roughness"},
+    "UA_W_per_K": {"value": 10.0, "unit": "W/K", "source": "ASSUMPTION", "ref": "battery thermal loss"},
+    "T_batt_set_K": {"value": 288.0, "unit": "K", "source": "ASSUMPTION", "ref": "15 C"},
+    "T_amb_K": {"value": 210.0, "unit": "K", "source": "FUENTE", "ref": "contexto §5.1"},
+    "p_aux_W": {"value": 300.0, "unit": "W", "source": "ASSUMPTION", "ref": "electronics"},
+    "reserve_frac": {"value": 0.20, "unit": "", "source": "ASSUMPTION", "ref": "battery reserve"},
+    "regen_enabled": {"value": false, "unit": "", "source": "DECISION", "ref": "D-D2 rev. 2026-11-14"},
+    "slope_max_deg": {"value": 10.0, "unit": "deg", "source": "DECISION", "ref": "P-01"}
+  },
+  "walker": {
+    "slope_max_deg": {"value": 20.0, "unit": "deg", "source": "DECISION", "ref": "P-02, S8"},
+    "v_ms_default": {"value": 1.0, "unit": "m/s", "source": "ASSUMPTION", "ref": "P-05"},
+    "suit_kg_default": {"value": 170, "unit": "kg", "source": "FUENTE", "ref": "S11 xEMU"},
+    "gear_kg_default": {"value": 10, "unit": "kg", "source": "ASSUMPTION", "ref": "spec §6.4"},
+    "ref_mass_kg": {"value": 80, "unit": "kg", "source": "ASSUMPTION", "ref": "reference astronaut P-11"},
+    "ref_height_cm": {"value": 180, "unit": "cm", "source": "ASSUMPTION", "ref": "reference astronaut P-11"},
+    "ref_age": {"value": 30, "unit": "yr", "source": "ASSUMPTION", "ref": "reference astronaut P-11"},
+    "ref_sex": {"value": "M", "unit": "", "source": "ASSUMPTION", "ref": "reference astronaut P-11"},
+    "f_g": {"value": 0.70, "unit": "", "source": "FUENTE", "ref": "S5 LBPP 0.38 g, unsuited, n=12 (extrapolated)"},
+    "k_suit": {"value": 1.00, "unit": "", "source": "ASSUMPTION", "ref": "slider 1.0–1.5"},
+    "k_rough_walk": {"value": 0.5, "unit": "", "source": "ASSUMPTION", "ref": "spec §6.4"},
+    "minetti_coeffs_hi_to_lo": {"value": [280.5, -58.7, -76.8, 51.9, 19.6, 2.5], "unit": "J/kg/m", "source": "FUENTE", "ref": "S16 Minetti 2002; +52% bias on level vs measured 1.64"},
+    "P_warn_min_W": {"value": 250, "unit": "W", "source": "ASSUMPTION", "ref": "S9 context"},
+    "P_warn_max_W": {"value": 900, "unit": "W", "source": "ASSUMPTION", "ref": "S9 context"},
+    "vo2max_levels": {"value": {"Low": 30, "Average": 40, "Good": 47, "Elite": 55}, "unit": "ml/kg/min", "source": "ASSUMPTION", "ref": "spec §6.4"},
+    "vo2max_default_level": {"value": "Good", "unit": "", "source": "ASSUMPTION", "ref": "spec §6.4"},
+    "hr_rest_default": {"value": 60, "unit": "bpm", "source": "ASSUMPTION", "ref": "spec §6.4"}
+  },
+  "o2": {
+    "RQ": {"value": 0.85, "unit": "", "source": "ASSUMPTION", "ref": "spec §6.5"},
+    "kcal_per_L_a": {"value": 4.039, "unit": "kcal/L", "source": "FUENTE", "ref": "S11 VO2 equation"},
+    "kcal_per_L_b": {"value": 1.157, "unit": "kcal/L", "source": "FUENTE", "ref": "S11 VO2 equation"},
+    "eva_limit_h": {"value": 8.0, "unit": "h", "source": "FUENTE", "ref": "P-06, S9"},
+    "reserve_min": {"value": 30, "unit": "min", "source": "ASSUMPTION", "ref": "P-09, S10 order of magnitude"},
+    "contingency": {"value": 0.10, "unit": "", "source": "ASSUMPTION", "ref": "P-09"},
+    "O2_kg_per_L": {"value": 0.001429, "unit": "kg/L", "source": "FUENTE", "ref": "O2 density at STP"}
+  },
+  "bio": {
+    "q_heat_frac": {"value": 0.75, "unit": "", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "phi_evap": {"value": 0.30, "unit": "", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "latent_J_per_g": {"value": 2430, "unit": "J/g", "source": "FUENTE", "ref": "latent heat of sweat evaporation"},
+    "LCVG_cap_W": {"value": 500, "unit": "W", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "body_cp_J_per_kgK": {"value": 3470, "unit": "J/kg/K", "source": "FUENTE", "ref": "human tissue specific heat"},
+    "Tc0_C": {"value": 37.0, "unit": "C", "source": "FUENTE", "ref": "normal core temperature"},
+    "Tc_alert_C": {"value": 38.5, "unit": "C", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "hrmax_a": {"value": 208, "unit": "bpm", "source": "FUENTE", "ref": "Tanaka HRmax formula"},
+    "hrmax_b": {"value": 0.7, "unit": "bpm/yr", "source": "FUENTE", "ref": "Tanaka HRmax formula"}
+  },
+  "routing": {
+    "neighbors": {"value": 16, "unit": "", "source": "DECISION", "ref": "spec M2"},
+    "enable_ti_exclusion": {"value": false, "unit": "", "source": "DECISION", "ref": "P-15; M1 proposes true only with TES TI"},
+    "ti_min": {"value": 100, "unit": "J m-2 K-1 s-1/2", "source": "FUENTE", "ref": "contexto §5.5 Golombek 2021"},
+    "slope_smooth_sigma_cells": {"value": 0, "unit": "cells", "source": "ASSUMPTION", "ref": "spec M1"},
+    "rough_window": {"value": 3, "unit": "cells", "source": "PROXY", "ref": "spec M1"},
+    "rough_ref_percentile": {"value": 95, "unit": "", "source": "PROXY", "ref": "spec M1"},
+    "detail_radius_km": {"value": 15, "unit": "km", "source": "DECISION", "ref": "P-14"},
+    "detail_cell_m": {"value": 20, "unit": "m", "source": "FUENTE", "ref": "S3 DTM noise"}
+  },
+  "units": {
+    "kcal_day_to_W": {"value": 0.048426, "unit": "W per kcal/day", "source": "DERIVED", "ref": "4184/86400"},
+    "W_to_kcal_min": {"value": 0.0143403, "unit": "kcal/min per W", "source": "DERIVED", "ref": "60/4184"},
+    "J_to_kcal": {"value": 0.000239006, "unit": "kcal/J", "source": "DERIVED", "ref": "1/4184"}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "bioenanos-arcadia-navigator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run tests/js",
+    "e2e": "playwright test tests/e2e",
+    "vendor": "node tools/vendor_leaflet.mjs",
+    "serve": "node tools/serve.mjs",
+    "postinstall": "node tools/vendor_leaflet.mjs"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4"
+  },
+  "devDependencies": {
+    "vitest": "latest",
+    "@playwright/test": "latest"
+  }
+}

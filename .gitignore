@@ -1,0 +1,10 @@
+data/raw/
+node_modules/
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+test-results/
+playwright-report/
+.DS_Store
+*.aux.xml

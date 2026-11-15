@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "mock", "grid", "params_used", "routes"],
+  "properties": {
+    "schema_version": {"const": "1.1"},
+    "mock": {"type": "boolean"},
+    "grid": {"type": "object", "required": ["cell_m", "neighbors"]},
+    "params_used": {"type": "object", "required": ["rover", "walker"]},
+    "routes": {"type": "array", "minItems": 20, "maxItems": 20,
+      "items": {"type": "object",
+        "required": ["poi", "mode", "direction", "length_km_3d", "length_km_2d", "ascent_m", "descent_m", "max_grade_deg", "mean_grade_deg", "time_h", "ref", "points"],
+        "properties": {
+          "poi": {"enum": ["AP-9", "APMR", "HCP_ESP_037655_2210", "AP-8", "US1_FRONT"]},
+          "mode": {"enum": ["rover", "walker"]},
+          "direction": {"enum": ["out", "back"]},
+          "length_km_3d": {"type": "number", "exclusiveMinimum": 0},
+          "length_km_2d": {"type": "number", "exclusiveMinimum": 0},
+          "ascent_m": {"type": "number", "minimum": 0}, "descent_m": {"type": "number", "minimum": 0},
+          "max_grade_deg": {"type": "number", "minimum": 0, "maximum": 20},
+          "mean_grade_deg": {"type": "number", "minimum": 0, "maximum": 20},
+          "time_h": {"type": "number", "exclusiveMinimum": 0},
+          "ref": {"type": "object"},
+          "points": {"type": "array", "minItems": 2,
+            "items": {"type": "object", "required": ["x_km", "y_km", "lat", "lon", "z_m", "s_km", "grade_deg", "rough"],
+              "properties": {"x_km": {"type": "number"}, "y_km": {"type": "number"}, "lat": {"type": "number"}, "lon": {"type": "number"},
+                "z_m": {"type": "number"}, "s_km": {"type": "number", "minimum": 0}, "grade_deg": {"type": "number"}, "rough": {"type": "number", "minimum": 0, "maximum": 1}}}}
+        },
+        "allOf": [
+          {"if": {"properties": {"mode": {"const": "rover"}}}, "then": {"properties": {"ref": {"required": ["E_total_kWh", "E_drive_kWh", "E_aux_kWh"]}, "max_grade_deg": {"maximum": 10}}}},
+          {"if": {"properties": {"mode": {"const": "walker"}}}, "then": {"properties": {"ref": {"required": ["E_kcal", "O2_metabolic_L"]}}}}
+        ]}}
+  }
+}

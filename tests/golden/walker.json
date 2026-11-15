@@ -1,0 +1,23 @@
+{
+  "cases": [
+    {"id": "G-WLK-1", "fn": "C_w", "input": [0.0, 0.1, -0.1], "expect": [2.5000, 4.8991, 1.1271], "tol": 0.001},
+    {"id": "G-WLK-2", "fn": "metabolic",
+     "input": {"W": 80, "H_cm": 180, "age": 30, "sex": "M", "L_suit": 170, "L_gear": 0, "G": 0.0, "v": 1.0, "f_g": 0.70, "k_suit": 1.0, "r": 0, "RQ": 0.85, "vo2max": 47, "hr_rest": 60},
+     "expect": {"BMR_kcal_day": 1780.0, "P_rest_W": 86.198, "P_loco_W": 437.5, "P_total_W": 523.698, "kcal_per_min": 7.5100, "VO2_Lmin": 1.49529, "VO2_mlkgmin": 18.691, "HR_bpm": 104.35, "sweat_L_h": 0.17457},
+     "tol": {"BMR_kcal_day": 0.01, "P_rest_W": 0.1, "P_loco_W": 0.01, "P_total_W": 0.1, "kcal_per_min": 0.001, "VO2_Lmin": 0.002, "VO2_mlkgmin": 0.01, "HR_bpm": 0.1, "sweat_L_h": 0.0005}},
+    {"id": "G-WLK-3", "fn": "segment", "note": "1 km flat with G-WLK-2 inputs",
+     "input": {"d_m": 1000}, "expect": {"t_s": 1000, "O2_metabolic_L": 24.921, "kcal": 125.167}, "tol": {"t_s": 1e-9, "O2_metabolic_L": 0.1, "kcal": 0.1}},
+    {"id": "G-WLK-4", "fn": "C_w", "input": [0.36397, -0.36397], "expect": [13.5677, 3.1228], "tol": 0.001,
+     "also": {"min_over_range": {"range": [-0.364, 0.364], "expect_min": 0.9355, "tol": 0.001, "must_be_positive": true}}},
+    {"id": "G-WLK-5", "fn": "o2_plan", "note": "G-WLK-2 inputs, flat, round trip 20 km, eva 8 h, reserve 30 min, contingency 0.10",
+     "input": {"round_trip_m": 20000}, "expect": {"t_round_h": 5.5556, "n_evas": 1, "single_eva_feasible": true, "O2_metabolic_L": 498.43, "O2_required_L": 597.62, "O2_required_kg": 0.85399},
+     "tol": {"t_round_h": 0.001, "O2_metabolic_L": 0.1, "O2_required_L": 0.1, "O2_required_kg": 0.0005}},
+    {"id": "G-WLK-6", "fn": "o2_plan", "input": {"round_trip_m": 100000},
+     "expect": {"t_round_h": 27.778, "n_evas": 4, "single_eva_feasible": false, "O2_required_L": 2938.74, "O2_required_kg": 4.19946},
+     "tol": {"t_round_h": 0.001, "O2_required_L": 0.5, "O2_required_kg": 0.001}},
+    {"id": "G-WLK-7", "fn": "metabolic",
+     "input": {"W": 60, "H_cm": 165, "age": 35, "sex": "F", "L_suit": 170, "L_gear": 10, "G": 0.05, "v": 0.8, "f_g": 0.70, "k_suit": 1.0, "r": 0, "RQ": 0.85},
+     "expect": {"BMR_kcal_day": 1295.25, "P_total_W": 546.546, "VO2_Lmin": 1.56053}, "tol": {"BMR_kcal_day": 0.01, "P_total_W": 0.1, "VO2_Lmin": 0.002}},
+    {"id": "G-BIO-1", "fn": "core_temp", "input": {"P_total_W": 1000, "W": 80, "t_s": 3600}, "expect": {"Tc_C": 40.242, "alert": true}, "tol": {"Tc_C": 0.005}}
+  ]
+}
