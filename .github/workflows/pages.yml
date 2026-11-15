@@ -1,6 +1,10 @@
 name: pages
+# Deploy web/ to GitHub Pages only after the `ci` workflow finished green on main (audit H-06).
+# workflow_dispatch keeps a manual redeploy of the current main possible.
 on:
-  push:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 permissions:
@@ -12,12 +16,15 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}  # deploy exactly the commit that CI tested
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

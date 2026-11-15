@@ -30,22 +30,44 @@ async function defaultFetchJson(rel) {
 
 const key = (poi, mode, direction) => `${poi}|${mode}|${direction}`;
 
-/** Load everything. `fetchJson(relPathUnderData)` can be injected (tests). Throws only if pois.json is missing. */
+// Minimal shape checks (audit H-03): a file that parses but has the wrong shape is treated like a missing one.
+const isObj = (x) => x !== null && typeof x === 'object' && !Array.isArray(x);
+function checkConstants() {
+  if (constantsError) throw new Error(`constants.json could not be loaded (${constantsError.message})`);
+  if (!isObj(C) || !['geo', 'grid', 'atmos', 'rover', 'walker', 'o2', 'bio', 'units'].every((g) => isObj(C[g]))) {
+    throw new Error('constants.json is incomplete or has an unexpected format');
+  }
+}
+function checkPois(p) {
+  if (!isObj(p) || !isObj(p.base) || !Array.isArray(p.pois) || !p.pois.length) throw new Error('pois.json has an unexpected format');
+  return p;
+}
+function checkRoutes(r) {
+  if (!isObj(r) || !Array.isArray(r.routes) || !r.routes.length) throw new Error('routes.json has an unexpected format');
+  return r;
+}
+function checkLayers(l) {
+  if (!isObj(l) || !isObj(l.grid) || !Array.isArray(l.layers) || !l.layers.length) throw new Error('layers.json has an unexpected format');
+  return l;
+}
+
+/** Load everything. `fetchJson(relPathUnderData)` can be injected (tests). Throws if constants.json or pois.json is
+ *  missing or malformed; a missing or malformed routes.json / layers.json falls back to data/mock/* (MOCK DATA). */
 export async function loadData({ fetchJson = defaultFetchJson } = {}) {
-  if (constantsError) state.warnings.push(`constants.json: ${constantsError.message}`);
-  state.pois = await fetchJson('pois.json');
+  checkConstants();
+  state.pois = checkPois(await fetchJson('pois.json'));
   state.mock = { routes: false, layers: false };
   try {
-    state.routes = await fetchJson('routes.json');
+    state.routes = checkRoutes(await fetchJson('routes.json'));
   } catch (err) {
-    state.warnings.push(`routes.json not found (${err.message}); using mock routes`);
+    state.warnings.push(`routes.json not usable (${err.message}); using mock routes`);
     state.routes = await fetchJson('mock/routes.json');
     state.mock.routes = true;
   }
   try {
-    state.layers = await fetchJson('layers/layers.json');
+    state.layers = checkLayers(await fetchJson('layers/layers.json'));
   } catch (err) {
-    state.warnings.push(`layers/layers.json not found (${err.message}); using mock layers`);
+    state.warnings.push(`layers/layers.json not usable (${err.message}); using mock layers`);
     state.layers = await fetchJson('mock/layers.json');
     state.mock.layers = true;
   }

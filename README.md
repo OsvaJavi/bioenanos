@@ -63,7 +63,7 @@ PW_CHROME=/usr/bin/google-chrome npm run e2e   # local run with a system Chrome
 - Tests: `tests/js/test_m4_rover.test.js` (golden, parity with `routes.json`, payload, 200 km synthetic route) and `tests/e2e/m4_rover.spec.js`.
 ## M5 — On-foot telemetry
 - `web/js/models/walker.js`: spec §6.4–6.6 in JS (twin of `pipeline/models_walker.py`): `metabolic`, `segment`, `routeEnergy`, `o2Plan` (EVA split, reserve, contingency), `coreTempC`, `roundTripTimeline`/`walkerStateAt` (playback, core temperature reset at each EVA), `validateForm`/`FIELDS`.
-- `web/js/telemetry_walker.js` (`mountWalkerPanel`): astronaut form (13 fields, spec ranges), O₂ required (L STP + kg + max per EVA), EVAs, kcal, mean VO₂, alerts (multi-EVA, core temperature, metabolic range), round-trip playback ×600/×3600/×36000 with biometric gauges and EVA separators; reuses M4's `chart.js` and `env_strip.js` unchanged.
+- `web/js/telemetry_walker.js` (`mountWalkerPanel`): astronaut form (13 fields, spec ranges), O₂ required (L STP + kg + max per EVA), EVAs (ended at the EVA limit or, spec v1.3, when the estimated core temperature reaches 38.5 °C; "Not feasible on foot" if a heat-limited EVA would last < 1 h), kcal, mean VO₂, alerts (multi-EVA, core temperature, metabolic range), round-trip playback ×600/×3600/×36000 with biometric gauges and EVA separators; reuses M4's `chart.js` and `env_strip.js` unchanged.
 - Tests: `tests/js/test_m5_walker.test.js`, `tests/e2e/m5_walker.spec.js`.
 ## M6 — Integration & deployment
 **Regenerate everything** (only the first step needs internet; outputs are committed):
@@ -107,9 +107,16 @@ Recomputed on the fixed AP-9 routes with `python tools/sensitivity.py` (all othe
 | Rover · eta_dt (drivetrain efficiency) | 0.9 (default) | 61.4 kWh round trip | +0 % | ROUND TRIP OK |
 | Rover · eta_dt (drivetrain efficiency) | 0.95 | 58.5 kWh round trip | -5 % | ROUND TRIP OK |
 | On foot · f_g (Mars gravity factor) | 0.56 | 3233 L O₂ | -17 % | 5 EVAs |
-| On foot · f_g (Mars gravity factor) | 0.7 (default) | 3896 L O₂ | +0 % | 5 EVAs |
-| On foot · f_g (Mars gravity factor) | 0.84 | 4559 L O₂ | +17 % | 5 EVAs |
+| On foot · f_g (Mars gravity factor) | 0.7 (default) | 3896 L O₂ | +0 % | 5 EVAs, 1 heat-limited |
+| On foot · f_g (Mars gravity factor) | 0.84 | — | — | Not feasible on foot (heat) |
 
-Rolling resistance on Martian regolith (`crr`, an assumption with no direct measurement) dominates the rover result: across its plausible range the AP-9 round trip goes from comfortable to impossible with the reserve. Drivetrain efficiency matters much less. On foot, the Mars gravity factor `f_g` moves oxygen by about ±17 % but cannot change the number of EVAs, which depends only on walking time.
+Rolling resistance on Martian regolith (`crr`, an assumption with no direct measurement) dominates the rover result: across its plausible range the AP-9 round trip goes from comfortable to impossible with the reserve. Drivetrain efficiency matters much less. On foot, a lower Mars gravity factor `f_g` saves about 17 % of the oxygen; a 20 % higher one makes AP-9 not feasible on foot, because on the climbs the suit can no longer remove the extra heat and an EVA would end in under 1 h (spec v1.3: an EVA ends when the estimated core temperature reaches 38.5 °C).
+## Use of AI (Super Intelligence, SI)
+This project was built with AI coding agents, as declared under the Space Apps "Use of Super Intelligence (SI)" rules.
+- **What the AI generated:** all the code in this repository (`pipeline/`, `web/js/`, `web/css/`, `tools/`), the tests (`tests/`), the generated data files (`data/processed/*`, `web/data/layers/*`, `web/data/routes.json`, `web/data/pois.json` elevations, `web/data/mock/*`) and the documentation (`README.md`, `docs/DEMO_SCRIPT.md`, `docs/handoff/*`, `docs/audit/*`). It was written by Claude (Anthropic; Claude Code and claude.ai coding agents), one module per session, as recorded in each `docs/handoff/HANDOFF_M*.md` and in the commit history.
+- **What the team set:** the scope and the binding decisions in the spec (`docs/MARS_PROJECT_MASTER_SPEC.md` §2.1, decisions D-*), the review and merge of every module, and the approval of every contract change (for example spec v1.2). Default engineering choices proposed by the AI are labelled P-01…P-16 in spec §2.2 and were open to team veto.
+- **How it was checked:** the physics, geodesy and routes are specified once in the spec and implemented twice (Python and JavaScript) against the same golden vectors; CI runs the unit and end-to-end tests on every change, and an independent audit (`docs/audit/AUDIT_REPORT.md`) re-derived the results.
+- **Data:** every map layer comes from NASA, USGS and ESA/DLR mission data (see Credits); the AI only wrote the code that reprojects and derives it. No image or video in the app is AI-generated, and no NASA logo or insignia is used.
+
 ## Credits
 Elevation: Mars HRSC–MOLA blended DEM 200 m v2 (CC BY-SA 3.0 IGO — DLR, ESA, FU Berlin, NASA, USGS). Detail: CTX DTM and orthoimage from the USGS STAC (CC0 — NASA/JPL-Caltech/MSSS, USGS). Thermal: THEMIS day-IR mosaic 100 m v12 (NASA/JPL-Caltech/ASU, USGS). Optical: Viking MDIM 2.1 colour mosaic (NASA, USGS). Rover data: Tesla Model S (tesla.com; EVKX). Map library: Leaflet (BSD-2-Clause). Full list in the app's *Data credits* panel and `DATA_LICENSE.md`.

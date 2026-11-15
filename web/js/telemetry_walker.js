@@ -59,6 +59,7 @@ const hm = (h) => {
 };
 const SPEEDS = [600, 3600, 36000];
 export const MULTI_EVA_ALERT = 'Multi-EVA traverse — overnight shelter and resupply are not modeled';
+export const NOT_FEASIBLE_ALERT = 'Not feasible on foot — heat load exceeds suit cooling';
 
 /** Summary + alerts for a round trip with a given walker (pure; exported for tests). */
 export function walkerSummary(out, back, w, plan) {
@@ -71,18 +72,24 @@ export function walkerSummary(out, back, w, plan) {
     const p = r.points;
     for (let k = 1; k < p.length; k++) {
       const s = segment(w, 1000 * (p[k].s_km - p[k - 1].s_km), p[k].grade_deg, p[k].rough);
-      segs.push({ t_s: s.t_s, O2_L: s.O2_L });
+      segs.push({ t_s: s.t_s, O2_L: s.O2_L, P_W: s.P_total_W });
       kcal += s.E_kcal;
       pMin = Math.min(pMin, s.P_total_W);
       pMax = Math.max(pMax, s.P_total_W);
     }
   }
-  const o2 = o2Plan(segs, plan);
+  const o2 = o2Plan(segs, { ...plan, W: w.W }); // heat-limited EVAs (spec v1.3)
   const tl = roundTripTimeline(out, back, w, plan);
   const tcMax = Math.max(...tl.segs.map((s) => s.tc1));
   const alerts = [];
+  if (!o2.feasible) {
+    alerts.push({ key: 'not-feasible', bad: true, text: `${NOT_FEASIBLE_ALERT}: an EVA would end in under ${f(C.bio.min_eva_h, 0)} h because the core temperature (est.) reaches ${C.bio.Tc_alert_C} °C. Try a lower speed or less gear.` });
+  }
   if (o2.n_evas > 1) alerts.push({ key: 'multi-eva', bad: false, text: `${MULTI_EVA_ALERT}.` });
-  if (tcMax > C.bio.Tc_alert_C) alerts.push({ key: 'core-temp', bad: true, text: `Core temp up to ${f(tcMax, 1)} °C (limit ${C.bio.Tc_alert_C} °C).` });
+  if (o2.feasible && o2.heat_limited_evas > 0) {
+    alerts.push({ key: 'heat-limit', bad: true, text: `${o2.heat_limited_evas} EVA${o2.heat_limited_evas > 1 ? 's end' : ' ends'} early: the core temperature (est.) reaches ${C.bio.Tc_alert_C} °C (suit cooling ${C.bio.LCVG_cap_W} W exceeded); the next EVA starts at ${C.bio.Tc0_C} °C.` });
+  }
+  if (tcMax > C.bio.Tc_alert_C + 1e-6 && o2.feasible) alerts.push({ key: 'core-temp', bad: true, text: `Core temp up to ${f(tcMax, 1)} °C (limit ${C.bio.Tc_alert_C} °C).` });
   if (pMin < C.walker.P_warn_min_W || pMax > C.walker.P_warn_max_W) {
     alerts.push({ key: 'metabolic', bad: true, text: `Metabolic rate ${f(pMin, 0)}–${f(pMax, 0)} W: outside typical EVA metabolic range (${C.walker.P_warn_min_W}–${C.walker.P_warn_max_W} W).` });
   }
@@ -128,6 +135,16 @@ export function mountWalkerPanel(el, ctx) {
     const r = st.res;
     if (!r) return '<p class="wk-stale">Fix the highlighted field to recalculate.</p>';
     const o = r.o2;
+    if (!o.feasible) {
+      return `<div class="wk-o2"><b data-s="O2_required_L" data-v="">Not feasible on foot</b>
+        <span>Heat load exceeds suit cooling at this pace</span></div>
+      <dl class="wk-sum">
+        <dt>EVAs required</dt><dd data-s="n_evas" data-v="" data-single="false">—</dd>
+        <dt>Round trip</dt><dd data-s="t_round_h" data-v="${o.t_round_h}">${f(r.km_out + r.km_back, 1)} km, ${hm(o.t_round_h)}</dd>
+        <dt>Energy</dt><dd data-s="kcal" data-v="${r.kcal}">${f(r.kcal, 0)} kcal</dd>
+      </dl>
+      <ul class="wk-alerts">${r.alerts.map((a) => `<li class="${a.bad ? 'bad' : ''}" data-alert="${a.key}">${a.text}</li>`).join('')}</ul>`;
+    }
     return `<div class="wk-o2"><b data-s="O2_required_L" data-v="${o.O2_required_L}">${f(o.O2_required_L, 0)} L</b>
         <span>Oxygen required (L, STP), <span data-s="O2_required_kg" data-v="${o.O2_required_kg}">${f(o.O2_required_kg, 2)} kg</span></span></div>
       <dl class="wk-sum">
@@ -214,7 +231,9 @@ export function mountWalkerPanel(el, ctx) {
 
   function paint() {
     const set = (k, txt, v) => { const d = el.querySelector(`[data-g="${k}"]`); if (d) { d.textContent = txt; if (v != null) d.dataset.v = v; } };
-    if (!st.res) { el.querySelectorAll('[data-g]').forEach((d) => { d.textContent = '—'; }); return null; }
+    const btn = el.querySelector('.wk-play');
+    if (btn) btn.disabled = !(st.res && st.res.o2.feasible);
+    if (!st.res || !st.res.o2.feasible) { el.querySelectorAll('[data-g]').forEach((d) => { d.textContent = '—'; }); return null; }
     const s = walkerStateAt(st.res.tl, st.t, st.plan.eva_limit_h);
     set('eva', `${s.eva} of ${st.res.o2.n_evas}`, s.eva);
     set('hr', s.done ? '—' : `${f(s.HR, 0)} bpm`, s.HR);
@@ -247,7 +266,7 @@ export function mountWalkerPanel(el, ctx) {
   }
 
   function play() {
-    if (!st.res) return;
+    if (!st.res || !st.res.o2.feasible) return;
     if (walkerStateAt(st.res.tl, st.t, st.plan.eva_limit_h).done) st.t = 0;
     st.playing = true;
     st.last = performance.now();

@@ -1,11 +1,19 @@
 # MARS_PROJECT_MASTER_SPEC.md
 **Proyecto:** Arcadia Planitia Surface Navigator (NASA Space Apps 2026 — "Interplanetary Survival Guide: Martian Map")
-**Versión:** 1.2 · **Fecha:** 2026-11-15 · **Idioma del documento:** español · **Idioma de UI y código:** inglés
+**Versión:** 1.3 · **Fecha:** 2026-11-15 · **Idioma del documento:** español · **Idioma de UI y código:** inglés
 **Repositorio:** `https://github.com/OsvaJavi/bioenanos` → sitio publicado en `https://osvajavi.github.io/bioenanos/` (subruta `/bioenanos/`)
 **Equipo:** 4 personas, cada una con un agente LLM con terminal e internet (Claude Code, Codex, Gemini CLI).
 **Plazo duro:** domingo 2026-11-15, 20:00 (America/Mexico_City). Tiempo disponible desde la v1.1: ~24.5 h.
 
 ---
+
+## Cambios respecto a v1.2 (auditoría H-02, decisión humana del 2026-11-15)
+
+| # | Cambio | Motivo |
+|---|---|---|
+| 1.3-1 | §6.5–6.6: una EVA termina cuando la temperatura central estimada llega a `Tc_alert_C` (38.5 °C), además de al cumplir `eva_limit_h`. La siguiente EVA empieza en `Tc0` (37.0 °C). La alerta de temperatura se sustituye por un aviso de EVAs cortadas por calor. | La fórmula de §6.6 no tiene tope: la UI llegaba a mostrar 43.6 °C (AP-9 a 1.3 m/s) y 155 °C con entradas extremas válidas. |
+| 1.3-2 | Nueva constante `bio.min_eva_h` = **1.0 h** `[ASSUMPTION]`. Si una EVA cortada por calor duraría menos, el trayecto es **NOT FEASIBLE on foot** ("Not feasible on foot — heat load exceeds suit cooling"): no se calculan EVAs ni O₂ requerido y la reproducción se desactiva. | Evita planes con decenas de EVAs de minutos. |
+| 1.3-3 | Con los parámetros por defecto (1.0 m/s) no cambia ningún número de EVAs ni el O₂ requerido; solo el O₂ máximo por EVA en AP-9 y APMR (una EVA de cada uno se corta por calor). A 1.3 m/s, AP-9 y APMR pasan a NOT FEASIBLE. `routes.json`, README y `DEMO_SCRIPT.md` actualizados. Vectores dorados sin cambios (G-WLK-5/6 no calientan; G-BIO-1 prueba la fórmula de Tc, que no cambia). | Consecuencia de 1.3-1 y 1.3-2. |
 
 ## Cambios respecto a v1.1 (M6, decisión humana del 2026-11-15)
 
@@ -341,7 +349,7 @@ RQ           = 0.85                                       # [ASSUMPTION]
 VO2_Lmin     = kcal_per_min / (4.039 + 1.157*RQ)          # L/min STPD [FUENTE: S11]
 VO2_mlkgmin  = VO2_Lmin*1000 / W
 ```
-**Línea de tiempo:** ida y vuelta seguidas (ruta `out` y luego `back`, calculadas por separado en M2). Se corta en EVAs consecutivas de `eva_limit_h`; la última puede ser parcial.
+**Línea de tiempo:** ida y vuelta seguidas (ruta `out` y luego `back`, calculadas por separado en M2). Se corta en EVAs consecutivas de `eva_limit_h`; la última puede ser parcial. **v1.3:** una EVA también termina cuando Tc (§6.6) llega a `Tc_alert_C`; la siguiente empieza con Tc = `Tc0`. Si una EVA cortada por calor duraría menos de `min_eva_h`, el trayecto es *not feasible on foot* (sin `n_evas` ni O₂ requerido). Con la regla de calor, `n_evas` es el número de bloques resultante (la fórmula `ceil` de abajo vale cuando no hay cortes por calor).
 ```
 n_evas          = ceil(t_round_h / eva_limit_h)
 O2_met_L        = Σ_seg VO2_Lmin(seg) * t_seg/60
@@ -357,7 +365,7 @@ El dashboard muestra **litros STPD totales** (cifra principal), su masa, **O₂ 
 - **FC:** `HRmax = 208 − 0.7*age`; `%VO2R = clamp((VO2_mlkgmin − 3.5)/(VO2max − 3.5), 0, 1)`; `HR = HRrest + (HRmax − HRrest)*%VO2R`.
 - **kcal acumuladas:** `Σ P_total_W * t * 0.000239006`.
 - **Hidratación (solo sudor; no incluye pérdida respiratoria):** `Q_heat = 0.75*P_total_W`; `sweat_g_s = Q_heat*0.30/2430`; 1 g ≈ 1 mL. Se muestran L/h y el total.
-- **Temperatura corporal:** `Q_removed = min(Q_heat, 500 W)` (capacidad del LCVG); `dTc/dt = (Q_heat − Q_removed)/(W*3470)`; `Tc0 = 37.0 °C`; alerta si `Tc > 38.5 °C`. Entre EVAs, Tc vuelve a 37.0 `[ASSUMPTION]`.
+- **Temperatura corporal:** `Q_removed = min(Q_heat, 500 W)` (capacidad del LCVG); `dTc/dt = (Q_heat − Q_removed)/(W*3470)`; `Tc0 = 37.0 °C`; alerta si `Tc > 38.5 °C`. Entre EVAs, Tc vuelve a 37.0 `[ASSUMPTION]`. **v1.3:** al llegar a 38.5 °C la EVA termina (ver §6.5), así que Tc nunca supera ese valor en un plan factible.
 - **Dosis acumulada:** `dose_mGy = 0.213 * t_h/24` `[FUENTE: contexto §5.4]`, sin blindaje de traje ni de rover (se declara).
 
 ### 6.7 Capa "Radiation shielding"
@@ -611,7 +619,7 @@ Los esquemas formales (JSON Schema 2020-12) están en D.9; M0 los extrae a `sche
 ---
 
 ## Apéndice C — Cadenas de UI (inglés)
-`Arcadia Planitia Surface Navigator` · `Base of Operations` · `Points of Interest` · `Mode: ROVER / ON FOOT` · `Route distance` · `Select a point of interest` · `Show return` · `Layer` · `Not available` · `Visual only — not used for routing` · `MOCK DATA` · `Payload (kg)` · `Energy used` · `Battery` · `Battery reserve` · `Round trip` · `ROUND TRIP OK` · `ONE-WAY ONLY` · `NOT REACHABLE` · `Held by heater` · `EVAs required` · `Oxygen required (L, STP)` · `Max O₂ per EVA` · `Multi-EVA traverse — overnight shelter and resupply are not modeled` · `Heart rate` · `Core temp (est.)` · `Hydration loss` · `Dose` · `outside typical EVA metabolic range` · `Simulate traverse` · `About / Assumptions` · `Data credits`.
+`Arcadia Planitia Surface Navigator` · `Base of Operations` · `Points of Interest` · `Mode: ROVER / ON FOOT` · `Route distance` · `Select a point of interest` · `Show return` · `Layer` · `Not available` · `Visual only — not used for routing` · `MOCK DATA` · `Payload (kg)` · `Energy used` · `Battery` · `Battery reserve` · `Round trip` · `ROUND TRIP OK` · `ONE-WAY ONLY` · `NOT REACHABLE` · `Held by heater` · `EVAs required` · `Oxygen required (L, STP)` · `Max O₂ per EVA` · `Multi-EVA traverse — overnight shelter and resupply are not modeled` · `Not feasible on foot — heat load exceeds suit cooling` · `Heart rate` · `Core temp (est.)` · `Hydration loss` · `Dose` · `outside typical EVA metabolic range` · `Simulate traverse` · `About / Assumptions` · `Data credits`.
 
 ---
 
@@ -706,7 +714,7 @@ Read and follow `AGENTS.md` and `docs/MARS_PROJECT_MASTER_SPEC.md` before doing 
 <!-- FILE: web/data/constants.json -->
 ```json
 {
-  "_meta": {"version": "1.1", "note": "Single source of constants for Python and JS. Use .value. Do not edit outside a spec revision."},
+  "_meta": {"version": "1.3", "note": "Single source of constants for Python and JS. Use .value. Do not edit outside a spec revision."},
   "geo": {
     "R_km": {"value": 3388.0, "unit": "km", "source": "FUENTE", "ref": "contexto §2.2 R_local(40N)"},
     "R_eq_km": {"value": 3396.19, "unit": "km", "source": "FUENTE", "ref": "contexto §2.1"},
@@ -797,7 +805,8 @@ Read and follow `AGENTS.md` and `docs/MARS_PROJECT_MASTER_SPEC.md` before doing 
     "LCVG_cap_W": {"value": 500, "unit": "W", "source": "ASSUMPTION", "ref": "spec §6.6"},
     "body_cp_J_per_kgK": {"value": 3470, "unit": "J/kg/K", "source": "FUENTE", "ref": "human tissue specific heat"},
     "Tc0_C": {"value": 37.0, "unit": "C", "source": "FUENTE", "ref": "normal core temperature"},
-    "Tc_alert_C": {"value": 38.5, "unit": "C", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "Tc_alert_C": {"value": 38.5, "unit": "C", "source": "ASSUMPTION", "ref": "spec §6.6; v1.3: an EVA ends when Tc reaches it"},
+    "min_eva_h": {"value": 1.0, "unit": "h", "source": "ASSUMPTION", "ref": "spec v1.3 §6.5: a heat-limited EVA shorter than this => not feasible on foot"},
     "hrmax_a": {"value": 208, "unit": "bpm", "source": "FUENTE", "ref": "Tanaka HRmax formula"},
     "hrmax_b": {"value": 0.7, "unit": "bpm/yr", "source": "FUENTE", "ref": "Tanaka HRmax formula"}
   },

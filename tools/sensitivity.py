@@ -52,8 +52,8 @@ def walker_plan(f_g):
         p = route("walker", d)["points"]
         for a, b in zip(p, p[1:]):
             s = mw.segment(w, 1000 * (b["s_km"] - a["s_km"]), b["grade_deg"], b["rough"])
-            segs.append((s["t_s"], s["O2_L"]))
-    return mw.o2_plan(segs)
+            segs.append((s["t_s"], s["O2_L"], s["P_total_W"]))
+    return mw.o2_plan(segs, W=w.W)  # heat-limited EVAs (spec v1.3)
 
 
 def table():
@@ -68,9 +68,14 @@ def table():
     base = walker_plan(C.walker.f_g)
     for v in (round(C.walker.f_g * 0.8, 3), C.walker.f_g, round(C.walker.f_g * 1.2, 3)):
         p = walker_plan(v)
-        rows.append(("On foot · f_g (Mars gravity factor)", f"{v:g}" + (" (default)" if v == C.walker.f_g else ""),
+        label = f"{v:g}" + (" (default)" if v == C.walker.f_g else "")
+        if not p["feasible"]:  # spec v1.3: a heat-limited EVA would be shorter than min_eva_h
+            rows.append(("On foot · f_g (Mars gravity factor)", label, "—", "—", "Not feasible on foot (heat)"))
+            continue
+        heat = f", {p['heat_limited_evas']} heat-limited" if p["heat_limited_evas"] else ""
+        rows.append(("On foot · f_g (Mars gravity factor)", label,
                      f"{p['O2_required_L']:.0f} L O₂", f"{100 * (p['O2_required_L'] / base['O2_required_L'] - 1):+.0f} %",
-                     f"{p['n_evas']} EVAs"))
+                     f"{p['n_evas']} EVAs{heat}"))
     out = ["| Parameter | Value | Result (AP-9) | Change | Verdict / EVAs |", "|---|---|---|---|---|"]
     out += [f"| {a} | {b} | {c} | {d} | {e} |" for a, b, c, d, e in rows]
     return "\n".join(out)

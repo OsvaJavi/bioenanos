@@ -144,14 +144,15 @@ def compute(processed=PROCESSED, pois_path=POIS_PATH):
             p = cost[(pid, "walker", direction)]["points"]
             for a, b in zip(p, p[1:]):
                 s = mw.segment(w, 1000.0 * (b["s_km"] - a["s_km"]), b["grade_deg"], b["rough"])
-                segs.append((s["t_s"], s["O2_L"]))
-        plan = mw.o2_plan(segs)
+                segs.append((s["t_s"], s["O2_L"], s["P_total_W"]))
+        plan = mw.o2_plan(segs, W=w.W)  # heat-limited EVAs (spec v1.3)
         summary[pid] = {
             "straight_km": next(p["md_straight_km"] for p in pois["pois"] if p["id"] == pid),
             "rover": {"out_km": ro["length_km_3d"], "E_round_kWh": round(ro["ref"]["E_total_kWh"] + rb["ref"]["E_total_kWh"], 3),
                       "verdict": v, "battery_left_on_arrival_kWh": round(left, 3)},
             "walker": {"out_km": cost[(pid, "walker", "out")]["length_km_3d"],
                        "t_round_h": round(plan["t_round_h"], 3), "n_evas": plan["n_evas"],
+                       "heat_limited_evas": plan["heat_limited_evas"],
                        "O2_required_L": round(plan["O2_required_L"], 1),
                        "O2_max_per_EVA_L": round(plan["O2_max_per_EVA_L"], 1)},
             "same_path_rover_walker": [cost[(pid, "rover", d)]["points"] == cost[(pid, "walker", d)]["points"]
