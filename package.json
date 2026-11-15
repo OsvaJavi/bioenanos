@@ -1,7 +1,7 @@
 {
   "name": "bioenanos-arcadia-navigator",
   "private": true,
-  "description": "Arcadia Planitia Surface Navigator (NASA Space Apps 2026). Code, tests, generated data and docs were written with AI coding agents (SI: Claude, Anthropic) under the team's spec and review; see README \"Use of AI\".",
+  "description": "Via Virtus (NASA Space Apps 2026). Code, tests, generated data and docs were written with AI coding agents (SI: Claude, Anthropic) under the team's spec and review; see README \"Use of AI\".",
   "type": "module",
   "scripts": {
     "test": "vitest run tests/js",

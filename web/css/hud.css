@@ -1,4 +1,4 @@
-/* Arcadia Planitia Surface Navigator — dark HUD (spec D-C5, D-C4).
+/* Via Virtus — dark HUD (spec D-C5, D-C4).
    Palette: Martian dusk. The sky over Mars turns blue around the setting Sun; dust stays warm.
    Rover routes use the dusk blue, on-foot routes the dust amber, so colour itself says which mode is active. */
 :root {

@@ -22,7 +22,7 @@ Before starting: open the live site in a clean browser window at 1440 px or wide
 | 1:25–1:45 | Select **APMR · Paleo-megaripples** | "The ancient megaripples are 118 km away. Same rover, same model: 123 kWh round trip. The app says ONE-WAY ONLY. You can get there, but not back without recharging." |
 | 1:45–2:30 | Switch to ON FOOT, AP-9; point at the form and the alerts | "On foot, the question is oxygen. Here is the astronaut: body, suit and PLSS, gear and walking speed. Walking to AP-9 and back needs 3,896 litres of oxygen and five EVAs of eight hours. The model also tracks body heat: on short climbs the metabolic rate passes 1,000 watts, the suit can't remove it all, and one EVA has to end early when the estimated core temperature reaches 38.5 °C." Change the speed to 1.3 m/s: "Walk faster and the suit can't shed the heat on the climbs: one EVA would last only about 20 minutes, so the app says this pace is not feasible on foot." (AP-9 at 1.3 m/s → "Not feasible on foot — heat load exceeds suit cooling". At 1.2 m/s it is still feasible: 7 EVAs, 3,981 L.) |
 | 2:30–2:50 | Open **About / Assumptions** | "Every number that is an assumption is listed here, with its source. The biggest one is rolling resistance on regolith: with 0.30 instead of 0.15, AP-9 also becomes ONE-WAY ONLY. That is the first thing a real mission would need to measure." |
-| 2:50–3:00 | Back to the map | "Arcadia Planitia Surface Navigator: real data, honest physics, and an answer to 'can we get there and back?' for every site. Thank you." |
+| 2:50–3:00 | Back to the map | "Via Virtus: real data, honest physics, and an answer to 'can we get there and back?' for every site. Thank you." |
 
 Backup if the network fails: `npm run serve` on a laptop, then open http://localhost:4173/bioenanos/ (same site, offline).
 
@@ -36,7 +36,7 @@ Record the screen at 1080p and add English subtitles (required for video demos).
 |---|---|---|
 | 0:00–0:03 | Title card: project name, team name, member names | "We are *<team name>*: *<names>*." |
 | 0:03–0:07 | Full map of Arcadia Planitia | "Our challenge: a survival map for the first crew on Mars." |
-| 0:07–0:12 | Layers changing | "Arcadia Planitia Surface Navigator turns NASA and ESA orbital data into a 200-metre map around our base." |
+| 0:07–0:12 | Layers changing | "Via Virtus turns NASA and ESA orbital data into a 200-metre map around our base." |
 | 0:12–0:20 | AP-9 rover route + verdict, then APMR ONE-WAY ONLY | "Pick a site and it plans the safest route, with the rover's battery round trip, or the warning that you can't come back." |
 | 0:20–0:26 | ON FOOT: oxygen, EVAs, heat alert | "On foot, it counts oxygen, EVAs and body heat." |
 | 0:26–0:30 | Map + URL | "Before anyone leaves the base, they know the cost. Try it: osvajavi.github.io/bioenanos." |
@@ -60,7 +60,7 @@ Host it publicly (YouTube unlisted or Google Drive "anyone with the link"). Test
 ## Submission checklist
 
 Project page (English only; every required field must be filled):
-- [ ] **Project name:** Arcadia Planitia Surface Navigator.
+- [ ] **Project name:** Via Virtus.
 - [ ] **High-level summary** (what it does, how it answers the challenge, why it matters).
 - [ ] **Link to project demo:** Part B video (≤ 30 s, English subtitles) *or* Part C deck (≤ 7 slides), publicly accessible.
 - [ ] **Link to final project:** https://osvajavi.github.io/bioenanos/. It must open without a password or sign-in; check it in a private window. The repo is public.

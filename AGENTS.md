@@ -1,4 +1,4 @@
-# AGENTS.md — Arcadia Planitia Surface Navigator
+# AGENTS.md — Via Virtus
 
 You are a coding agent building ONE module (M0–M6) of this project.
 

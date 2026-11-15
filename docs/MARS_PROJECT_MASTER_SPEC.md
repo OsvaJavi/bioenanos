@@ -1,5 +1,5 @@
 # MARS_PROJECT_MASTER_SPEC.md
-**Proyecto:** Arcadia Planitia Surface Navigator (NASA Space Apps 2026 — "Interplanetary Survival Guide: Martian Map")
+**Proyecto:** Via Virtus (antes "Arcadia Planitia Surface Navigator"; NASA Space Apps 2026 — "Interplanetary Survival Guide: Martian Map")
 **Versión:** 1.3 · **Fecha:** 2026-11-15 · **Idioma del documento:** español · **Idioma de UI y código:** inglés
 **Repositorio:** `https://github.com/OsvaJavi/bioenanos` → sitio publicado en `https://osvajavi.github.io/bioenanos/` (subruta `/bioenanos/`)
 **Equipo:** 4 personas, cada una con un agente LLM con terminal e internet (Claude Code, Codex, Gemini CLI).
@@ -13,6 +13,7 @@
 |---|---|---|
 | 1.3-1 | §6.5–6.6: una EVA termina cuando la temperatura central estimada llega a `Tc_alert_C` (38.5 °C), además de al cumplir `eva_limit_h`. La siguiente EVA empieza en `Tc0` (37.0 °C). La alerta de temperatura se sustituye por un aviso de EVAs cortadas por calor. | La fórmula de §6.6 no tiene tope: la UI llegaba a mostrar 43.6 °C (AP-9 a 1.3 m/s) y 155 °C con entradas extremas válidas. |
 | 1.3-2 | Nueva constante `bio.min_eva_h` = **1.0 h** `[ASSUMPTION]`. Si una EVA cortada por calor duraría menos, el trayecto es **NOT FEASIBLE on foot** ("Not feasible on foot — heat load exceeds suit cooling"): no se calculan EVAs ni O₂ requerido y la reproducción se desactiva. | Evita planes con decenas de EVAs de minutos. |
+| 1.3-4 | Nombre del proyecto en la UI y la documentación: **Via Virtus** (antes *Arcadia Planitia Surface Navigator*). | Decisión del equipo (2026-11-15). |
 | 1.3-3 | Con los parámetros por defecto (1.0 m/s) no cambia ningún número de EVAs ni el O₂ requerido; solo el O₂ máximo por EVA en AP-9 y APMR (una EVA de cada uno se corta por calor). A 1.3 m/s, AP-9 y APMR pasan a NOT FEASIBLE. `routes.json`, README y `DEMO_SCRIPT.md` actualizados. Vectores dorados sin cambios (G-WLK-5/6 no calientan; G-BIO-1 prueba la fórmula de Tc, que no cambia). | Consecuencia de 1.3-1 y 1.3-2. |
 
 ## Cambios respecto a v1.1 (M6, decisión humana del 2026-11-15)
@@ -619,7 +620,7 @@ Los esquemas formales (JSON Schema 2020-12) están en D.9; M0 los extrae a `sche
 ---
 
 ## Apéndice C — Cadenas de UI (inglés)
-`Arcadia Planitia Surface Navigator` · `Base of Operations` · `Points of Interest` · `Mode: ROVER / ON FOOT` · `Route distance` · `Select a point of interest` · `Show return` · `Layer` · `Not available` · `Visual only — not used for routing` · `MOCK DATA` · `Payload (kg)` · `Energy used` · `Battery` · `Battery reserve` · `Round trip` · `ROUND TRIP OK` · `ONE-WAY ONLY` · `NOT REACHABLE` · `Held by heater` · `EVAs required` · `Oxygen required (L, STP)` · `Max O₂ per EVA` · `Multi-EVA traverse — overnight shelter and resupply are not modeled` · `Not feasible on foot — heat load exceeds suit cooling` · `Heart rate` · `Core temp (est.)` · `Hydration loss` · `Dose` · `outside typical EVA metabolic range` · `Simulate traverse` · `About / Assumptions` · `Data credits`.
+`Via Virtus` · `Base of Operations` · `Points of Interest` · `Mode: ROVER / ON FOOT` · `Route distance` · `Select a point of interest` · `Show return` · `Layer` · `Not available` · `Visual only — not used for routing` · `MOCK DATA` · `Payload (kg)` · `Energy used` · `Battery` · `Battery reserve` · `Round trip` · `ROUND TRIP OK` · `ONE-WAY ONLY` · `NOT REACHABLE` · `Held by heater` · `EVAs required` · `Oxygen required (L, STP)` · `Max O₂ per EVA` · `Multi-EVA traverse — overnight shelter and resupply are not modeled` · `Not feasible on foot — heat load exceeds suit cooling` · `Heart rate` · `Core temp (est.)` · `Hydration loss` · `Dose` · `outside typical EVA metabolic range` · `Simulate traverse` · `About / Assumptions` · `Data credits`.
 
 ---
 
@@ -676,7 +677,7 @@ if __name__ == "__main__":
 ### D.2 AGENTS.md
 <!-- FILE: AGENTS.md -->
 ~~~~markdown
-# AGENTS.md — Arcadia Planitia Surface Navigator
+# AGENTS.md — Via Virtus
 
 You are a coding agent building ONE module (M0–M6) of this project.
 
