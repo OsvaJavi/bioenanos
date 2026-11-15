@@ -47,6 +47,15 @@ python -m pipeline.export_routes     # data/processed/*.tif (M1) -> web/data/rou
 - `routes.json` extras (optional, B.2-compatible): per route `graph_cost`/`graph_cost_unit`; top level `summary` (rover verdict, walker EVAs/O₂ with default parameters, rover/walker same-path flags) and `points_note`.
 - Tests: `test_m2_models.py` (golden), `test_m2_routing.py` (synthetic plane / 3° plane / 15° wall with gap / basin), `test_m2_real.py` (real routes).
 ## M3 — Map UI
+```
+npm run serve                                  # http://localhost:4173/bioenanos/
+npm run e2e                                    # Playwright (CI installs its Chromium)
+PW_CHROME=/usr/bin/google-chrome npm run e2e   # local run with a system Chrome
+```
+- `web/index.html`, `web/css/hud.css`, `web/js/{data,map,ui,main}.js`. Leaflet is imported as an ES module from `web/vendor/leaflet/` (no CDN).
+- `data.js` contract: `loadData()`, `getBase()`, `getPOIs()`, `getPOI(id)`, `getRoute(poiId, mode, direction='out')`, `getLayers()`, `isMock()`, `getConstants()`; falls back to `data/mock/*` with a "MOCK DATA" banner.
+- Events on `document`: `mode:changed {mode}`, `poi:selected {id, mode}`, `poi:cleared {}`; listens to `traverse:progress {mode, id, s_km}` (moving marker on the `out` route).
+- Telemetry modules are mounted by `main.js` with `ctx = {data, bus: document, getState}`.
 ## M4 — Rover telemetry
 ## M5 — On-foot telemetry
 ## M6 — Integration & deployment
