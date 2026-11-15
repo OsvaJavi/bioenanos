@@ -301,17 +301,33 @@
   },
   {
    "id": "detail",
-   "label": "HiRISE detail",
-   "file": null,
-   "bounds_km": null,
-   "unit": "",
-   "min": null,
-   "max": null,
-   "legend": "HiRISE detail",
-   "source": "S-DEM3",
-   "available": false,
+   "label": "CTX detail",
+   "file": "layers/detail_hillshade.png",
+   "bounds_km": {
+    "x_min": -55.76,
+    "x_max": -25.78,
+    "y_min": -26.84,
+    "y_max": 3.18
+   },
+   "unit": "deg",
+   "min": 0.0,
+   "max": 25.0,
+   "legend": "CTX DTM detail at 20 m (hillshade; slope 0–25°). Visual only — not used for routing (P-12).",
+   "source": "S-DEM4",
+   "available": true,
    "proxy": false,
-   "note": "No HiRISE/CTX DTM found under P-14 (see source_report.json)"
+   "subfiles": {
+    "hillshade": "layers/detail_hillshade.png",
+    "slope": "layers/detail_slope.png",
+    "ortho": "layers/detail_ortho.png"
+   },
+   "location_label": "CTX DTM J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W — near AP-1",
+   "note": "P-14 rule 2; product J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W (mro_ctx_controlled_usgs_dtms); 0.0 km from AP-1. Elevation datum may differ from MOLA (visual only).",
+   "z_range_m": [
+    -4060.0,
+    -3905.8
+   ],
+   "slope_max_deg": 49.4
   }
  ]
 }

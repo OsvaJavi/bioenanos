@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-15T06:24:31+00:00",
+ "generated_utc": "2026-11-15T06:43:06+00:00",
  "generator": "pipeline/fetch_data.py",
  "statuses": "ok | failed | not_located | not_needed | not_attempted | local_file",
  "sources": [
@@ -71,7 +71,7 @@
   },
   {
    "id": "S-DEM3",
-   "checked_utc": "2026-11-15T06:22:43+00:00",
+   "checked_utc": "2026-11-15T06:43:04+00:00",
    "status": "not_located",
    "note": "No HiRISE DTM within 15 km of AP-1",
    "search": [
@@ -126,16 +126,16 @@
   },
   {
    "id": "S-DEM4",
-   "checked_utc": "2026-11-15T06:22:43+00:00",
+   "checked_utc": "2026-11-15T06:43:04+00:00",
    "status": "ok",
-   "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W_hillshade.tif",
+   "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W_dtm.tif",
    "item_id": "J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W",
-   "asset": "image",
+   "asset": "dtm",
    "collection": "mro_ctx_controlled_usgs_dtms",
    "p14_rule": "2",
    "near": "AP-1",
    "dist_km": 0.0,
-   "seconds": 1.7,
+   "seconds": 2.6,
    "assets": [
     "image",
     "thumbnail",
@@ -156,8 +156,8 @@
     1969
    ],
    "count": 1,
-   "dtype": "uint8",
-   "nodata": 0.0,
+   "dtype": "float32",
+   "nodata": -32767.0,
    "scale": [
     1.0
    ],
@@ -179,10 +179,10 @@
     -22.405321162182247,
     2381795.728704311
    ],
-   "probe_seconds": 0.25,
+   "probe_seconds": 0.32,
    "probe_sample": [
-    139.0,
-    151.0
+    -3944.539794921875,
+    -3942.118408203125
    ],
    "window_px": [
     167,
@@ -196,7 +196,7 @@
    ],
    "decimation": 1,
    "out_file": "data\\raw\\detail_dtm.tif",
-   "nan_fraction": 0.057483143667815845
+   "nan_fraction": 0.055215293244246476
   },
   {
    "id": "S-TI1",
@@ -272,12 +272,12 @@
   },
   {
    "id": "S-OPT1",
-   "checked_utc": "2026-11-15T06:22:45+00:00",
+   "checked_utc": "2026-11-15T06:43:06+00:00",
    "status": "ok",
    "item_id": "J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W",
    "asset": "orthoimage",
    "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W_orthoimage.tif",
-   "seconds": 1.8,
+   "seconds": 2.1,
    "crs_wkt": "PROJCS[\"Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",GEOGCS[\"Mars (2015) - Sphere / Ocentric\",DATUM[\"Mars (2015) - Sphere\",SPHEROID[\"Mars (2015) - Sphere\",3396190,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
    "crs_proj4": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True",
    "res": [
@@ -312,7 +312,7 @@
     -22.405321162182247,
     2381795.728704311
    ],
-   "probe_seconds": 0.22,
+   "probe_seconds": 0.15,
    "probe_sample": [
     0.3484090566635132,
     0.3842557668685913
@@ -397,14 +397,16 @@
   },
   {
    "id": "S-ENV",
-   "checked_utc": "2026-11-15T06:22:05+00:00",
+   "checked_utc": "2026-11-15T06:42:57+00:00",
    "status": "ok",
    "url": "docs/arcadia_planitia_contexto_LLM.md §5",
    "note": "Fixed environment values from the user's context (primary source)"
   },
   {
    "id": "S-META",
-   "status": "not_attempted"
+   "checked_utc": "2026-11-15T06:42:57+00:00",
+   "status": "not_needed",
+   "note": "Optional; products located via STAC instead"
   }
  ]
 }

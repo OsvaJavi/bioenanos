@@ -220,10 +220,15 @@ def colorize(arr, vmin, vmax, palette, alpha=255):
     return np.dstack([rgb.astype("uint8"), a])
 
 
-def save_png(path, rgba):
+def save_png(path, rgba, quantize=True):
+    """RGBA PNG. quantize=True stores a 256-colour palette PNG (ramps have <= 256 visible steps anyway);
+    keeps web/data/layers/ well under the 15 MB budget (T-M1-09)."""
     from PIL import Image
     path.parent.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(rgba, "RGBA").save(path, optimize=True)
+    im = Image.fromarray(rgba, "RGBA")
+    if quantize:
+        im = im.quantize(colors=256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
+    im.save(path, optimize=True)
 
 
 def _r(v, nd=1):
