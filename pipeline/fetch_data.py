@@ -87,6 +87,15 @@ PROBE_PX = 8               # ~1 km² probe read at 100–200 m/px
 
 
 # --- small helpers -------------------------------------------------------------
+def relpath(p) -> str:
+    """Path relative to the repo root when possible (report readability), else absolute."""
+    p = pathlib.Path(p)
+    try:
+        return str(p.resolve().relative_to(ROOT))
+    except ValueError:
+        return str(p)
+
+
 def now_iso():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -271,7 +280,7 @@ def read_window(src_path, bbox, out_path, *, target_res_m=None, as_float=True, b
         data = ds.read(bands, window=win, out_shape=(len(bands), out_h, out_w),
                        resampling=Resampling.average if factor > 1 else Resampling.nearest,
                        masked=True)
-        wt = win_transform(win, ds.transform) * rasterio.Affine.scale(win.width / out_w, win.height / out_h)
+        wt = win_transform(win, ds.transform) @ rasterio.Affine.scale(win.width / out_w, win.height / out_h)
         profile = {"driver": "GTiff", "width": out_w, "height": out_h, "count": len(bands),
                    "crs": ds.crs, "transform": wt, "compress": "deflate"}
         if as_float:
@@ -290,7 +299,7 @@ def read_window(src_path, bbox, out_path, *, target_res_m=None, as_float=True, b
             dst.write(arr)
             dst.update_tags(source=str(src_path), fetched_utc=now_iso(), decimation=str(factor))
         meta.update(window_px=[int(win.col_off), int(win.row_off), int(win.width), int(win.height)],
-                    out_px=[out_w, out_h], decimation=factor, out_file=str(out_path.relative_to(ROOT)),
+                    out_px=[out_w, out_h], decimation=factor, out_file=relpath(out_path),
                     nan_fraction=float(np.isnan(arr).mean()) if as_float else None)
     return meta, round(time.time() - t0, 1)
 
@@ -486,7 +495,7 @@ def _trek_fetch(layer, bbox, out_path, target_res_m):
                        dtype="uint8", crs=crs, transform=tf, compress="deflate") as dst:
         dst.write(np.moveaxis(canvas, 2, 0))
     return {"trek_layer": layer, "tile_matrix": ident, "deg_per_px": dpp, "tiles": [c0, c1, r0, r1],
-            "out_file": str(out_path.relative_to(ROOT))}
+            "out_file": relpath(out_path)}
 
 
 def fetch_visual(rep: Report, kind: str, override: str | None):
@@ -570,7 +579,7 @@ def main(argv=None):
     elif rep.entries.get("S-TI3", {}).get("status") in (None, "not_attempted"):
         rep.set("S-TI3", status="not_located", note="TES TI product not located; ENABLE_TI_EXCLUSION stays false (P-15)")
     rep.save()
-    print(f"\nReport: {REPORT.relative_to(ROOT)}")
+    print(f"\nReport: {relpath(REPORT)}")
     print("Raw files:", ", ".join(sorted(p.name for p in RAW.glob("*"))))
     return 0 if ok else 1
 
