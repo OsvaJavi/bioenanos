@@ -1,0 +1,24 @@
+{
+  "defaults": "constants.json rover.* ; rho fixed per case (input)",
+  "cases": [
+    {"id": "G-ROV-1", "input": {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
+     "expect": {"E_drive_kWh": 0.42069, "E_aux_kWh": 0.06000, "E_total_kWh": 0.48069}, "tol": {"E_drive_kWh": 0.001, "E_aux_kWh": 0.001, "E_total_kWh": 0.002}},
+    {"id": "G-ROV-2", "note": "Earth calibration: g=9.80665, rho=1.225, crr=0.009, v=25, no aux, payload 350, 100 km flat",
+     "input": {"d_m": 100000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 25.0, "rho": 1.225, "g": 9.80665, "crr": 0.009, "aux": false},
+     "expect": {"kWh_per_100km": 12.403, "range": [10.5, 13.0]}, "tol": {"kWh_per_100km": 0.01}},
+    {"id": "G-ROV-3", "note": "strict order up > flat > down",
+     "input": [{"d_m": 1000, "theta_deg": 5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
+               {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
+               {"d_m": 1000, "theta_deg": -5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222}],
+     "expect": {"E_total_kWh": [0.72351, 0.48069, 0.23468]}, "tol": {"E_total_kWh": 0.001}},
+    {"id": "G-ROV-4", "note": "no-regen branch: E_wheel < 0 -> E_drive = 0",
+     "input": {"d_m": 1000, "theta_deg": -9.5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
+     "expect": {"E_wheel_kWh": -0.04313, "E_drive_kWh": 0.0, "E_aux_kWh": 0.06000, "E_total_kWh": 0.06000}, "tol": {"E_wheel_kWh": 0.001, "E_drive_kWh": 1e-12, "E_aux_kWh": 0.001, "E_total_kWh": 0.001}},
+    {"id": "G-ROV-5", "input": {"d_m": 1000, "theta_deg": 0, "r": 1.0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
+     "expect": {"E_total_kWh": 0.69102}, "tol": {"E_total_kWh": 0.001}},
+    {"id": "G-ROV-6", "note": "monotonic in payload",
+     "input": [{"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 0, "v_ms": 5.0, "rho": 0.0222},
+               {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 537, "v_ms": 5.0, "rho": 0.0222}],
+     "expect": {"E_total_kWh": [0.42040, 0.51291]}, "tol": {"E_total_kWh": 0.001}}
+  ]
+}

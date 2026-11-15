@@ -1,0 +1,15 @@
+{
+  "R_km": 3388.0,
+  "cases": [
+    {"id": "G-GEO-1", "fn": "dist_az", "p1": [39.80, 202.10], "p2": [40.02, 203.35], "expect": {"d_km": 58.169, "az_deg": 76.677}, "tol": {"d_km": 0.1, "az_deg": 0.1}},
+    {"id": "G-GEO-2", "fn": "r_local", "lat": 40.0, "expect": {"r_km": 3388.002}, "tol": {"r_km": 0.01}},
+    {"id": "G-GEO-3a", "fn": "dist_az", "p1": [39.80, 202.10], "p2": [39.90, 204.70], "expect": {"d_km": 118.18, "az_deg": 86.30}, "tol": {"d_km": 0.1, "az_deg": 0.1}},
+    {"id": "G-GEO-3b", "fn": "dist_az", "p1": [39.80, 202.10], "p2": [40.560, 202.404], "expect": {"d_km": 46.99, "az_deg": 16.90}, "tol": {"d_km": 0.1, "az_deg": 0.1}},
+    {"id": "G-GEO-3c", "fn": "dist_az", "p1": [39.80, 202.10], "p2": [40.75, 201.30], "expect": {"d_km": 66.77, "az_deg": 327.54}, "tol": {"d_km": 0.1, "az_deg": 0.1}},
+    {"id": "G-GEO-3d", "fn": "dist_az", "p1": [39.80, 202.10], "p2": [39.10, 201.50], "expect": {"d_km": 49.64, "az_deg": 213.69}, "tol": {"d_km": 0.1, "az_deg": 0.1}},
+    {"id": "G-LEQ-1", "fn": "ll_to_xy", "lat": 39.80, "lon": 202.10, "expect": {"x_km": -40.7678, "y_km": -11.8264}, "tol": {"x_km": 0.001, "y_km": 0.001}},
+    {"id": "G-LEQ-2", "fn": "ll_to_xy", "lat": 41.3, "lon": 205.5, "expect": {"x_km": 113.244, "y_km": 76.871}, "tol": {"x_km": 0.001, "y_km": 0.001}},
+    {"id": "G-LEQ-3", "fn": "kx", "lat": 41.3, "expect": {"kx": 0.98071}, "tol": {"kx": 0.00001}},
+    {"id": "G-LEQ-4", "fn": "roundtrip_m", "note": "ll->xy->ll error over 1000 random points in bbox", "expect": {"max_err_m": 0.0}, "tol": {"max_err_m": 1.0}}
+  ]
+}

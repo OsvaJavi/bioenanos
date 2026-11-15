@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "base", "pois"],
+  "$defs": {
+    "site": {
+      "type": "object",
+      "required": ["id", "name", "short", "lat", "lon", "elev_m", "description"],
+      "properties": {
+        "id": {"type": "string"}, "name": {"type": "string"}, "short": {"type": "string"},
+        "lat": {"type": "number", "minimum": 38.7, "maximum": 41.3},
+        "lon": {"type": "number", "minimum": 200.5, "maximum": 205.5},
+        "elev_m": {"type": ["number", "null"]},
+        "description": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {"const": "1.1"},
+    "base": {"$ref": "#/$defs/site"},
+    "pois": {"type": "array", "minItems": 5, "maxItems": 5,
+      "items": {"allOf": [{"$ref": "#/$defs/site"},
+        {"type": "object", "required": ["md_straight_km", "md_az_deg", "route_group"],
+         "properties": {"md_straight_km": {"type": "number"}, "md_az_deg": {"type": "number"}, "route_group": {"enum": [1, 2, 3]}}}]}}
+  }
+}
