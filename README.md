@@ -62,6 +62,9 @@ PW_CHROME=/usr/bin/google-chrome npm run e2e   # local run with a system Chrome
 - `web/js/env_strip.js` (`mountEnvStrip`) and `web/js/chart.js` (`lineChart(canvas, series, opts)` → `{update, setCursor, destroy}`; `opts.markers` for vertical separators) are shared with M5.
 - Tests: `tests/js/test_m4_rover.test.js` (golden, parity with `routes.json`, payload, 200 km synthetic route) and `tests/e2e/m4_rover.spec.js`.
 ## M5 — On-foot telemetry
+- `web/js/models/walker.js`: spec §6.4–6.6 in JS (twin of `pipeline/models_walker.py`): `metabolic`, `segment`, `routeEnergy`, `o2Plan` (EVA split, reserve, contingency), `coreTempC`, `roundTripTimeline`/`walkerStateAt` (playback, core temperature reset at each EVA), `validateForm`/`FIELDS`.
+- `web/js/telemetry_walker.js` (`mountWalkerPanel`): astronaut form (13 fields, spec ranges), O₂ required (L STP + kg + max per EVA), EVAs, kcal, mean VO₂, alerts (multi-EVA, core temperature, metabolic range), round-trip playback ×600/×3600/×36000 with biometric gauges and EVA separators; reuses M4's `chart.js` and `env_strip.js` unchanged.
+- Tests: `tests/js/test_m5_walker.test.js`, `tests/e2e/m5_walker.spec.js`.
 ## M6 — Integration & deployment
 ## Sensitivity analysis (M6)
 ## Credits
