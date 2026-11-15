@@ -132,4 +132,9 @@ async function start() {
   document.body.dataset.ready = 'true';
 }
 
-start();
+// Audit H-03: anything that fails after the data loaded (map, layers, panels) shows a readable message instead
+// of leaving a blank page with an uncaught error.
+start().catch((err) => {
+  ui.showFatal(`The app could not start: ${err.message}. Reload the page; if it persists, check the files in web/data/.`);
+  console.warn('[main] start failed', err);
+});
