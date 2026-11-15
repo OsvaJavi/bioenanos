@@ -30,7 +30,7 @@ const ScaleBar = L.Control.extend({
   },
 });
 
-export function createMap(el, { layersDoc, base, pois, onSelect, onCursor }) {
+export function createMap(el, { layersDoc, base, pois, onSelect, onCursor, onLayerStatus }) {
   const g = layersDoc.grid;
   const region = L.latLngBounds([g.y_min_km, g.x_min_km], [g.y_max_km, g.x_max_km]);
   const map = L.map(el, {
@@ -75,20 +75,32 @@ export function createMap(el, { layersDoc, base, pois, onSelect, onCursor }) {
     return llToXYkm(site.lat, site.lon); // POIs carry lat/lon only; conversion lives in geo.js
   }
 
+  // M6: a layer image that fails to load is reported (onLayerStatus(kind, label | null)) instead of leaving a silent gap.
+  let regionalLabel = null;
+  function watchImage(ov, kind, label) {
+    ov.on('error', () => onLayerStatus?.(kind, label()));
+    ov.on('load', () => onLayerStatus?.(kind, null));
+    return ov;
+  }
+
   function setLayer(layer, detailLayer = null, detailSub = 'hillshade', regionalFallback = null) {
+    onLayerStatus?.('regional', null);
+    onLayerStatus?.('detail', null);
     // Regional overlay: the chosen layer, or (for "detail") the regional hillshade underneath.
     const regional = layer.id === 'detail' ? regionalFallback : layer;
     if (regional?.available) {
       const url = layerUrl(regional.file);
-      if (!overlay) overlay = L.imageOverlay(url, boundsOf(regional.bounds_km), { className: 'layer-overlay', alt: regional.label }).addTo(map);
+      regionalLabel = regional.label;
+      if (!overlay) overlay = watchImage(L.imageOverlay(url, boundsOf(regional.bounds_km), { className: 'layer-overlay', alt: regional.label }),
+        'regional', () => regionalLabel).addTo(map);
       else { overlay.setUrl(url); overlay.setBounds(boundsOf(regional.bounds_km)); }
     } else if (overlay) { map.removeLayer(overlay); overlay = null; }
 
     if (detailOverlay) { map.removeLayer(detailOverlay); detailOverlay = null; }
     if (layer.id === 'detail' && detailLayer?.available) {
       const file = detailLayer.subfiles?.[detailSub] ?? detailLayer.file;
-      detailOverlay = L.imageOverlay(layerUrl(file), boundsOf(detailLayer.bounds_km),
-        { pane: 'detailPane', className: 'detail-overlay', alt: detailLayer.label }).addTo(map);
+      detailOverlay = watchImage(L.imageOverlay(layerUrl(file), boundsOf(detailLayer.bounds_km),
+        { pane: 'detailPane', className: 'detail-overlay', alt: detailLayer.label }), 'detail', () => detailLayer.label).addTo(map);
     }
     return overlay;
   }

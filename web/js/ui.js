@@ -87,6 +87,15 @@ export function renderLegend(layer, detailSub) {
 
 export function setMockBanner(show) { $('#mock-banner').hidden = !show; }
 
+/** M6: notice under the legend when a layer image is missing (labels = names of the layers that failed; [] clears it). */
+export function setLayerNotice(labels) {
+  const legend = $('#legend');
+  let el = legend.querySelector('.legend-error');
+  if (!labels.length) { el?.remove(); return; }
+  if (!el) { el = document.createElement('div'); el.className = 'legend-error'; el.setAttribute('role', 'status'); legend.append(el); }
+  el.textContent = `Image not available: ${labels.join(', ')}. The rest of the map and the routes still work.`;
+}
+
 export function showFatal(message) {
   const el = $('#fatal');
   el.hidden = false;
@@ -114,6 +123,10 @@ export function renderAbout(C_meta) {
       <li>Roughness and the radiation-shielding layer are relative proxies. No TES thermal-inertia product was found, so terrain is not excluded by thermal inertia.</li>
       <li>The THEMIS day-IR mosaic sits about 450 m off the CTX and Viking images; it is shown as published.</li>
       <li>The rover verdict is very sensitive to the rolling-resistance coefficient (crr): with 0.08 every site allows a round trip, with 0.30 none does.</li>
+      <li>On foot, short climbs on the AP-9, AP-8 and APMR routes push the metabolic rate above 900 W, and on AP-9 and APMR the estimated core
+        temperature passes 38.5 °C within an EVA. The panel flags both; the model is conservative (core temperature only resets between EVAs).</li>
+      <li>Rover data: drag coefficient 0.23 and curb mass 2092 kg from Tesla's official specification; frontal area, usable battery and GVWR
+        from the EVKX aggregator.</li>
     </ul>
     <h3>Assumptions and proxies (${rows.length})</h3>
     <table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th><th>Type</th><th>Reference</th></tr></thead><tbody>
@@ -132,7 +145,9 @@ const CREDITS = [
     'https://planetarymaps.usgs.gov/mosaic/Mars_Viking_MDIM21_ClrMosaic_global_232m.tif'],
   ['MOLA', 'Mars Global Surveyor MOLA. Public domain — NASA, USGS.',
     'https://astrogeology.usgs.gov/search/map/mars_mgs_mola_dem_463m'],
-  ['Rover data', 'Tesla Model S AWD MY2026 specifications as listed by EVKX (aggregator, not Tesla\'s official sheet).',
+  ['Rover data (official)', 'Tesla Model S Dual Motor specification: drag coefficient 0.23, curb mass 2092 kg. Used only as a reference vehicle for the energy model.',
+    'https://www.tesla.com/en_gb/models/design'],
+  ['Rover data (aggregator)', 'Tesla Model S AWD MY2026 specifications as listed by EVKX: frontal area, usable battery, GVWR.',
     'https://evkx.net/models/tesla/model_s/model_s_awd/specifications'],
   ['Site context', 'Arcadia Planitia technical study supplied by the team (coordinates, environment, site rationale).', null],
   ['Map library', 'Leaflet 1.9.4, BSD-2-Clause.', 'https://leafletjs.com/'],

@@ -1,11 +1,19 @@
 # MARS_PROJECT_MASTER_SPEC.md
 **Proyecto:** Arcadia Planitia Surface Navigator (NASA Space Apps 2026 — "Interplanetary Survival Guide: Martian Map")
-**Versión:** 1.1 · **Fecha:** 2026-11-14 · **Idioma del documento:** español · **Idioma de UI y código:** inglés
+**Versión:** 1.2 · **Fecha:** 2026-11-15 · **Idioma del documento:** español · **Idioma de UI y código:** inglés
 **Repositorio:** `https://github.com/OsvaJavi/bioenanos` → sitio publicado en `https://osvajavi.github.io/bioenanos/` (subruta `/bioenanos/`)
 **Equipo:** 4 personas, cada una con un agente LLM con terminal e internet (Claude Code, Codex, Gemini CLI).
 **Plazo duro:** domingo 2026-11-15, 20:00 (America/Mexico_City). Tiempo disponible desde la v1.1: ~24.5 h.
 
 ---
+
+## Cambios respecto a v1.1 (M6, decisión humana del 2026-11-15)
+
+| # | Cambio | Motivo |
+|---|---|---|
+| 1.2-1 | `rover.Cd` = **0.23** (antes 0.208). | Ficha oficial de Tesla `[FUENTE: S1b]`; la propuso M4 (HANDOFF_M4 §8) y el equipo la aprobó. En Marte cambia < 0.002 % de la energía. |
+| 1.2-2 | G-ROV-2: rango de plausibilidad terrestre **[10.5, 13.5]** kWh/100 km (antes [10.5, 13.0]); valor esperado 13.011. | Con Cd 0.23 la calibración da 13.011. El límite de 13.0 estaba anclado al 12.9 del agregador; el consumo oficial WLTP de Tesla (16.8 kWh/100 km) incluye pérdidas de carga y auxiliares, así que 13.0 no era un tope físico. |
+| 1.2-3 | G-ROV-1/3/6: valores esperados recalculados (cambios ≤ 1e-5 kWh). | Consecuencia de 1.2-1. |
 
 ## Cambios respecto a v1.0
 
@@ -274,7 +282,7 @@ Entorno fijo del dashboard (P-08, D-F2): T = 210 K; P y ρ a la elevación media
 **Limitación declarada:** el modelo es isotérmico y las irradiancias de superficie no se pueden reproducir porque la fuente no da su modelo radiativo.
 
 ### 6.3 Rover (Tesla Model S AWD MY2026)
-Datos de partida `[FUENTE: S1, agregador evkx.net, no la ficha oficial de Tesla]`: `m_curb = 2092 kg`, `GVWR = 2629 kg`, `Cd = 0.208`, `A = 2.34 m²`, batería de **96 kWh utilizables**, despeje de 117–158 mm y ángulos de aproximación/salida de 15°/16°. **Si M4 verifica la ficha oficial, propone la actualización en su handoff** (no edita `constants.json`).
+Datos de partida `[FUENTE: S1, agregador evkx.net; Cd y masa en vacío contrastados con la ficha oficial S1b en v1.2]`: `m_curb = 2092 kg` (coincide con S1b), `GVWR = 2629 kg` (no publicado en S1b), `Cd = 0.23` (S1b; S1 da 0.208), `A = 2.34 m²`, batería de **96 kWh utilizables**, despeje de 117–158 mm y ángulos de aproximación/salida de 15°/16°. **Si M4 verifica la ficha oficial, propone la actualización en su handoff** (no edita `constants.json`).
 
 Parámetros (en `constants.json`; los editables se exponen en la UI):
 ```
@@ -366,7 +374,7 @@ Valores exactos y tolerancias en el Apéndice D.6 (`tests/golden/*.json`). Se re
 | G-LEQ-1 | `ll_to_xy(AP-1)` | (−40.768, −11.826) km (±0.001); ida y vuelta < 1 m |
 | G-ATM-1 | `atmos(−3.9)` | P 879.38 Pa (±0.2), ρ 0.022166 (±0.0002), Mcol 23.635 (±0.01), H 10.663 km |
 | G-ROV-1 | 1 km llano, r=0, carga 350, ρ=0.0222 | E_drive 0.42069, E_aux 0.06000, E_total 0.48069 kWh |
-| G-ROV-2 | Calibración terrestre (g 9.80665, ρ 1.225, crr 0.009, v 25, sin aux, carga 350) | 12.40 kWh/100 km ∈ [10.5, 13.0] (ref. 12.9 `[FUENTE: S1]`) |
+| G-ROV-2 | Calibración terrestre (g 9.80665, ρ 1.225, crr 0.009, v 25, sin aux, carga 350) | 13.01 kWh/100 km ∈ [10.5, 13.5] (ref. 12.9 `[FUENTE: S1]`; WLTP oficial 16.8 con pérdidas `[FUENTE: S1b]`; v1.2) |
 | G-ROV-3 | 1 km a +5° / 0° / −5° | 0.72351 / 0.48069 / 0.23468 kWh, en orden estricto |
 | G-ROV-4 | 1 km a −9.5° | E_wheel < 0 → E_drive = 0; E_total = 0.06000 (rama sin regeneración) |
 | G-ROV-5 | 1 km llano, r = 1 | E_total 0.69102 kWh |
@@ -537,6 +545,7 @@ Al terminar, el agente crea `docs/handoff/HANDOFF_Mx.md` con la plantilla (D.10)
 
 ## 10. Fuentes
 - **S1** Tesla Model S AWD MY2026 (agregador EVKX): https://evkx.net/models/tesla/model_s/model_s_awd/specifications · Plaid: https://evkx.net/models/tesla/model_s/model_s_plaid/specifications
+- **S1b** Tesla, Model S specifications (official): https://www.tesla.com/en_gb/models/design — Dual Motor: Cd 0.23, curb mass 2092 kg, WLTP 16.8 kWh/100 km (consultado 2026-11-15).
 - **S2** Looney et al. (2018), *Metabolic Costs of Military Load Carriage over Complex Terrain*, Mil Med 183: https://academic.oup.com/milmed/article/183/9-10/e357/5025891
 - **S3** USGS HiRISE DTMs en STAC: https://stac.astrogeology.usgs.gov/docs/data/mars/hirise_dtms/
 - **S4** USGS STAC API: https://stac.astrogeology.usgs.gov/api
@@ -735,7 +744,7 @@ Read and follow `AGENTS.md` and `docs/MARS_PROJECT_MASTER_SPEC.md` before doing 
     "m_curb_kg": {"value": 2092, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
     "gvwr_kg": {"value": 2629, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
     "payload_max_kg": {"value": 537, "unit": "kg", "source": "DERIVED", "ref": "gvwr - m_curb"},
-    "Cd": {"value": 0.208, "unit": "", "source": "FUENTE", "ref": "S1"},
+    "Cd": {"value": 0.23, "unit": "", "source": "FUENTE", "ref": "S1b (tesla.com official spec; v1.2)"},
     "A_m2": {"value": 2.34, "unit": "m2", "source": "FUENTE", "ref": "S1"},
     "battery_usable_kWh": {"value": 96.0, "unit": "kWh", "source": "FUENTE", "ref": "S1"},
     "clearance_mm": {"value": [117, 158], "unit": "mm", "source": "FUENTE", "ref": "S1"},
@@ -856,15 +865,15 @@ Read and follow `AGENTS.md` and `docs/MARS_PROJECT_MASTER_SPEC.md` before doing 
   "defaults": "constants.json rover.* ; rho fixed per case (input)",
   "cases": [
     {"id": "G-ROV-1", "input": {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
-     "expect": {"E_drive_kWh": 0.42069, "E_aux_kWh": 0.06000, "E_total_kWh": 0.48069}, "tol": {"E_drive_kWh": 0.001, "E_aux_kWh": 0.001, "E_total_kWh": 0.002}},
-    {"id": "G-ROV-2", "note": "Earth calibration: g=9.80665, rho=1.225, crr=0.009, v=25, no aux, payload 350, 100 km flat",
+     "expect": {"E_drive_kWh": 0.42070, "E_aux_kWh": 0.06000, "E_total_kWh": 0.48070}, "tol": {"E_drive_kWh": 0.001, "E_aux_kWh": 0.001, "E_total_kWh": 0.002}},
+    {"id": "G-ROV-2", "note": "Earth calibration: g=9.80665, rho=1.225, crr=0.009, v=25, no aux, payload 350, 100 km flat; Cd 0.23 (v1.2), range widened to 13.5",
      "input": {"d_m": 100000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 25.0, "rho": 1.225, "g": 9.80665, "crr": 0.009, "aux": false},
-     "expect": {"kWh_per_100km": 12.403, "range": [10.5, 13.0]}, "tol": {"kWh_per_100km": 0.01}},
+     "expect": {"kWh_per_100km": 13.011, "range": [10.5, 13.5]}, "tol": {"kWh_per_100km": 0.01}},
     {"id": "G-ROV-3", "note": "strict order up > flat > down",
      "input": [{"d_m": 1000, "theta_deg": 5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
                {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
                {"d_m": 1000, "theta_deg": -5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222}],
-     "expect": {"E_total_kWh": [0.72351, 0.48069, 0.23468]}, "tol": {"E_total_kWh": 0.001}},
+     "expect": {"E_total_kWh": [0.72351, 0.48070, 0.23468]}, "tol": {"E_total_kWh": 0.001}},
     {"id": "G-ROV-4", "note": "no-regen branch: E_wheel < 0 -> E_drive = 0",
      "input": {"d_m": 1000, "theta_deg": -9.5, "r": 0, "payload_kg": 350, "v_ms": 5.0, "rho": 0.0222},
      "expect": {"E_wheel_kWh": -0.04313, "E_drive_kWh": 0.0, "E_aux_kWh": 0.06000, "E_total_kWh": 0.06000}, "tol": {"E_wheel_kWh": 0.001, "E_drive_kWh": 1e-12, "E_aux_kWh": 0.001, "E_total_kWh": 0.001}},
@@ -873,7 +882,7 @@ Read and follow `AGENTS.md` and `docs/MARS_PROJECT_MASTER_SPEC.md` before doing 
     {"id": "G-ROV-6", "note": "monotonic in payload",
      "input": [{"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 0, "v_ms": 5.0, "rho": 0.0222},
                {"d_m": 1000, "theta_deg": 0, "r": 0, "payload_kg": 537, "v_ms": 5.0, "rho": 0.0222}],
-     "expect": {"E_total_kWh": [0.42040, 0.51291]}, "tol": {"E_total_kWh": 0.001}}
+     "expect": {"E_total_kWh": [0.42041, 0.51291]}, "tol": {"E_total_kWh": 0.001}}
   ]
 }
 ```
