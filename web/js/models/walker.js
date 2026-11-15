@@ -81,6 +81,35 @@ export function routeEnergy(points, w) {
   return { E_kcal: e * C.units.J_to_kcal, O2_metabolic_L: o2, time_h: t / 3600 };
 }
 
+/** Metabolic O₂ per EVA: each segment [t0, t1) is shared pro rata with the EVA windows [k·lim, (k+1)·lim) it
+ *  overlaps (the last window is open-ended). Pure interval overlap with a bounded loop, so it always terminates
+ *  (audit H-05: the old clock-stepping loop could stall on a float boundary). Twin of models_walker._split_by_eva. */
+function splitByEva(segments, lim, n_evas) {
+  const per = new Array(n_evas).fill(0);
+  let t0 = 0;
+  for (const { t_s: t, O2_L: o } of segments) {
+    const t1 = t0 + t;
+    if (t <= 0) {
+      per[Math.min(Math.max(Math.trunc(t0 / lim), 0), n_evas - 1)] += o;
+      t0 = t1;
+      continue;
+    }
+    const kLo = Math.min(Math.max(Math.floor(t0 / lim) - 1, 0), n_evas - 1);
+    const kHi = Math.min(Math.floor(t1 / lim) + 1, n_evas - 1);
+    let given = 0;
+    for (let k = kLo; k <= kHi; k++) {
+      const lo = k * lim;
+      const hi = k < n_evas - 1 ? (k + 1) * lim : Infinity;
+      const share = (o * Math.max(0, Math.min(t1, hi) - Math.max(t0, lo))) / t;
+      per[k] += share;
+      given += share;
+    }
+    per[kHi] += o - given; // float residue (~1e-16 relative) goes to the last window touched: O₂ is conserved
+    t0 = t1;
+  }
+  return per;
+}
+
 /** O₂ plan for an ordered list of segments [{t_s, O2_L}] (out then back), spec §6.5. */
 export function o2Plan(segments, { eva_limit_h = C.o2.eva_limit_h, reserve_min = C.o2.reserve_min, contingency = C.o2.contingency } = {}) {
   let t_total = 0;
@@ -89,23 +118,7 @@ export function o2Plan(segments, { eva_limit_h = C.o2.eva_limit_h, reserve_min =
   const t_round_h = t_total / 3600;
   const n_evas = Math.max(1, Math.ceil(Math.round((t_round_h / eva_limit_h) * 1e9) / 1e9));
   const vo2_mean = t_total > 0 ? o2_total / (t_total / 60) : 0;
-  const per = new Array(n_evas).fill(0);
-  const lim = eva_limit_h * 3600;
-  let clock = 0;
-  for (const s of segments) {
-    let remT = s.t_s;
-    let remO = s.O2_L;
-    while (remT > 1e-12) {
-      const k = Math.min(Math.floor(clock / lim), n_evas - 1);
-      const room = k < n_evas - 1 ? (k + 1) * lim - clock : remT;
-      const take = Math.min(remT, room);
-      const frac = take / remT;
-      per[k] += remO * frac;
-      remO -= remO * frac;
-      remT -= take;
-      clock += take;
-    }
-  }
+  const per = splitByEva(segments, eva_limit_h * 3600, n_evas);
   const req = (o2_total + n_evas * reserve_min * vo2_mean) * (1 + contingency);
   const perEva = per.map((p) => (p + reserve_min * vo2_mean) * (1 + contingency));
   return {

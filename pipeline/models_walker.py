@@ -111,6 +111,32 @@ def route_energy(points, w: Walker = None):
     return {"E_kcal": e * C.units.J_to_kcal, "O2_metabolic_L": o2, "time_h": t / 3600.0}
 
 
+def _split_by_eva(segments, lim, n_evas):
+    """Metabolic O2 per EVA: each segment [t0, t1) is shared pro rata with the EVA windows [k*lim, (k+1)*lim)
+    it overlaps (the last window is open-ended). Pure interval overlap with a bounded loop, so it always
+    terminates (audit H-05: the old clock-stepping loop could stall on a float boundary). Twin of walker.js."""
+    per = [0.0] * n_evas
+    t0 = 0.0
+    for t, o in segments:
+        t1 = t0 + t
+        if t <= 0:
+            per[min(max(int(t0 / lim), 0), n_evas - 1)] += o
+            t0 = t1
+            continue
+        k_lo = min(max(math.floor(t0 / lim) - 1, 0), n_evas - 1)
+        k_hi = min(math.floor(t1 / lim) + 1, n_evas - 1)
+        given = 0.0
+        for k in range(k_lo, k_hi + 1):
+            lo = k * lim
+            hi = (k + 1) * lim if k < n_evas - 1 else math.inf
+            share = o * max(0.0, min(t1, hi) - max(t0, lo)) / t
+            per[k] += share
+            given += share
+        per[k_hi] += o - given  # float residue (~1e-16 relative) goes to the last window touched: O2 is conserved
+        t0 = t1
+    return per
+
+
 def o2_plan(segments, eva_limit_h=None, reserve_min=None, contingency=None) -> dict:
     """O2 for a round trip given its segments in order (out then back): list of (t_s, O2_L).
     EVAs are consecutive blocks of eva_limit_h; the last one may be partial (spec §6.5)."""
@@ -122,21 +148,7 @@ def o2_plan(segments, eva_limit_h=None, reserve_min=None, contingency=None) -> d
     t_round_h = t_total / 3600.0
     n_evas = max(1, math.ceil(round(t_round_h / eva_limit_h, 9)))
     vo2_mean = o2_total / (t_total / 60.0) if t_total > 0 else 0.0
-    # O2 per EVA: split segments at EVA boundaries (pro-rata inside a segment)
-    per = [0.0] * n_evas
-    lim = eva_limit_h * 3600.0
-    clock = 0.0
-    for t, o in segments:
-        rem_t, rem_o = t, o
-        while rem_t > 1e-12:
-            k = min(int(clock // lim), n_evas - 1)
-            room = (k + 1) * lim - clock if k < n_evas - 1 else rem_t
-            take = min(rem_t, room)
-            frac = take / rem_t
-            per[k] += rem_o * frac
-            rem_o -= rem_o * frac
-            rem_t -= take
-            clock += take
+    per = _split_by_eva(segments, eva_limit_h * 3600.0, n_evas)
     req = (o2_total + n_evas * reserve_min * vo2_mean) * (1 + contingency)
     per_eva = [(p + reserve_min * vo2_mean) * (1 + contingency) for p in per]
     return {"t_round_h": t_round_h, "n_evas": n_evas, "single_eva_feasible": n_evas == 1,
