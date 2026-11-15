@@ -223,7 +223,7 @@ def test_outputs_and_schema(plain):
             assert lay_["file"] is None and lay_["note"]
     from PIL import Image
     im = Image.open(lay / "elevation.png")
-    assert im.size == (1134, 770) and im.mode == "RGBA"
+    assert im.size == (1134, 770) and im.mode == "P" and "transparency" in im.info  # palette PNG with alpha
 
 
 def test_synthetic_stats(plain):
