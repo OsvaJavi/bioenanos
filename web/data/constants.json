@@ -37,7 +37,7 @@
     "m_curb_kg": {"value": 2092, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
     "gvwr_kg": {"value": 2629, "unit": "kg", "source": "FUENTE", "ref": "S1 evkx (aggregator)"},
     "payload_max_kg": {"value": 537, "unit": "kg", "source": "DERIVED", "ref": "gvwr - m_curb"},
-    "Cd": {"value": 0.208, "unit": "", "source": "FUENTE", "ref": "S1"},
+    "Cd": {"value": 0.23, "unit": "", "source": "FUENTE", "ref": "S1b (tesla.com official spec; v1.2)"},
     "A_m2": {"value": 2.34, "unit": "m2", "source": "FUENTE", "ref": "S1"},
     "battery_usable_kWh": {"value": 96.0, "unit": "kWh", "source": "FUENTE", "ref": "S1"},
     "clearance_mm": {"value": [117, 158], "unit": "mm", "source": "FUENTE", "ref": "S1"},

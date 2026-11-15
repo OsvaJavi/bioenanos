@@ -9,6 +9,7 @@ import { mountRoverPanel } from './telemetry_rover.js';
 import { mountWalkerPanel } from './telemetry_walker.js';
 
 const bus = document;
+const layerErrors = {}; // M6: layer images that failed to load, by overlay kind
 const state = { mode: 'rover', poiId: null, layerId: 'hillshade', detailSub: 'hillshade', showReturn: false };
 export const getState = () => ({ mode: state.mode, poiId: state.poiId });
 let mapApi = null;
@@ -91,6 +92,7 @@ async function start() {
   mapApi = createMap(document.getElementById('map'), {
     layersDoc: data.getLayers(), base: data.getBase(), pois: data.getPOIs(),
     onSelect: selectPOI, onCursor: (text) => ui.setCursor(text),
+    onLayerStatus: (kind, label) => { layerErrors[kind] = label; ui.setLayerNotice(Object.values(layerErrors).filter(Boolean)); },
   });
   if (!layerById(state.layerId)?.available) state.layerId = layers().find((l) => l.available)?.id ?? state.layerId;
   ui.renderLayerList({

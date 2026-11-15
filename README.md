@@ -66,5 +66,50 @@ PW_CHROME=/usr/bin/google-chrome npm run e2e   # local run with a system Chrome
 - `web/js/telemetry_walker.js` (`mountWalkerPanel`): astronaut form (13 fields, spec ranges), O₂ required (L STP + kg + max per EVA), EVAs, kcal, mean VO₂, alerts (multi-EVA, core temperature, metabolic range), round-trip playback ×600/×3600/×36000 with biometric gauges and EVA separators; reuses M4's `chart.js` and `env_strip.js` unchanged.
 - Tests: `tests/js/test_m5_walker.test.js`, `tests/e2e/m5_walker.spec.js`.
 ## M6 — Integration & deployment
+**Regenerate everything** (only the first step needs internet; outputs are committed):
+```
+python -m pipeline.fetch_data        # networked machine: windowed source reads -> data/raw/
+python -m pipeline.derive_layers     # data/processed/*.tif, web/data/layers/*, web/data/pois.json
+python -m pipeline.export_routes     # web/data/routes.json (~6 s)
+python tools/make_mocks.py           # web/data/mock/* (placeholders, only used if real data is missing)
+```
+**Test everything**
+```
+pytest -q tests/py                             # Python: geodesy, layers, models, routing, real routes
+npm test                                       # Vitest: JS models (same golden vectors), data layer
+npx playwright install chromium && npm run e2e # end-to-end in a real browser, served under /bioenanos/
+PW_CHROME=/usr/bin/google-chrome npm run e2e   # same, with a system Chrome
+```
+**Deploy:** `.github/workflows/pages.yml` publishes `web/` on every push to `main`. One-time setup by a repo admin: *Settings → Pages → Source: GitHub Actions*. The site only uses relative paths and works under `/bioenanos/`; it makes no requests to other domains at runtime.
+
+**Results with default parameters** (rover payload 350 kg; astronaut 80 kg + 170 kg suit + 10 kg gear at 1.0 m/s):
+
+| Site | Straight line | Route (rover) | Rover, round trip | Rover verdict | On foot: EVAs | O₂ required |
+|---|---|---|---|---|---|---|
+| HCP · Polygon Field | 47.0 km | 48.2 km | 47.6 kWh | ROUND TRIP OK | 4 | 3012 L |
+| US1 · Ogive Front | 49.6 km | 50.3 km | 50.2 kWh | ROUND TRIP OK | 4 | 3169 L |
+| AP-9 · ISRU Site | 58.2 km | 59.8 km | 61.4 kWh | ROUND TRIP OK | 5 | 3896 L |
+| AP-8 · Periglacial Plain | 66.8 km | 67.7 km | 67.8 kWh | ROUND TRIP OK | 5 | 4258 L |
+| APMR · Paleo-megaripples | 118.2 km | 119.8 km | 123.3 kWh | ONE-WAY ONLY | 9 | 7758 L |
+
+Battery: 96 kWh usable; round trips must fit in 76.8 kWh (20 % reserve). The plain is very flat (mean slope 0.84°), so routes are only 1–3 % longer than the straight line.
+
+Site weight and first load are checked by `tests/e2e/m6_integration.spec.js` (< 25 MB, < 5 s locally).
 ## Sensitivity analysis (M6)
+Recomputed on the fixed AP-9 routes with `python tools/sensitivity.py` (all other parameters at their defaults):
+
+| Parameter | Value | Result (AP-9) | Change | Verdict / EVAs |
+|---|---|---|---|---|
+| Rover · crr (rolling resistance) | 0.08 | 36.1 kWh round trip | -41 % | ROUND TRIP OK |
+| Rover · crr (rolling resistance) | 0.15 (default) | 61.4 kWh round trip | +0 % | ROUND TRIP OK |
+| Rover · crr (rolling resistance) | 0.3 | 115.6 kWh round trip | +88 % | ONE-WAY ONLY |
+| Rover · eta_dt (drivetrain efficiency) | 0.8 | 68.2 kWh round trip | +11 % | ROUND TRIP OK |
+| Rover · eta_dt (drivetrain efficiency) | 0.9 (default) | 61.4 kWh round trip | +0 % | ROUND TRIP OK |
+| Rover · eta_dt (drivetrain efficiency) | 0.95 | 58.5 kWh round trip | -5 % | ROUND TRIP OK |
+| On foot · f_g (Mars gravity factor) | 0.56 | 3233 L O₂ | -17 % | 5 EVAs |
+| On foot · f_g (Mars gravity factor) | 0.7 (default) | 3896 L O₂ | +0 % | 5 EVAs |
+| On foot · f_g (Mars gravity factor) | 0.84 | 4559 L O₂ | +17 % | 5 EVAs |
+
+Rolling resistance on Martian regolith (`crr`, an assumption with no direct measurement) dominates the rover result: across its plausible range the AP-9 round trip goes from comfortable to impossible with the reserve. Drivetrain efficiency matters much less. On foot, the Mars gravity factor `f_g` moves oxygen by about ±17 % but cannot change the number of EVAs, which depends only on walking time.
 ## Credits
+Elevation: Mars HRSC–MOLA blended DEM 200 m v2 (CC BY-SA 3.0 IGO — DLR, ESA, FU Berlin, NASA, USGS). Detail: CTX DTM and orthoimage from the USGS STAC (CC0 — NASA/JPL-Caltech/MSSS, USGS). Thermal: THEMIS day-IR mosaic 100 m v12 (NASA/JPL-Caltech/ASU, USGS). Optical: Viking MDIM 2.1 colour mosaic (NASA, USGS). Rover data: Tesla Model S (tesla.com; EVKX). Map library: Leaflet (BSD-2-Clause). Full list in the app's *Data credits* panel and `DATA_LICENSE.md`.

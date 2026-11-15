@@ -1,0 +1,5 @@
+# Keep vendored Leaflet in LF on every OS: tools/vendor_leaflet.mjs writes LF, and this stops a Windows
+# checkout/commit (core.autocrlf) from converting it back to CRLF. (M6)
+web/vendor/** text eol=lf
+*.png binary
+*.tif binary
