@@ -39,7 +39,8 @@ HILLSHADE_AZ_DEG = 315.0       # spec M1 task 3
 HILLSHADE_ALT_DEG = 45.0
 HILLSHADE_ZFACTOR = 1.0
 SLOPE_DISPLAY_MAX_DEG = 25.0   # ASSUMPTION: colour-ramp ceiling (above the 20° walker cut so cuts are visible)
-ELEV_DISPLAY_PCT = (1, 99)     # ASSUMPTION: elevation colour ramp spans P1–P99 of the region
+ELEV_DISPLAY_PCT = (1, 99)
+HILLSHADE_STRETCH_PCT = (0.5, 99.5)  # ASSUMPTION: display-only stretch (the plain is very flat; data unchanged)     # ASSUMPTION: elevation colour ramp spans P1–P99 of the region
 POI_Z_REPORT_M = 400.0         # spec T-M1-04: |z_DEM − z_context| > 400 m is reported
 LEQ_PROJ4 = (f"+proj=eqc +lat_ts={C.grid.phi0_deg} +lat_0={C.grid.phi0_deg} +lon_0={C.grid.lam0_deg} "
              f"+x_0=0 +y_0=0 +R={C.geo.R_km * 1000:.0f} +units=m +no_defs")  # LEQ written as a proj string
@@ -253,7 +254,8 @@ def build_detail(raw_dir, out_layers, meta):
     hs = hillshade(z, cell, kx)
     hs[np.isnan(z)] = np.nan
     sl = slope_deg(z, cell, kx)
-    save_png(out_layers / "detail_hillshade.png", colorize(hs, 0, 1, "hillshade"))
+    h_lo, h_hi = np.nanpercentile(hs, HILLSHADE_STRETCH_PCT)
+    save_png(out_layers / "detail_hillshade.png", colorize(hs, h_lo, h_hi, "hillshade"))
     save_png(out_layers / "detail_slope.png", colorize(sl, 0, SLOPE_DISPLAY_MAX_DEG, "slope"))
     ortho = None
     if (raw_dir / "detail_ortho.tif").exists():
@@ -332,7 +334,10 @@ def derive(raw_dir=RAW, processed_dir=PROCESSED, layers_dir=WEB_LAYERS, pois_pat
                     "min": _r(vmin, nd), "max": _r(vmax, nd), "legend": legend, "source": source, "available": True,
                     "proxy": proxy, "palette": PALETTES[pal], "note": dem_note.strip() or "Derived from the regional DEM"})
 
-    add("hillshade", "Hillshade", hs, 0, 1, "hillshade", "", f"Shaded relief (light az {HILLSHADE_AZ_DEG:g}°, alt {HILLSHADE_ALT_DEG:g}°)", nd=2)
+    h_lo, h_hi = (float(v) for v in np.nanpercentile(hs, HILLSHADE_STRETCH_PCT))
+    add("hillshade", "Hillshade", hs, h_lo, h_hi, "hillshade", "",
+        f"Shaded relief (light az {HILLSHADE_AZ_DEG:g}°, alt {HILLSHADE_ALT_DEG:g}°, z ×1); "
+        f"contrast stretched P{HILLSHADE_STRETCH_PCT[0]:g}–P{HILLSHADE_STRETCH_PCT[1]:g} for display", nd=3)
     add("elevation", "Elevation", dem, e_lo, e_hi, "elevation", "m", "Elevation above MOLA areoid (m)", nd=0)
     add("slope", "Slope", slope, 0, SLOPE_DISPLAY_MAX_DEG, "slope", "deg",
         f"Slope (deg), Horn on the 200 m DEM; ramp capped at {SLOPE_DISPLAY_MAX_DEG:g}° (rover cut 10°, on foot 20°)")

@@ -1,0 +1,410 @@
+{
+ "generated_utc": "2026-11-15T06:24:31+00:00",
+ "generator": "pipeline/fetch_data.py",
+ "statuses": "ok | failed | not_located | not_needed | not_attempted | local_file",
+ "sources": [
+  {
+   "id": "S-DEM1",
+   "checked_utc": "2026-11-15T06:22:38+00:00",
+   "status": "ok",
+   "url": "https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif",
+   "seconds": 32.2,
+   "crs_wkt": "GEOGCS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere_IAU_IAG\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST]]",
+   "crs_proj4": "+proj=longlat +R=3396190 +no_defs=True",
+   "res": [
+    0.003374120830641,
+    0.003374120830641
+   ],
+   "size_px": [
+    106694,
+    53347
+   ],
+   "count": 1,
+   "dtype": "int16",
+   "nodata": -32768.0,
+   "scale": [
+    1.0
+   ],
+   "offset": [
+    0.0
+   ],
+   "tiled": false,
+   "blockshapes": [
+    [
+     1,
+     106694
+    ]
+   ],
+   "transform": [
+    0.003374120830641,
+    0.0,
+    -180.0,
+    0.0,
+    -0.003374120830641,
+    90.0
+   ],
+   "probe_seconds": 1.42,
+   "probe_sample": [
+    -3909.0,
+    -3904.0
+   ],
+   "window_px": [
+    6060,
+    14421,
+    1513,
+    795
+   ],
+   "out_px": [
+    1513,
+    795
+   ],
+   "decimation": 1,
+   "out_file": "data\\raw\\dem_src.tif",
+   "nan_fraction": 0.0
+  },
+  {
+   "id": "S-DEM2",
+   "checked_utc": "2026-11-15T06:22:38+00:00",
+   "status": "not_needed",
+   "url": "https://planetarymaps.usgs.gov/mosaic/Mars_MGS_MOLA_DEM_mosaic_global_463m.tif",
+   "note": "Plan B not needed"
+  },
+  {
+   "id": "S-DEM3",
+   "checked_utc": "2026-11-15T06:22:43+00:00",
+   "status": "not_located",
+   "note": "No HiRISE DTM within 15 km of AP-1",
+   "search": [
+    {
+     "rule": "1",
+     "kind": "HiRISE",
+     "near": "AP-1",
+     "n_items": 0,
+     "items": []
+    },
+    {
+     "rule": "2",
+     "kind": "CTX",
+     "near": "AP-1",
+     "n_items": 5,
+     "items": [
+      "J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W",
+      "J19_052068_2201_XN_40N158W__J20_052701_2200_XN_40N158W",
+      "J16_050868_2201_XN_40N157W__J16_050934_2201_XN_40N157W",
+      "F06_038143_2203_XI_40N157W__K06_055536_2187_XN_38N157W",
+      "J21_053070_2202_XN_40N157W__J22_053202_2204_XN_40N157W"
+     ]
+    }
+   ],
+   "hirise_collections": [
+    "mro_hirise_socet_dtms",
+    "mro_hirise_socet_dtms_test"
+   ],
+   "ctx_collections": [
+    "mro_ctx_controlled_usgs_dtms"
+   ],
+   "all_collections": [
+    "lunar_orbiter_laser_altimeter",
+    "galileo_usgs_photogrammetrically_controlled_observations",
+    "kaguya_terrain_camera_monoscopic_uncontrolled_observations",
+    "kaguya_terrain_camera_usgs_dtms_v2_equi",
+    "mro_hirise_socet_dtms",
+    "kaguya_terrain_camera_stereoscopic_uncontrolled_observations",
+    "galileo_usgs_photogrammetrically_controlled_mosaics",
+    "mo_themis_controlled_mosaics",
+    "kaguya_terrain_camera_usgs_dtms_v2_northpolar",
+    "mro_ctx_controlled_usgs_dtms",
+    "kaguya_terrain_camera_usgs_dtms_v2_southpolar",
+    "mro_hirise_socet_dtms_test",
+    "voyager_usgs_photogrammetrically_controlled_observations",
+    "galileo_usgs_photogrammetrically_controlled_dtms",
+    "kaguya_terrain_camera_spsupport_uncontrolled_observations",
+    "kaguya_terrain_camera_usgs_dtms_v2",
+    "kaguya_terrain_camera_usgs_dtms",
+    "mro_hirise_uncontrolled_observations"
+   ]
+  },
+  {
+   "id": "S-DEM4",
+   "checked_utc": "2026-11-15T06:22:43+00:00",
+   "status": "ok",
+   "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W_hillshade.tif",
+   "item_id": "J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W",
+   "asset": "image",
+   "collection": "mro_ctx_controlled_usgs_dtms",
+   "p14_rule": "2",
+   "near": "AP-1",
+   "dist_km": 0.0,
+   "seconds": 1.7,
+   "assets": [
+    "image",
+    "thumbnail",
+    "orthoimage",
+    "qa_metrics",
+    "dtm",
+    "mola_csv",
+    "intersection_error"
+   ],
+   "crs_wkt": "PROJCS[\"Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",GEOGCS[\"Mars (2015) - Sphere / Ocentric\",DATUM[\"Mars (2015) - Sphere\",SPHEROID[\"Mars (2015) - Sphere\",3396190,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+   "crs_proj4": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True",
+   "res": [
+    22.405321162182247,
+    22.405321162182247
+   ],
+   "size_px": [
+    1961,
+    1969
+   ],
+   "count": 1,
+   "dtype": "uint8",
+   "nodata": 0.0,
+   "scale": [
+    1.0
+   ],
+   "offset": [
+    0.0
+   ],
+   "tiled": true,
+   "blockshapes": [
+    [
+     512,
+     512
+    ]
+   ],
+   "transform": [
+    22.405321162182247,
+    0.0,
+    -9382834.96975075,
+    0.0,
+    -22.405321162182247,
+    2381795.728704311
+   ],
+   "probe_seconds": 0.25,
+   "probe_sample": [
+    139.0,
+    151.0
+   ],
+   "window_px": [
+    167,
+    338,
+    1752,
+    1347
+   ],
+   "out_px": [
+    1752,
+    1347
+   ],
+   "decimation": 1,
+   "out_file": "data\\raw\\detail_dtm.tif",
+   "nan_fraction": 0.057483143667815845
+  },
+  {
+   "id": "S-TI1",
+   "checked_utc": "2026-11-15T06:24:31+00:00",
+   "status": "not_located",
+   "note": "Qualitative THEMIS TI quadrangle covering 200.5-205.5E x 38.7-41.3N not located automatically; pass --thermal-url if found (spec §4 S-TI1)"
+  },
+  {
+   "id": "S-TI2",
+   "checked_utc": "2026-11-15T06:24:02+00:00",
+   "status": "ok",
+   "url": "https://planetarymaps.usgs.gov/mosaic/Mars_MO_THEMIS-IR-Day_mosaic_global_100m_v12.tif",
+   "product": "THEMIS IR day mosaic 100 m v12",
+   "seconds": 77.3,
+   "crs_wkt": "PROJCS[\"SimpleCylindrical Mars\",GEOGCS[\"GCS_Mars\",DATUM[\"D_Mars\",SPHEROID[\"Mars\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",180],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+   "crs_proj4": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=180 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True",
+   "res": [
+    100.0,
+    100.0
+   ],
+   "size_px": [
+    213390,
+    106696
+   ],
+   "count": 1,
+   "dtype": "uint8",
+   "nodata": 0.0,
+   "scale": [
+    1.0
+   ],
+   "offset": [
+    0.0
+   ],
+   "tiled": false,
+   "blockshapes": [
+    [
+     1,
+     213390
+    ]
+   ],
+   "transform": [
+    100.0,
+    0.0,
+    -10669500.0,
+    0.0,
+    -100.0,
+    5334800.0
+   ],
+   "probe_seconds": 1.34,
+   "probe_sample": [
+    128.0,
+    169.0
+   ],
+   "window_px": [
+    118817,
+    28845,
+    3022,
+    1586
+   ],
+   "out_px": [
+    1511,
+    793
+   ],
+   "decimation": 2,
+   "out_file": "data\\raw\\thermal_src.tif",
+   "nan_fraction": null
+  },
+  {
+   "id": "S-TI3",
+   "checked_utc": "2026-11-15T06:15:49+00:00",
+   "status": "not_located",
+   "note": "TES TI product not located; ENABLE_TI_EXCLUSION stays false (P-15)"
+  },
+  {
+   "id": "S-OPT1",
+   "checked_utc": "2026-11-15T06:22:45+00:00",
+   "status": "ok",
+   "item_id": "J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W",
+   "asset": "orthoimage",
+   "url": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W/J20_052424_2201_XN_40N158W__J20_052490_2201_XN_40N158W_orthoimage.tif",
+   "seconds": 1.8,
+   "crs_wkt": "PROJCS[\"Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",GEOGCS[\"Mars (2015) - Sphere / Ocentric\",DATUM[\"Mars (2015) - Sphere\",SPHEROID[\"Mars (2015) - Sphere\",3396190,0]],PRIMEM[\"Reference Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+   "crs_proj4": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True",
+   "res": [
+    22.405321162182247,
+    22.405321162182247
+   ],
+   "size_px": [
+    1961,
+    1969
+   ],
+   "count": 1,
+   "dtype": "float32",
+   "nodata": -32767.0,
+   "scale": [
+    1.0
+   ],
+   "offset": [
+    0.0
+   ],
+   "tiled": true,
+   "blockshapes": [
+    [
+     512,
+     512
+    ]
+   ],
+   "transform": [
+    22.405321162182247,
+    0.0,
+    -9382834.96975075,
+    0.0,
+    -22.405321162182247,
+    2381795.728704311
+   ],
+   "probe_seconds": 0.22,
+   "probe_sample": [
+    0.3484090566635132,
+    0.3842557668685913
+   ],
+   "window_px": [
+    167,
+    338,
+    1752,
+    1347
+   ],
+   "out_px": [
+    1752,
+    1347
+   ],
+   "decimation": 1,
+   "out_file": "data\\raw\\detail_ortho.tif",
+   "nan_fraction": null
+  },
+  {
+   "id": "S-OPT2",
+   "checked_utc": "2026-11-15T06:24:31+00:00",
+   "status": "ok",
+   "url": "https://planetarymaps.usgs.gov/mosaic/Mars_Viking_MDIM21_ClrMosaic_global_232m.tif",
+   "product": "Viking MDIM 2.1 colour mosaic 232 m",
+   "seconds": 28.3,
+   "crs_wkt": "PROJCS[\"SimpleCylindrical Mars\",GEOGCS[\"GCS_Mars\",DATUM[\"D_Mars\",SPHEROID[\"Mars\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+   "crs_proj4": "+proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True",
+   "res": [
+    231.5417872,
+    231.5417872
+   ],
+   "size_px": [
+    92160,
+    46080
+   ],
+   "count": 3,
+   "dtype": "uint8",
+   "nodata": 0.0,
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "offset": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "tiled": false,
+   "blockshapes": [
+    [
+     1,
+     92160
+    ]
+   ],
+   "transform": [
+    231.5417872,
+    0.0,
+    -10669445.55419512,
+    0.0,
+    -231.5417872,
+    5334722.77709756
+   ],
+   "probe_seconds": 0.99,
+   "probe_sample": [
+    101.0,
+    118.0
+   ],
+   "window_px": [
+    5234,
+    12456,
+    1308,
+    688
+   ],
+   "out_px": [
+    1308,
+    688
+   ],
+   "decimation": 1,
+   "out_file": "data\\raw\\optical_src.tif",
+   "nan_fraction": null
+  },
+  {
+   "id": "S-ENV",
+   "checked_utc": "2026-11-15T06:22:05+00:00",
+   "status": "ok",
+   "url": "docs/arcadia_planitia_contexto_LLM.md §5",
+   "note": "Fixed environment values from the user's context (primary source)"
+  },
+  {
+   "id": "S-META",
+   "status": "not_attempted"
+  }
+ ]
+}
