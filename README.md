@@ -1,4 +1,4 @@
-# Arcadia Planitia Surface Navigator
+# Via Virtus
 
 NASA Space Apps 2026 — *Interplanetary Survival Guide: Martian Map*. Static web app (Leaflet) with an operations base (AP-1), five points of interest, optimal rover and on-foot routes, and telemetry dashboards.
 

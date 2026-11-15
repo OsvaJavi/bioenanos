@@ -1,1 +1,1 @@
-"""Offline pipeline (Python) for the Arcadia Planitia Surface Navigator."""
+"""Offline pipeline (Python) for the Via Virtus."""
