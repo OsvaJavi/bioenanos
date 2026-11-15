@@ -1,5 +1,5 @@
 {
-  "_meta": {"version": "1.1", "note": "Single source of constants for Python and JS. Use .value. Do not edit outside a spec revision."},
+  "_meta": {"version": "1.3", "note": "Single source of constants for Python and JS. Use .value. Do not edit outside a spec revision."},
   "geo": {
     "R_km": {"value": 3388.0, "unit": "km", "source": "FUENTE", "ref": "contexto §2.2 R_local(40N)"},
     "R_eq_km": {"value": 3396.19, "unit": "km", "source": "FUENTE", "ref": "contexto §2.1"},
@@ -90,7 +90,8 @@
     "LCVG_cap_W": {"value": 500, "unit": "W", "source": "ASSUMPTION", "ref": "spec §6.6"},
     "body_cp_J_per_kgK": {"value": 3470, "unit": "J/kg/K", "source": "FUENTE", "ref": "human tissue specific heat"},
     "Tc0_C": {"value": 37.0, "unit": "C", "source": "FUENTE", "ref": "normal core temperature"},
-    "Tc_alert_C": {"value": 38.5, "unit": "C", "source": "ASSUMPTION", "ref": "spec §6.6"},
+    "Tc_alert_C": {"value": 38.5, "unit": "C", "source": "ASSUMPTION", "ref": "spec §6.6; v1.3: an EVA ends when Tc reaches it"},
+    "min_eva_h": {"value": 1.0, "unit": "h", "source": "ASSUMPTION", "ref": "spec v1.3 §6.5: a heat-limited EVA shorter than this => not feasible on foot"},
     "hrmax_a": {"value": 208, "unit": "bpm", "source": "FUENTE", "ref": "Tanaka HRmax formula"},
     "hrmax_b": {"value": 0.7, "unit": "bpm/yr", "source": "FUENTE", "ref": "Tanaka HRmax formula"}
   },

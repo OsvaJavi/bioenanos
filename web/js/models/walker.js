@@ -81,49 +81,89 @@ export function routeEnergy(points, w) {
   return { E_kcal: e * C.units.J_to_kcal, O2_metabolic_L: o2, time_h: t / 3600 };
 }
 
-/** Metabolic O₂ per EVA: each segment [t0, t1) is shared pro rata with the EVA windows [k·lim, (k+1)·lim) it
- *  overlaps (the last window is open-ended). Pure interval overlap with a bounded loop, so it always terminates
- *  (audit H-05: the old clock-stepping loop could stall on a float boundary). Twin of models_walker._split_by_eva. */
-function splitByEva(segments, lim, n_evas) {
-  const per = new Array(n_evas).fill(0);
-  let t0 = 0;
+/** dTc/dt (K/s) at constant P_total: heat the LCVG cannot remove (> 500 W) warms the body (spec §6.6). */
+export function heatingRateKs(P_total_W, W) {
+  const q = C.bio.q_heat_frac * P_total_W;
+  return (q - Math.min(q, C.bio.LCVG_cap_W)) / (W * C.bio.body_cp_J_per_kgK);
+}
+
+/** EVA start times (s) for segments in order [{t_s, P_W?}]. spec v1.3 §6.5: an EVA ends at eva_limit_h or, when power
+ *  and body mass W are given, when the estimated core temperature reaches Tc_alert_C (the next EVA restarts at Tc0).
+ *  A heat-limited EVA shorter than min_eva_h makes the traverse not feasible. Bounded loop (each pass consumes the
+ *  segment or closes an EVA). Twin of models_walker.eva_schedule. Returns {starts, heat_cuts, feasible}. */
+export function evaSchedule(segments, eva_limit_h = C.o2.eva_limit_h, W = null) {
+  const lim = eva_limit_h * 3600;
+  let total = 0;
+  for (const s of segments) total += s.t_s;
+  const tol = 1e-9 * lim; // remaining time below this does not open a new EVA (8.0 h -> 1 EVA)
+  const tc0 = C.bio.Tc0_C; const tmax = C.bio.Tc_alert_C; const minEva = C.bio.min_eva_h * 3600;
+  const starts = [0];
+  let heat_cuts = 0; let clock = 0; let tIn = 0; let tc = tc0;
+  for (const s of segments) {
+    let rem = s.t_s;
+    const rate = W != null && s.P_W != null ? heatingRateKs(s.P_W, W) : 0;
+    while (rem > 0) {
+      const toLim = lim - tIn;
+      const toHot = rate > 0 ? (tmax - tc) / rate : Infinity;
+      if (rem <= toLim && rem < toHot) { tIn += rem; clock += rem; tc += rate * rem; break; } // fits in this EVA
+      const hot = toHot < toLim; // the EVA ends here: by heat or by its time limit
+      const step = hot ? toHot : toLim;
+      rem -= step; tIn += step; clock += step;
+      if (total - clock <= tol) return { starts, heat_cuts, feasible: true }; // the trip is over: no new EVA
+      if (hot) {
+        if (tIn < minEva) return { starts, heat_cuts, feasible: false };
+        heat_cuts++;
+      }
+      starts.push(clock);
+      tIn = 0; tc = tc0;
+    }
+  }
+  return { starts, heat_cuts, feasible: true };
+}
+
+/** Metabolic O₂ per EVA: each segment [t0, t1) is shared pro rata with the EVA windows [starts[k], starts[k+1]) it
+ *  overlaps (the last window is open-ended). Bounded loop, always terminates (audit H-05). Twin of _split_by_eva. */
+function splitByEva(segments, starts) {
+  const n = starts.length;
+  const per = new Array(n).fill(0);
+  let t0 = 0; let kLo = 0;
   for (const { t_s: t, O2_L: o } of segments) {
     const t1 = t0 + t;
-    if (t <= 0) {
-      per[Math.min(Math.max(Math.trunc(t0 / lim), 0), n_evas - 1)] += o;
-      t0 = t1;
-      continue;
+    while (kLo + 1 < n && starts[kLo + 1] <= t0) kLo++;
+    if (t <= 0) { per[kLo] += o; continue; }
+    let given = 0; let last = kLo;
+    for (let k = Math.max(kLo - 1, 0); k < n && starts[k] < t1; k++) {
+      const hi = k + 1 < n ? starts[k + 1] : Infinity;
+      const share = (o * Math.max(0, Math.min(t1, hi) - Math.max(t0, starts[k]))) / t;
+      per[k] += share; given += share; last = k;
     }
-    const kLo = Math.min(Math.max(Math.floor(t0 / lim) - 1, 0), n_evas - 1);
-    const kHi = Math.min(Math.floor(t1 / lim) + 1, n_evas - 1);
-    let given = 0;
-    for (let k = kLo; k <= kHi; k++) {
-      const lo = k * lim;
-      const hi = k < n_evas - 1 ? (k + 1) * lim : Infinity;
-      const share = (o * Math.max(0, Math.min(t1, hi) - Math.max(t0, lo))) / t;
-      per[k] += share;
-      given += share;
-    }
-    per[kHi] += o - given; // float residue (~1e-16 relative) goes to the last window touched: O₂ is conserved
+    per[last] += o - given; // float residue (~1e-16 relative) goes to the last window touched: O₂ is conserved
     t0 = t1;
   }
   return per;
 }
 
-/** O₂ plan for an ordered list of segments [{t_s, O2_L}] (out then back), spec §6.5. */
-export function o2Plan(segments, { eva_limit_h = C.o2.eva_limit_h, reserve_min = C.o2.reserve_min, contingency = C.o2.contingency } = {}) {
+/** O₂ plan for an ordered list of segments [{t_s, O2_L, P_W?}] (out then back), spec §6.5 (v1.3). With `W` (body
+ *  mass) and P_W per segment, EVAs also end when the core temperature reaches Tc_alert_C; if a heat-limited EVA
+ *  would be shorter than min_eva_h, feasible = false and n_evas / O2_required_* are null. */
+export function o2Plan(segments, { eva_limit_h = C.o2.eva_limit_h, reserve_min = C.o2.reserve_min, contingency = C.o2.contingency, W = null } = {}) {
   let t_total = 0;
   let o2_total = 0;
   for (const s of segments) { t_total += s.t_s; o2_total += s.O2_L; }
   const t_round_h = t_total / 3600;
-  const n_evas = Math.max(1, Math.ceil(Math.round((t_round_h / eva_limit_h) * 1e9) / 1e9));
   const vo2_mean = t_total > 0 ? o2_total / (t_total / 60) : 0;
-  const per = splitByEva(segments, eva_limit_h * 3600, n_evas);
+  const sched = evaSchedule(segments, eva_limit_h, W);
+  const base = { t_round_h, O2_metabolic_L: o2_total, VO2_mean_Lmin: vo2_mean, feasible: sched.feasible, heat_limited_evas: sched.heat_cuts };
+  if (!sched.feasible) {
+    return { ...base, n_evas: null, single_eva_feasible: false, O2_required_L: null, O2_required_kg: null, O2_per_EVA_L: null, O2_max_per_EVA_L: null, eva_starts_s: null };
+  }
+  const n_evas = sched.starts.length;
+  const per = splitByEva(segments, sched.starts);
   const req = (o2_total + n_evas * reserve_min * vo2_mean) * (1 + contingency);
   const perEva = per.map((p) => (p + reserve_min * vo2_mean) * (1 + contingency));
   return {
-    t_round_h, n_evas, single_eva_feasible: n_evas === 1, O2_metabolic_L: o2_total, VO2_mean_Lmin: vo2_mean,
-    O2_required_L: req, O2_required_kg: req * C.o2.O2_kg_per_L, O2_per_EVA_L: perEva, O2_max_per_EVA_L: Math.max(...perEva),
+    ...base, n_evas, single_eva_feasible: n_evas === 1, O2_required_L: req, O2_required_kg: req * C.o2.O2_kg_per_L,
+    O2_per_EVA_L: perEva, O2_max_per_EVA_L: Math.max(...perEva), eva_starts_s: sched.starts,
   };
 }
 
@@ -133,51 +173,52 @@ export function coreTempC(P_total_W, W, t_s, Tc0 = C.bio.Tc0_C) {
   return Tc0 + ((q - Math.min(q, C.bio.LCVG_cap_W)) / (W * C.bio.body_cp_J_per_kgK)) * t_s;
 }
 
-/** Round-trip timeline (out then back) for the playback: per segment cumulative distance, time, energy, O₂, sweat,
- *  core temperature (reset to Tc0 at each EVA start, spec §6.6) and EVA boundaries (by time). */
+/** Round-trip timeline (out then back) for the playback: per piece cumulative distance, time, energy, O₂, sweat and
+ *  core temperature. EVA boundaries come from evaSchedule (time limit or heat, spec v1.3); Tc restarts at Tc0 at each
+ *  one. If the traverse is not feasible there is a single block (the panel disables the playback). */
 export function roundTripTimeline(out, back, w, { eva_limit_h = C.o2.eva_limit_h } = {}) {
   const x = withDefaults(w);
-  const lim = eva_limit_h * 3600;
-  const segs = [];
-  let t = 0; let s = 0; let kcal = 0; let o2 = 0; let sweat = 0; let tc = C.bio.Tc0_C;
+  const raw = [];
   for (const [leg, route] of [['out', out], ['back', back]]) {
     if (!route) continue;
     const p = route.points;
     const legLen = p[p.length - 1].s_km;
     for (let k = 1; k < p.length; k++) {
       const d = 1000 * (p[k].s_km - p[k - 1].s_km);
-      const g = segment(x, d, p[k].grade_deg, p[k].rough);
-      const vo2 = vo2Lmin(g.P_total_W, x.RQ);
-      const vk = (vo2 * 1000) / x.W;
-      const sweatRate = sweatLh(g.P_total_W) / 3600; // L/s
-      const o2Rate = g.t_s > 0 ? g.O2_L / g.t_s : 0;
-      const kcalRate = g.t_s > 0 ? g.E_kcal / g.t_s : 0;
-      // split the segment at EVA boundaries so the core-temperature reset (spec §6.6) happens exactly at each one
-      let f0 = 0;
-      while (f0 < 1 - 1e-12) {
-        const tNow = t;
-        const eva = Math.floor(tNow / lim + 1e-9);
-        const boundary = (eva + 1) * lim;
-        const remT = (1 - f0) * g.t_s;
-        const take = Math.min(remT, boundary - tNow);
-        const f1 = g.t_s > 0 ? f0 + take / g.t_s : 1;
-        if (segs.length && segs[segs.length - 1].eva !== eva) tc = C.bio.Tc0_C;
-        const piece = {
-          leg, legLen, legS0: p[k - 1].s_km + f0 * (p[k].s_km - p[k - 1].s_km), legS1: p[k - 1].s_km + f1 * (p[k].s_km - p[k - 1].s_km),
-          s0: s, s1: s + ((f1 - f0) * d) / 1000, t0: tNow, t1: tNow + take, P_W: g.P_total_W, VO2_Lmin: vo2, VO2_mlkgmin: vk,
-          HR: heartRate(x, vk), kcal0: kcal, kcal1: kcal + kcalRate * take, o20: o2, o21: o2 + o2Rate * take,
-          sw0: sweat, sw1: sweat + sweatRate * take, tc0: tc, tc1: coreTempC(g.P_total_W, x.W, take, tc),
-          grade_deg: p[k].grade_deg, z0: p[k - 1].z_m + f0 * (p[k].z_m - p[k - 1].z_m), z1: p[k - 1].z_m + f1 * (p[k].z_m - p[k - 1].z_m), eva,
-        };
-        segs.push(piece);
-        t = piece.t1; s = piece.s1; kcal = piece.kcal1; o2 = piece.o21; sweat = piece.sw1; tc = piece.tc1;
-        f0 = f1;
-      }
+      raw.push({ leg, legLen, a: p[k - 1], b: p[k], d, g: segment(x, d, p[k].grade_deg, p[k].rough) });
     }
   }
-  const evaMarks = [];
-  for (let k = 1; k * lim < t - 1e-9; k++) evaMarks.push({ t_s: k * lim, s_km: sAtT(segs, k * lim), label: `EVA ${k + 1}` });
-  return { segs, evaMarks, total_t_s: t, total_s_km: s };
+  const sched = evaSchedule(raw.map((r) => ({ t_s: r.g.t_s, P_W: r.g.P_total_W })), eva_limit_h, x.W);
+  const starts = sched.feasible ? sched.starts : [0];
+  const segs = [];
+  let t = 0; let s = 0; let kcal = 0; let o2 = 0; let sweat = 0; let tc = C.bio.Tc0_C; let ev = 0;
+  for (const { leg, legLen, a, b, d, g } of raw) {
+    const vo2 = vo2Lmin(g.P_total_W, x.RQ);
+    const vk = (vo2 * 1000) / x.W;
+    const sweatRate = sweatLh(g.P_total_W) / 3600; // L/s
+    const o2Rate = g.t_s > 0 ? g.O2_L / g.t_s : 0;
+    const kcalRate = g.t_s > 0 ? g.E_kcal / g.t_s : 0;
+    let f0 = 0;
+    while (f0 < 1 - 1e-12) {
+      while (ev + 1 < starts.length && t >= starts[ev + 1] - 1e-9) { ev++; tc = C.bio.Tc0_C; }
+      const boundary = ev + 1 < starts.length ? starts[ev + 1] : Infinity;
+      const remT = (1 - f0) * g.t_s;
+      const take = Math.min(remT, boundary - t);
+      const f1 = g.t_s > 0 && take < remT ? f0 + take / g.t_s : 1;
+      const piece = {
+        leg, legLen, legS0: a.s_km + f0 * (b.s_km - a.s_km), legS1: a.s_km + f1 * (b.s_km - a.s_km),
+        s0: s, s1: s + ((f1 - f0) * d) / 1000, t0: t, t1: t + take, P_W: g.P_total_W, VO2_Lmin: vo2, VO2_mlkgmin: vk,
+        HR: heartRate(x, vk), kcal0: kcal, kcal1: kcal + kcalRate * take, o20: o2, o21: o2 + o2Rate * take,
+        sw0: sweat, sw1: sweat + sweatRate * take, tc0: tc, tc1: coreTempC(g.P_total_W, x.W, take, tc),
+        grade_deg: b.grade_deg, z0: a.z_m + f0 * (b.z_m - a.z_m), z1: a.z_m + f1 * (b.z_m - a.z_m), eva: ev,
+      };
+      segs.push(piece);
+      t = piece.t1; s = piece.s1; kcal = piece.kcal1; o2 = piece.o21; sweat = piece.sw1; tc = piece.tc1;
+      f0 = f1;
+    }
+  }
+  const evaMarks = starts.slice(1).map((ts, k) => ({ t_s: ts, s_km: sAtT(segs, ts), label: `EVA ${k + 2}` }));
+  return { segs, evaMarks, starts, feasible: sched.feasible, total_t_s: t, total_s_km: s };
 }
 
 function sAtT(segs, t) {
@@ -186,8 +227,9 @@ function sAtT(segs, t) {
   return g.s0 + f * (g.s1 - g.s0);
 }
 
-/** Interpolated state at playback time t_s. `outS_km` maps the position onto the OUT route (for the map marker). */
-export function walkerStateAt(tl, t_s, eva_limit_h = C.o2.eva_limit_h) {
+/** Interpolated state at playback time t_s. `outS_km` maps the position onto the OUT route (for the map marker).
+ *  `eva` (1-based) comes from the timeline's EVA starts (time limit or heat, spec v1.3). */
+export function walkerStateAt(tl, t_s) {
   const segs = tl.segs;
   if (!segs.length) return null;
   const t = Math.min(Math.max(t_s, 0), tl.total_t_s);
@@ -197,11 +239,14 @@ export function walkerStateAt(tl, t_s, eva_limit_h = C.o2.eva_limit_h) {
   const f = g.t1 > g.t0 ? (t - g.t0) / (g.t1 - g.t0) : 1;
   const L = (a, b) => a + f * (b - a);
   const legS = L(g.legS0, g.legS1);
+  const starts = tl.starts ?? [0];
+  let eva = 0;
+  while (eva < starts.length && starts[eva] <= t + 1e-9) eva++;
   return {
     t_s: t, s_km: L(g.s0, g.s1), leg: g.leg, outS_km: g.leg === 'out' ? legS : null, legFrac: legS / g.legLen,
     P_W: g.P_W, VO2_Lmin: g.VO2_Lmin, VO2_mlkgmin: g.VO2_mlkgmin, HR: g.HR, kcal: L(g.kcal0, g.kcal1),
     O2_L: L(g.o20, g.o21), sweat_L: L(g.sw0, g.sw1), Tc: L(g.tc0, g.tc1), grade_deg: g.grade_deg, z_m: L(g.z0, g.z1),
-    eva: Math.min(Math.floor(t / (eva_limit_h * 3600)), Math.max(0, Math.ceil(tl.total_t_s / (eva_limit_h * 3600) - 1e-9) - 1)) + 1,
+    eva: Math.max(1, eva),
     dose_mGy: dose_mGy(t / 3600), done: t >= tl.total_t_s, total_t_s: tl.total_t_s, total_s_km: tl.total_s_km,
   };
 }

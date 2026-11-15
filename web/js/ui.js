@@ -123,8 +123,9 @@ export function renderAbout(C_meta) {
       <li>Roughness and the radiation-shielding layer are relative proxies. No TES thermal-inertia product was found, so terrain is not excluded by thermal inertia.</li>
       <li>The THEMIS day-IR mosaic sits about 450 m off the CTX and Viking images; it is shown as published.</li>
       <li>The rover verdict is very sensitive to the rolling-resistance coefficient (crr): with 0.08 every site allows a round trip, with 0.30 none does.</li>
-      <li>On foot, short climbs on the AP-9, AP-8 and APMR routes push the metabolic rate above 900 W, and on AP-9 and APMR the estimated core
-        temperature passes 38.5 °C within an EVA. The panel flags both; the model is conservative (core temperature only resets between EVAs).</li>
+      <li>On foot, short climbs on the AP-9, AP-8 and APMR routes push the metabolic rate above 900 W. When the estimated core temperature
+        reaches 38.5 °C the EVA ends and the next one starts at 37 °C (on AP-9 and APMR one EVA ends early this way). If such an EVA would last
+        less than 1 h, the traverse is shown as not feasible on foot. The heat model is simple: the suit removes up to 500 W and the body never cools below 37 °C within an EVA.</li>
       <li>Rover data: drag coefficient 0.23 and curb mass 2092 kg from Tesla's official specification; frontal area, usable battery and GVWR
         from the EVKX aggregator.</li>
     </ul>
