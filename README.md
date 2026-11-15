@@ -39,6 +39,13 @@ python -m pipeline.derive_layers     # offline: own reprojection to the LEQ grid
 - Layer `file` paths in `web/data/layers/layers.json` are relative to `web/data/`. Extra optional fields: `palette` (legend stops), `stats` (DEM/slope/roughness summary and POI elevation check).
 - Tests: `tests/py/test_m1_derive.py` (synthetic sources, always run) and `tests/py/test_m1_real.py` (real outputs; skipped until they exist).
 ## M2 — Routing
+```
+python -m pipeline.export_routes     # data/processed/*.tif (M1) -> web/data/routes.json (~6 s, 4 Dijkstra runs)
+```
+- `pipeline/models_rover.py`, `pipeline/models_walker.py`: physics of spec §6.3–6.6 (scalar or numpy). `route_energy(points)` walks exported points exactly as the JS models must (T-M2-09).
+- `pipeline/routing.py`: 16-neighbour directed graph, P-13 cuts (edge angle + Horn slope of origin, destination and knight intermediates), Dijkstra on the graph (`out`) and on its transpose (`back`).
+- `routes.json` extras (optional, B.2-compatible): per route `graph_cost`/`graph_cost_unit`; top level `summary` (rover verdict, walker EVAs/O₂ with default parameters, rover/walker same-path flags) and `points_note`.
+- Tests: `test_m2_models.py` (golden), `test_m2_routing.py` (synthetic plane / 3° plane / 15° wall with gap / basin), `test_m2_real.py` (real routes).
 ## M3 — Map UI
 ## M4 — Rover telemetry
 ## M5 — On-foot telemetry
